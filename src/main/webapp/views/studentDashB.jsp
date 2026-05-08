@@ -30,9 +30,9 @@
 
   <!-- HORIZONTAL NAV -->
   <nav>
-    <button class="active" onclick="showPage('dashboard', this)">🏠 Dashboard</button>
+    <button  onclick="showPage('dashboard', this)">🏠 Dashboard</button>
     <button onclick="showPage('subjects', this)">📖 Subjects</button>
-    <button onclick="showPage('timetable', this)">📅 Time-Table</button>
+    <button class="active" onclick="showPage('timetable', this)">📅 Time-Table</button>
     <button onclick="showPage('notifications', this)">🔔 Notifications</button>
    
   </nav>
@@ -42,7 +42,7 @@
 <main>
 
   <!-- ── DASHBOARD PAGE ── -->
-  <div class="page active" id="page-dashboard">
+  <div class="page " id="page-dashboard">
     <div class="hero">
       <h2>Student Dashboard</h2>
       <p>Welcome back! Use the menu to manage your courses, view your timetable, and stay up-to-date with announcements.</p>
@@ -63,9 +63,10 @@
           <label>Select Branch:</label>
           <select id="branchSelect" onchange="resetResult()">
             <option value="">-- Select Branch --</option>
-            <option value="CSE">CSE – Computer Science</option>
-            <option value="ECE">ECE – Electronics</option>
-            <option value="ME">ME – Mechanical</option>
+            <option value="CSE">Computer Science Engineering</option>
+            <option value="DS">Data Science </option>
+            <option value="ECE">Electronics & Communication</option>
+            <option value="ME">Mechanical Engineering</option>
             <option value="CIVIL">Civil Engineering</option>
           </select>
         </div>
@@ -79,6 +80,8 @@
             <option value="4">Semester 4</option>
             <option value="5">Semester 5</option>
             <option value="6">Semester 6</option>
+            <option value="6">Semester 7</option>
+            <option value="6">Semester 8</option>
           </select>
         </div>
         <button class="btn-show" onclick="showSubjects()">Show Subjects</button>
@@ -89,7 +92,7 @@
   </div>
 
   <!-- ── TIMETABLE PAGE ── -->
-  <div class="page" id="page-timetable">
+  <div class="page active" id="page-timetable">
     <div class="card">
       <div class="card-title">
         <span style="font-size:24px">📅</span>
@@ -104,6 +107,7 @@
           <select id="ttBranch" onchange="resetTimetable()">
             <option value="">-- Select Branch --</option>
             <option value="CSE">Computer Science Engineering</option>
+            <option value="DS">Data Science </option>
             <option value="ECE">Electronics & Communication</option>
             <option value="ME">Mechanical Engineering</option>
             <option value="CIVIL">Civil Engineering</option>
@@ -119,6 +123,8 @@
             <option value="4">Semester 4</option>
             <option value="5">Semester 5</option>
             <option value="6">Semester 6</option>
+            <option value="6">Semester 7</option>
+            <option value="6">Semester 8</option>
           </select>
         </div>
         <div class="form-group">
@@ -132,7 +138,7 @@
     </div>
   </div>
 
-  <!-- ── NOTIFICATIONS PAGE ── -->
+  <!--  NOTIFICATIONS PAGE -->
   <div class="page" id="page-notifications">
     <div class="card">
       <div class="card-title">
