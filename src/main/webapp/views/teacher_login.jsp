@@ -26,7 +26,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#0f172a;
+    background:#ffffff;
     padding:20px;
 }
 
@@ -34,7 +34,8 @@ body{
 
 .container{
     width:100%;
-    max-width:1100px;
+    max-width:900px;
+    height:550px;
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(15px);
     border-radius:25px;
@@ -51,6 +52,8 @@ body{
     background:linear-gradient(135deg,#1e1b4b,#0f766e);
     color:white;
     position:relative;
+    text-align: center;
+    
 }
 
 .portal-icon{
@@ -62,7 +65,7 @@ body{
     justify-content:center;
     align-items:center;
     font-size:30px;
-    margin-bottom:30px;
+    margin:0 auto 30px;
 }
 
 .left-panel h1{
