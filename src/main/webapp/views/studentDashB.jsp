@@ -21,7 +21,7 @@
 
 <!--   HEADER  -->
 <header>
-<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp"><font size =5><b>Back</b></font>
+<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp"><font color=blue><b>Back</b></font>
  
 </a></p>
   <div class="header-top">
