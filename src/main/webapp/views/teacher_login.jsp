@@ -1,184 +1,296 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
+   
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Login form</title>
+
+<title>Faculty Login</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial ;
-        background: #92a9bf;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        
-    }
 
-    .login-card {
-        background: white;
-        padding: 25px 25px 25px 25px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        width: 90%;
-        max-width: 380px;
-        text-align: center;
-        border: 4px solid  rgba(10,17,69,0.3);
-        
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-   
-    .icon-box {
-        width: 110px;
-        height: 110px;
-        border-radius: 20px;
-        margin: 0 auto 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border : 2px solid rgba(10, 17, 69, 0.3);
-    }
-    .icon-box img { 
-          width: 100px;
-        height: 100px;
-    }
-    .login-card h2 {
-        margin-bottom: 5px;
-        color: #120a62;
-        font-family:  cursive;
-    }
-
-    .login-card p {
-        font-size: 16px;
-        color: #5969cb;
-        margin-bottom: 20px;
-    }
- 
-    label{ 
-        display:block; 
-       text-align: left;
-       font-size: 16px;
-       font-weight: bold;
-       color:#120a62;
-    } 
-
-    input {
-        width: 100%;
-        padding: 8px;
-        border-radius: 8px;
-        border: 1px solid #bbb;
-        margin: 8px 0;
-    }
-    
-
-    .btn {
-        width: 100%;
-        padding: 12px;
-        background: linear-gradient(135deg, #8599ff, #6eeaff);
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        color: white;
-        margin-top: 10px;
-        cursor: pointer;
-    }
-     
-    .links {
-        margin-top: 10px;
-        font-size: 14px;
-    }
-.options {
+body{
+    min-height:100vh;
     display:flex;
-    justify-content : space-between;
-    align-items: center;
-    margin : 8px 0 15px 0 ;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    padding:20px;
 }
 
-.rem-box { 
+/* Main Card */
 
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 16px;
-    color: #120a62;
-    font-weight: 500;
-    cursor: pointer;
+.container{
+    width:100%;
+    max-width:1100px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
 }
-    .options a {
-        color: #120a62;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
+
+/* Left Side */
+
+.left-panel{
+    padding:50px;
+    background:linear-gradient(135deg,#1e1b4b,#0f766e);
+    color:white;
+    position:relative;
+}
+
+.portal-icon{
+    width:70px;
+    height:70px;
+    background:#ff6b6b;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    margin-bottom:30px;
+}
+
+.left-panel h1{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.left-panel p{
+    line-height:1.8;
+    color:#d1d5db;
+    margin-bottom:35px;
+}
+
+.feature-box{
+    background:rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:25px;
+}
+
+.feature-box h3{
+    margin-bottom:20px;
+    color:#fff;
+}
+
+.feature{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    color:#f3f4f6;
+}
+
+/* Right Side */
+
+.right-panel{
+    padding:50px;
+    background:rgba(15,23,42,0.9);
+    color:white;
+}
+
+.right-panel h2{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.right-panel p{
+    color:#cbd5e1;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#cbd5e1;
+    letter-spacing:1px;
+}
+
+.input-box{
+    position:relative;
+    margin-bottom:25px;
+}
+
+.input-box input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#1e293b;
+    color:white;
+    font-size:16px;
+}
+
+.input-box i{
+    position:absolute;
+    right:15px;
+    top:17px;
+    color:#94a3b8;
+}
+
+.demo{
+    background:#1e3a8a;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:25px;
+    font-size:14px;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#38bdf8,#818cf8);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    opacity:0.9;
+}
+
+.or{
+    text-align:center;
+    margin:25px 0;
+    color:#cbd5e1;
+}
+
+.secondary-btn{
+    width:100%;
+    padding:14px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:transparent;
+    color:white;
+    border-radius:12px;
+    margin-bottom:15px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.secondary-btn:hover{
+    background:rgba(255,255,255,0.08);
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .container{
+        grid-template-columns:1fr;
     }
-   
+
+    .left-panel{
+        display:none;
+    }
+
+    .right-panel{
+        padding:35px;
+    }
+}
+
 </style>
 
 </head>
+
 <body>
 
-<div class="login-card">
+<div class="container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
 <p align="left"> <a href="${pageContext.request.contextPath}/index.jsp">
  back
 </a></p>
-    <div class="icon-box"><img class="img" src ="${pageContext.request.contextPath}/assets/img/faculty_login_image.jpg"></div>
+        <div class="portal-icon">
+            <i class="fa-solid fa-user-tie"></i>
+        </div>
 
-    <h2 >Welcome back,Teacher</h2>
-    <p >Login to see your timetable and get notified !!!</p>
-<form  method="post">
-    <label  >Email</label>
-    <input type="email" placeholder="Enter Email Id" name="email" required="required">
+        <h1>Faculty Portal</h1>
 
-    <label>Password</label>
-    <input type="password" placeholder="Enter password" name="password" required="required">
+        <p>
+            Access your personal dashboard to view your schedule,
+            assigned subjects and classroom information.
+        </p>
 
- <div class="options">
-  
-<!-- <a href="#">Forgot?</a> 
- -->
+
     </div>
-    
- <%--    <button class="btn" formaction="${pageContext.request.contextPath}/facultyLogin">Login</button>
-<br>
-<p>before login, Check your account has been APPROVED or NOT !!
- --%>
- <button class="btn" formaction="${pageContext.request.contextPath}/show_msgServlet"
-    title="login">Login</button>
-    
 
-</form>
-<%-- <h3 style="color:green;">
-            ${error1}
-           </h3>
-           <h3 style="color:red;">
-            ${error2}
-           </h3>
-           <h3 style="color:blue;">
-            ${error3}
-           </h3>
-<h3 style="color:red;">
-      ${error}
-     </h3>
-      <%
-    String msg = (String)request.getAttribute("msg");
-    if(msg != null){
-%>
-<script>alert("<%=msg%>");</script>
-<%
-    }
-%> --%>
-   
-    <div class="links">
-        
-        
-      Don't have an account ? so <a href="${pageContext.request.contextPath}/views/reg_faculty.jsp">Register here</a>
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <h2>Faculty Sign In</h2>
+
+        <p>
+            Enter your registered email and password
+        </p>
+
+        <form method="post"
+        action="${pageContext.request.contextPath}/show_msgServlet">
+
+            <label>EMAIL</label>
+
+            <div class="input-box">
+                <input type="email"
+                name="email"
+                placeholder="you@example.com"
+                required>
+
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+
+            <label>PASSWORD</label>
+
+            <div class="input-box">
+                <input type="password"
+                name="password"
+                placeholder="Enter password"
+                required>
+
+                <i class="fa-solid fa-eye"></i>
+            </div>
+
+
+            <button class="btn" type="submit">
+                Sign In →
+            </button>
+
+        </form>
+
+        <div class="or">OR</div>
+
+        <button class="secondary-btn"
+        onclick="window.location.href='${pageContext.request.contextPath}/views/reg_faculty.jsp'">
+
+            New? Register Here
+
+        </button>
+
+       
+
     </div>
+
 </div>
 
 </body>
