@@ -12,14 +12,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Dashboard</title>
-<!--  link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"-->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/studentdashboard_style.css " />
 </head>
 <body>
 
-<!-- ── HEADER ── -->
+<!--   HEADER  -->
 <header>
   <div class="header-top">
     <div class="logo">
@@ -30,10 +30,11 @@
 
   <!-- HORIZONTAL NAV -->
   <nav>
-    <button  onclick="showPage('dashboard', this)">🏠 Dashboard</button>
-    <button onclick="showPage('subjects', this)">📖 Subjects</button>
-    <button class="active" onclick="showPage('timetable', this)">📅 Time-Table</button>
-    <button onclick="showPage('notifications', this)">🔔 Notifications</button>
+    <button  onclick="showPage('dashboard', this)"><i class="fas fa-graduation-cap"></i> 
+     Dashboard</button>
+    <button onclick="showPage('subjects', this)"><i class="fas fa-book"></i> Subjects</button>
+    <button class="active" onclick="showPage('timetable', this)"><i class="fas fa-table"></i>  Time-Table</button>
+    <button onclick="showPage('notifications', this)"> <i class="fas fa-bell"></i> Notifications</button>
    
   </nav>
 </header>
