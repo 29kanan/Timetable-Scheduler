@@ -6,182 +6,372 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin Access</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #92a9bf;;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
 
-    .card {
-        background:white ;
-        width: 90%;
-        max-width: 380px;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.12);
-        text-align: center;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    
-    .icon-box {
-        width: 110px;
-        height: 110px;
-        background: linear-gradient(135deg, #a8c6ff, #8be9ff);
-        border-radius: 20px;
-        margin: 0 auto 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-        border: 2px solid #1e1e8a;
-    }
-      
-    .icon-box img { 
-          width: 100px;
-        height: 100px;
-    }
-
-    h2 {
-        margin: 5px 0;
-        color: #2b2bb2;
-        font-size: 26px;
-        font-weight: bold;
-    }
-
-    p {
-        color: #325ba1;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    label {
-        text-align: left;
-        display: block;
-        font-size: 16px;
-        margin-top: 10px;
-        color: #2b2bb2;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px;
-        border-radius: 10px;
-        border: 1px solid #c8c8c8;
-        margin-top: 5px;
-        font-size: 14px;
-    }
-
-    .options {
+body{
+    min-height:100vh;
     display:flex;
-    justify-content : space-between;
-    align-items: center;
-    margin : 8px 0 15px 0 ;
+    justify-content:center;
+    align-items:center;
+    
+    background: linear-gradient(135deg,#dbeafe,#eff6ff,#bfdbfe);
+    
+    padding:20px;
 }
 
-.rem-box { 
+/* MAIN CARD */
 
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 16px;
-    color: #120a62;
-    font-weight: 500;
-    cursor: pointer;
+.main-container{
+    width:100%;
+    max-width:900px;
+    height : 550px;
+    
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    
+    background:white;
+    
+    border-radius:28px;
+    
+    overflow:hidden;
+    
+    box-shadow:0 10px 40px rgba(0,0,0,0.12);
 }
-    .options a {
-        color: #120a62;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-    }
-    .login-btn {
-        width: 100%;
-        padding: 12px;
-        background: linear-gradient(135deg, #8fa2ff, #79e0ff);
-        border: none;
-        border-radius: 12px;
-        color: white;
-        margin-top: 15px;
-        font-size: 17px;
-        cursor: pointer;
-    }
-
-    .footer-text {
-        margin-top: 10px;
-        font-size: 13px;
-        color: #666;
-    }
 
 
-    @media (min-width: 768px) {
-        .card {
-            padding: 40px;
-            max-width: 380px;
-        }
-        
+/* LEFT SIDE */
+
+.left-panel{
+    
+    background: linear-gradient(135deg,#60a5fa,#93c5fd,#dbeafe);
+    
+    color:white;
+    
+    padding:50px 40px;
+    
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.icon-box{
+
+    width:120px;
+    height:120px;
+
+    margin:0 auto 25px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.25);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    backdrop-filter:blur(10px);
+
+    border:2px solid rgba(255,255,255,0.4);
+}
+
+.icon-box i{
+
+    font-size:55px;
+
+    color:white;
+}
+
+.left-panel h1{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.left-panel p{
+    font-size:18px;
+    line-height:1.7;
+    color:#eef6ff;
+}
+
+.info-box{
+    
+    margin-top:35px;
+    
+    background:rgba(255,255,255,0.22);
+    
+    border-radius:18px;
+    
+    padding:25px;
+    
+    backdrop-filter:blur(8px);
+}
+
+.info-box h3{
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.info-item{
+    
+    display:flex;
+    justify-content:space-between;
+    
+    margin:12px 0;
+    
+    font-size:16px;
+}
+
+
+/* RIGHT SIDE */
+
+.right-panel{
+    
+    background:#ffffff;
+    
+    padding:50px 45px;
+    
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.right-panel h2{
+    
+    font-size:40px;
+    
+    color:#2563eb;
+    
+    margin-bottom:10px;
+}
+
+.sub-text{
+    
+    color:#64748b;
+    
+    margin-bottom:35px;
+    
+    font-size:16px;
+}
+
+label{
+    
+    display:block;
+    
+    margin-bottom:8px;
+    
+    margin-top:18px;
+    
+    color:#1e3a8a;
+    
+    font-weight:bold;
+    
+    font-size:15px;
+}
+
+input{
+    
+    width:100%;
+    
+    padding:15px;
+    
+    border-radius:14px;
+    
+    border:1px solid #cbd5e1;
+    
+    outline:none;
+    
+    font-size:15px;
+    
+    background:#f8fbff;
+    
+    transition:0.3s;
+}
+
+input:focus{
+    
+    border-color:#60a5fa;
+    
+    box-shadow:0 0 8px rgba(96,165,250,0.3);
+}
+
+.demo-box{
+    
+    margin-top:18px;
+    
+    background:#eff6ff;
+    
+    border-radius:14px;
+    
+    padding:14px;
+    
+    color:#1e40af;
+    
+    font-size:14px;
+}
+
+.login-btn{
+    
+    width:100%;
+    
+    margin-top:25px;
+    
+    padding:15px;
+    
+    border:none;
+    
+    border-radius:16px;
+    
+    background:linear-gradient(135deg,#60a5fa,#3b82f6);
+    
+    color:white;
+    
+    font-size:18px;
+    
+    cursor:pointer;
+    
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    
+    transform:translateY(-2px);
+    
+    box-shadow:0 8px 20px rgba(59,130,246,0.3);
+}
+
+.back-btn{
+    
+    margin-top:20px;
+    
+    text-align:center;
+}
+
+.back-btn a{
+    
+    text-decoration:none;
+    
+    color:#2563eb;
+    
+    font-weight:bold;
+}
+
+.error{
+    
+    color:red;
+    
+    margin-top:15px;
+    
+    text-align:center;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .main-container{
+        grid-template-columns:1fr;
     }
+
+    .left-panel{
+        padding:35px;
+    }
+
+    .right-panel{
+        padding:35px;
+    }
+
+    .left-panel h1{
+        font-size:32px;
+    }
+
+    .right-panel h2{
+        font-size:30px;
+    }
+}
 
 </style>
 </head>
 
 <body>
 
-              
-                  
-             
-                <!--<li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_Teacher.jsp">add teacher</a>
-                </li>
-                  <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="#">Datatables</a>
-                </li>   -->
+<div class="main-container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-panel">
+
+        <div class="icon-box">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+        <h1>Admin Panel</h1>
+
+        <p>
+            Authorized administrators only.
+            Manage faculty, departments,
+            rooms and timetables.
+        </p>
+
+        </div>
+        
+    <!-- RIGHT SIDE -->
+
+    <div class="right-panel">
+
+        <h2>Welcome Back </h2>
+
+        <div class="sub-text">
+            Sign in to admin dashboard
+        </div>
+
+        <form action="${pageContext.request.contextPath}/adminLogin" method="post">
+
+            <label>Email</label>
+
+            <input type="email"
+                   name="email"
+                   placeholder="Enter Email"
+                   required>
+
+            <label>Password</label>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Enter Password"
+                   required>
+
             
-<div class="card">
-<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp">
- back
-</a></p>
-    <div class="icon-box"><img src ="${pageContext.request.contextPath}/assets/img/admin.jpg"></div>
 
-    <h2>Admin Access</h2>
-    <p>Only authorized administrators can log in to manage the system.</p>
-      <form action="${pageContext.request.contextPath}/adminLogin" method="post">
-    <label>Admin Email</label>
-    <input type="email" placeholder="Enter Email Id" name="email" required="required">
+            <button type="submit" class="login-btn">
+                Sign In →
+            </button>
 
-    <label>Password</label>
-    <input type="password" placeholder="Enter password" name="password" required="required">
+        </form>
 
-   <!-- 
- <div class="options">
-    <label class="rem-box">
-    <input type="checkbox">Remember me
-    </label>
-<a href="#">Forgot?</a> 
+        <div class="error">
+            ${error}
+        </div>
+
+        <div class="back-btn">
+            <a href="${pageContext.request.contextPath}/index.jsp">
+                ← Back to Home
+            </a>
+        </div>
 
     </div>
- --> 
-    <button type="submit" class="login-btn">Login</button>
-     
-     </form>
-     <h3 style="color:red;">
-      ${error}
-     </h3>
-    <div class="footer-text">
-        Admin accounts are created by the system super-admin only.
-    </div>
+
 </div>
 
 </body>
