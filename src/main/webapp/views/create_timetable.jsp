@@ -101,7 +101,7 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -151,7 +151,7 @@
                   <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item active" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
