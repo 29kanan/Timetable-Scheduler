@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,191 +24,375 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
 
 body{
+
     min-height:100vh;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    background:#ffffff;
+
     padding:20px;
+
+    background:linear-gradient(135deg,#dbeafe,#eff6ff,#bfdbfe);
 }
 
-/* Main Card */
+
+/* MAIN CONTAINER */
 
 .container{
+
     width:100%;
+
     max-width:900px;
-    height:550px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
+
+    height:600px;
+
+    background:white;
+
+    border-radius:30px;
+
     overflow:hidden;
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+
+    box-shadow:0 15px 45px rgba(0,0,0,0.12);
 }
 
-/* Left Side */
+
+/* LEFT PANEL */
 
 .left-panel{
+
     padding:50px;
-    background:linear-gradient(135deg,#1e1b4b,#0f766e);
+
+    background:linear-gradient(135deg,#60a5fa,#93c5fd,#dbeafe);
+
     color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
     position:relative;
-    text-align: center;
-    
 }
+
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    position:absolute;
+
+    top:25px;
+
+    left:25px;
+}
+
+.back-btn a{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+
+/* ICON */
 
 .portal-icon{
-    width:70px;
-    height:70px;
-    background:#ff6b6b;
-    border-radius:15px;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.2);
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    font-size:30px;
-    margin:0 auto 30px;
+
+    margin-bottom:30px;
+
+    border:2px solid rgba(255,255,255,0.3);
+
+    backdrop-filter:blur(10px);
 }
 
+.portal-icon i{
+
+    font-size:55px;
+
+    color:white;
+}
+
+
+/* LEFT TEXT */
+
 .left-panel h1{
-    font-size:45px;
-    margin-bottom:20px;
+
+    font-size:42px;
+
+    margin-bottom:18px;
 }
 
 .left-panel p{
+
     line-height:1.8;
-    color:#d1d5db;
-    margin-bottom:35px;
+
+    color:#eff6ff;
+
+    font-size:17px;
+
+    max-width:320px;
 }
 
-.feature-box{
-    background:rgba(255,255,255,0.12);
-    border-radius:20px;
-    padding:25px;
-}
 
-.feature-box h3{
-    margin-bottom:20px;
-    color:#fff;
-}
-
-.feature{
-    display:flex;
-    justify-content:space-between;
-    margin:15px 0;
-    color:#f3f4f6;
-}
-
-/* Right Side */
+/* RIGHT PANEL */
 
 .right-panel{
-    padding:50px;
-    background:rgba(15,23,42,0.9);
-    color:white;
+
+    padding:55px;
+
+    background:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
 }
 
+
+/* HEADING */
+
 .right-panel h2{
-    font-size:40px;
+
+    font-size:42px;
+
+    color:#2563eb;
+
     margin-bottom:10px;
 }
 
 .right-panel p{
-    color:#cbd5e1;
+
+    color:#64748b;
+
     margin-bottom:30px;
+
+    font-size:15px;
 }
 
+
+/* LABEL */
+
 label{
+
     display:block;
+
     margin-bottom:8px;
+
+    margin-top:15px;
+
     font-size:14px;
-    color:#cbd5e1;
+
+    color:#1e3a8a;
+
+    font-weight:bold;
+
     letter-spacing:1px;
 }
 
+
+/* INPUT */
+
 .input-box{
+
     position:relative;
-    margin-bottom:25px;
+
+    margin-bottom:22px;
 }
 
 .input-box input{
+
     width:100%;
-    padding:15px;
-    border:none;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    border:1px solid #cbd5e1;
+
+    background:#f8fbff;
+
+    color:#1e293b;
+
+    font-size:15px;
+
     outline:none;
-    border-radius:12px;
-    background:#1e293b;
-    color:white;
-    font-size:16px;
+
+    transition:0.3s;
 }
+
+.input-box input:focus{
+
+    border-color:#60a5fa;
+
+    box-shadow:0 0 10px rgba(96,165,250,0.25);
+}
+
+
+/* INPUT ICON */
 
 .input-box i{
+
     position:absolute;
+
     right:15px;
-    top:17px;
-    color:#94a3b8;
+
+    top:18px;
+
+    color:#3b82f6;
 }
 
-.demo{
-    background:#1e3a8a;
-    padding:12px;
-    border-radius:12px;
+
+/* FORGOT PASSWORD */
+
+.forgot-box{
+
+    text-align:right;
+
+    margin-top:-10px;
+
     margin-bottom:25px;
-    font-size:14px;
 }
+
+.forgot-box a{
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+.forgot-box a:hover{
+
+    text-decoration:underline;
+}
+
+
+/* LOGIN BUTTON */
 
 .btn{
+
     width:100%;
-    padding:15px;
+
+    padding:16px;
+
     border:none;
-    border-radius:14px;
-    background:linear-gradient(135deg,#38bdf8,#818cf8);
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#60a5fa,#2563eb);
+
     color:white;
+
     font-size:18px;
+
     font-weight:bold;
+
     cursor:pointer;
+
     transition:0.3s;
 }
 
 .btn:hover{
+
     transform:translateY(-2px);
-    opacity:0.9;
+
+    box-shadow:0 10px 20px rgba(37,99,235,0.25);
 }
+
+
+/* OR TEXT */
 
 .or{
+
     text-align:center;
+
     margin:25px 0;
-    color:#cbd5e1;
+
+    color:#64748b;
+
+    font-weight:bold;
 }
 
+
+/* REGISTER BUTTON */
+
 .secondary-btn{
+
     width:100%;
-    padding:14px;
-    border:1px solid rgba(255,255,255,0.2);
-    background:transparent;
-    color:white;
-    border-radius:12px;
-    margin-bottom:15px;
-    cursor:pointer;
+
+    padding:15px;
+
+    border:1px solid #cbd5e1;
+
+    background:white;
+
+    color:#2563eb;
+
+    border-radius:14px;
+
     font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
 }
 
 .secondary-btn:hover{
-    background:rgba(255,255,255,0.08);
+
+    background:#eff6ff;
 }
 
-/* Responsive */
+
+/* RESPONSIVE */
 
 @media(max-width:900px){
 
     .container{
+
         grid-template-columns:1fr;
     }
 
     .left-panel{
+
         display:none;
     }
 
     .right-panel{
+
         padding:35px;
     }
 }
@@ -222,22 +408,32 @@ label{
     <!-- LEFT PANEL -->
 
     <div class="left-panel">
-<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp">
- back
-</a></p>
+
+        <div class="back-btn">
+
+            <a href="${pageContext.request.contextPath}/index.jsp">
+                ← Back
+            </a>
+
+        </div>
+
         <div class="portal-icon">
+
             <i class="fa-solid fa-user-tie"></i>
+
         </div>
 
         <h1>Faculty Portal</h1>
 
         <p>
+
             Access your personal dashboard to view your schedule,
             assigned subjects and classroom information.
+
         </p>
 
-
     </div>
+
 
     <!-- RIGHT PANEL -->
 
@@ -246,51 +442,86 @@ label{
         <h2>Faculty Sign In</h2>
 
         <p>
+
             Enter your registered email and password
+
         </p>
+
 
         <form method="post"
         action="${pageContext.request.contextPath}/show_msgServlet">
 
+
+            <!-- EMAIL -->
+
             <label>EMAIL</label>
 
             <div class="input-box">
+
                 <input type="email"
                 name="email"
                 placeholder="you@example.com"
                 required>
 
                 <i class="fa-solid fa-envelope"></i>
+
             </div>
+
+
+            <!-- PASSWORD -->
 
             <label>PASSWORD</label>
 
             <div class="input-box">
+
                 <input type="password"
                 name="password"
                 placeholder="Enter password"
                 required>
 
-                <i class="fa-solid fa-eye"></i>
+                <i class="fa-solid fa-lock"></i>
+
             </div>
 
 
+            <!-- FORGOT PASSWORD -->
+
+            <div class="forgot-box">
+
+                <a href="${pageContext.request.contextPath}/views/forgotPassword.jsp">
+
+                    Forgot Password?
+
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
             <button class="btn" type="submit">
+
                 Sign In →
+
             </button>
 
         </form>
 
+
+        <!-- OR -->
+
         <div class="or">OR</div>
 
+
+        <!-- REGISTER BUTTON -->
+
         <button class="secondary-btn"
+
         onclick="window.location.href='${pageContext.request.contextPath}/views/reg_faculty.jsp'">
 
             New? Register Here
 
         </button>
-
-       
 
     </div>
 
