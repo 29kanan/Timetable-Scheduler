@@ -33,7 +33,7 @@ header {
 .logo .title {
   font-weight: 1000;
   font-size: 19px;
-  color: #000040;
+  color: lightblue;
   letter-spacing: 1px;
 }
 
@@ -63,7 +63,7 @@ nav button {
   letter-spacing: 0.3px;
 }
 nav button.active {
-  color: #000040;
+  color: lightblue;
   font-weight: 900;
   border-bottom: 3px solid #000040;
 }
