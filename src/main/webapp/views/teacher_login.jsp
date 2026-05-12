@@ -1,184 +1,530 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Login form</title>
+
+<title>Faculty Login</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial ;
-        background: #92a9bf;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        
-    }
 
-    .login-card {
-        background: white;
-        padding: 25px 25px 25px 25px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        width: 90%;
-        max-width: 380px;
-        text-align: center;
-        border: 4px solid  rgba(10,17,69,0.3);
-        
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-   
-    .icon-box {
-        width: 110px;
-        height: 110px;
-        border-radius: 20px;
-        margin: 0 auto 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border : 2px solid rgba(10, 17, 69, 0.3);
-    }
-    .icon-box img { 
-          width: 100px;
-        height: 100px;
-    }
-    .login-card h2 {
-        margin-bottom: 5px;
-        color: #120a62;
-        font-family:  cursive;
-    }
+body{
 
-    .login-card p {
-        font-size: 16px;
-        color: #5969cb;
-        margin-bottom: 20px;
-    }
- 
-    label{ 
-        display:block; 
-       text-align: left;
-       font-size: 16px;
-       font-weight: bold;
-       color:#120a62;
-    } 
+    min-height:100vh;
 
-    input {
-        width: 100%;
-        padding: 8px;
-        border-radius: 8px;
-        border: 1px solid #bbb;
-        margin: 8px 0;
-    }
-    
-
-    .btn {
-        width: 100%;
-        padding: 12px;
-        background: linear-gradient(135deg, #8599ff, #6eeaff);
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        color: white;
-        margin-top: 10px;
-        cursor: pointer;
-    }
-     
-    .links {
-        margin-top: 10px;
-        font-size: 14px;
-    }
-.options {
     display:flex;
-    justify-content : space-between;
-    align-items: center;
-    margin : 8px 0 15px 0 ;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:linear-gradient(135deg,#dbeafe,#eff6ff,#bfdbfe);
 }
 
-.rem-box { 
 
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 16px;
-    color: #120a62;
-    font-weight: 500;
-    cursor: pointer;
+/* MAIN CONTAINER */
+
+.container{
+
+    width:100%;
+
+    max-width:900px;
+
+    height:600px;
+
+    background:white;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    box-shadow:0 15px 45px rgba(0,0,0,0.12);
 }
-    .options a {
-        color: #120a62;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
+
+
+/* LEFT PANEL */
+
+.left-panel{
+
+    padding:50px;
+
+    background:linear-gradient(135deg,#60a5fa,#93c5fd,#dbeafe);
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    position:relative;
+}
+
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    position:absolute;
+
+    top:25px;
+
+    left:25px;
+}
+
+.back-btn a{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+
+/* ICON */
+
+.portal-icon{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.2);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+    border:2px solid rgba(255,255,255,0.3);
+
+    backdrop-filter:blur(10px);
+}
+
+.portal-icon i{
+
+    font-size:55px;
+
+    color:white;
+}
+
+
+/* LEFT TEXT */
+
+.left-panel h1{
+
+    font-size:42px;
+
+    margin-bottom:18px;
+}
+
+.left-panel p{
+
+    line-height:1.8;
+
+    color:#eff6ff;
+
+    font-size:17px;
+
+    max-width:320px;
+}
+
+
+/* RIGHT PANEL */
+
+.right-panel{
+
+    padding:55px;
+
+    background:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+
+/* HEADING */
+
+.right-panel h2{
+
+    font-size:42px;
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+}
+
+.right-panel p{
+
+    color:#64748b;
+
+    margin-bottom:30px;
+
+    font-size:15px;
+}
+
+
+/* LABEL */
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    margin-top:15px;
+
+    font-size:14px;
+
+    color:#1e3a8a;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+}
+
+
+/* INPUT */
+
+.input-box{
+
+    position:relative;
+
+    margin-bottom:22px;
+}
+
+.input-box input{
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    border:1px solid #cbd5e1;
+
+    background:#f8fbff;
+
+    color:#1e293b;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+.input-box input:focus{
+
+    border-color:#60a5fa;
+
+    box-shadow:0 0 10px rgba(96,165,250,0.25);
+}
+
+
+/* INPUT ICON */
+
+.input-box i{
+
+    position:absolute;
+
+    right:15px;
+
+    top:18px;
+
+    color:#3b82f6;
+}
+
+
+/* FORGOT PASSWORD */
+
+.forgot-box{
+
+    text-align:right;
+
+    margin-top:-10px;
+
+    margin-bottom:25px;
+}
+
+.forgot-box a{
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+.forgot-box a:hover{
+
+    text-decoration:underline;
+}
+
+
+/* LOGIN BUTTON */
+
+.btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#60a5fa,#2563eb);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,0.25);
+}
+
+
+/* OR TEXT */
+
+.or{
+
+    text-align:center;
+
+    margin:25px 0;
+
+    color:#64748b;
+
+    font-weight:bold;
+}
+
+
+/* REGISTER BUTTON */
+
+.secondary-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #cbd5e1;
+
+    background:white;
+
+    color:#2563eb;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.secondary-btn:hover{
+
+    background:#eff6ff;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .container{
+
+        grid-template-columns:1fr;
     }
-   
+
+    .left-panel{
+
+        display:none;
+    }
+
+    .right-panel{
+
+        padding:35px;
+    }
+}
+
 </style>
 
 </head>
+
 <body>
 
-<div class="login-card">
-<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp">
- back
-</a></p>
-    <div class="icon-box"><img class="img" src ="${pageContext.request.contextPath}/assets/img/faculty_login_image.jpg"></div>
+<div class="container">
 
-    <h2 >Welcome back,Teacher</h2>
-    <p >Login to see your timetable and get notified !!!</p>
-<form  method="post">
-    <label  >Email</label>
-    <input type="email" placeholder="Enter Email Id" name="email" required="required">
+    <!-- LEFT PANEL -->
 
-    <label>Password</label>
-    <input type="password" placeholder="Enter password" name="password" required="required">
+    <div class="left-panel">
 
- <div class="options">
-  
-<!-- <a href="#">Forgot?</a> 
- -->
+        <div class="back-btn">
+
+            <a href="${pageContext.request.contextPath}/index.jsp">
+                ← Back
+            </a>
+
+        </div>
+
+        <div class="portal-icon">
+
+            <i class="fa-solid fa-user-tie"></i>
+
+        </div>
+
+        <h1>Faculty Portal</h1>
+
+        <p>
+
+            Access your personal dashboard to view your schedule,
+            assigned subjects and classroom information.
+
+        </p>
+
     </div>
-    
- <%--    <button class="btn" formaction="${pageContext.request.contextPath}/facultyLogin">Login</button>
-<br>
-<p>before login, Check your account has been APPROVED or NOT !!
- --%>
- <button class="btn" formaction="${pageContext.request.contextPath}/show_msgServlet"
-    title="login">Login</button>
-    
 
-</form>
-<%-- <h3 style="color:green;">
-            ${error1}
-           </h3>
-           <h3 style="color:red;">
-            ${error2}
-           </h3>
-           <h3 style="color:blue;">
-            ${error3}
-           </h3>
-<h3 style="color:red;">
-      ${error}
-     </h3>
-      <%
-    String msg = (String)request.getAttribute("msg");
-    if(msg != null){
-%>
-<script>alert("<%=msg%>");</script>
-<%
-    }
-%> --%>
-   
-    <div class="links">
-        
-        
-      Don't have an account ? so <a href="${pageContext.request.contextPath}/views/reg_faculty.jsp">Register here</a>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <h2>Faculty Sign In</h2>
+
+        <p>
+
+            Enter your registered email and password
+
+        </p>
+
+
+        <form method="post"
+        action="${pageContext.request.contextPath}/show_msgServlet">
+
+
+            <!-- EMAIL -->
+
+            <label>EMAIL</label>
+
+            <div class="input-box">
+
+                <input type="email"
+                name="email"
+                placeholder="you@example.com"
+                required>
+
+                <i class="fa-solid fa-envelope"></i>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <label>PASSWORD</label>
+
+            <div class="input-box">
+
+                <input type="password"
+                name="password"
+                placeholder="Enter password"
+                required>
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+
+            <!-- FORGOT PASSWORD -->
+
+            <div class="forgot-box">
+
+                <a href="${pageContext.request.contextPath}/views/forgotPassword.jsp">
+
+                    Forgot Password?
+
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button class="btn" type="submit">
+
+                Sign In →
+
+            </button>
+
+        </form>
+
+
+        <!-- OR -->
+
+        <div class="or">OR</div>
+
+
+        <!-- REGISTER BUTTON -->
+
+        <button class="secondary-btn"
+
+        onclick="window.location.href='${pageContext.request.contextPath}/views/reg_faculty.jsp'">
+
+            New? Register Here
+
+        </button>
+
     </div>
+
 </div>
 
 </body>
