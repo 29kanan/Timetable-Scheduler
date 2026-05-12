@@ -390,6 +390,30 @@ List<Notification> notifications =
 DAOFactory.getNotificationDao()
           .getNotificationsByRole("FACULTY");
 
+int latestNotificationId =
+DAOFactory.getNotificationDao()
+          .getLatestNotificationIdByRole("FACULTY");
+
+/* Session stored last seen id */
+Integer lastSeenId =
+(Integer)session.getAttribute("facultyLastSeenNotification");
+
+/* Default */
+if(lastSeenId == null){
+    lastSeenId = 0;
+}
+
+/* New notification count */
+int newNotificationCount = 0;
+
+for(Notification n : notifications){
+
+    if(n.getId() > lastSeenId){
+
+        newNotificationCount++;
+    }
+}
+
 %>
 
 <li class="nav-item topbar-icon dropdown hidden-caret">
@@ -404,12 +428,23 @@ DAOFactory.getNotificationDao()
 
         <i class="fa fa-bell"></i>
 
-        <!-- Notification Count -->
-        <span class="notification">
+        <%
 
-            <%= notifications.size() %>
+if(newNotificationCount > 0){
 
-        </span>
+%>
+
+<span class="notification">
+
+    <%= newNotificationCount %>
+
+</span>
+
+<%
+
+}
+
+%>
 
     </a>
 

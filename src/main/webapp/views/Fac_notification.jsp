@@ -700,6 +700,17 @@
 
 List<Notification> notifications =DAOFactory.getNotificationDao().getNotificationsByRole("FACULTY");
 
+
+int latestNotificationId =
+DAOFactory.getNotificationDao()
+          .getLatestNotificationIdByRole("FACULTY");
+
+/* Mark all as seen */
+session.setAttribute(
+    "facultyLastSeenNotification",
+    latestNotificationId
+);
+
 %>
             <div class="row">
               <div class="col-md-12">

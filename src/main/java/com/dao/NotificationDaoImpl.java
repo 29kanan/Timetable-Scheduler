@@ -172,5 +172,39 @@ public class NotificationDaoImpl implements NotificationDAO {
 	        return status;
 	    }
 	    
+	    public int getLatestNotificationIdByRole(String role) {
+
+	        int latestId = 0;
+
+	        try {
+
+	            Connection con =
+	                DBConnection.getConnection();
+
+	            String sql =
+	                "SELECT MAX(id) FROM notifications " +
+	                "WHERE target_role=? OR target_role='ALL'";
+
+	            PreparedStatement ps =
+	                con.prepareStatement(sql);
+
+	            ps.setString(1, role);
+
+	            ResultSet rs = ps.executeQuery();
+
+	            if(rs.next()) {
+
+	                latestId = rs.getInt(1);
+	            }
+
+	            con.close();
+
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return latestId;
+	    }
+	    
 	    
 	}

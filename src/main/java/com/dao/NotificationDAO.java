@@ -13,4 +13,5 @@ public interface NotificationDAO {
     public boolean deleteNotification(int id);
     // Get Notifications by Role
     public List<Notification> getNotificationsByRole(String role);
+    public int getLatestNotificationIdByRole(String role);
 }
