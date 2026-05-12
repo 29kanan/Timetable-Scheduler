@@ -3,9 +3,6 @@ build/
 target/
 *.class
 
-# Build Directory
-build/
-
 # Log file
 *.log
 
