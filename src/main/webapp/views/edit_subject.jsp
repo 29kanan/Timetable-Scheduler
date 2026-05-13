@@ -725,6 +725,19 @@
 
                           </select>
                         </div>
+                        
+                        <div class="form-group">
+                          <label for="largeInput">Frequency</label>
+                          <input
+                            type="number"
+                            name="frequency"
+                            required="required"
+                            class="form-control form-control"
+                            id="defaultInput"
+                             value="<%=s.getFrequency()%>"        
+                            />
+                        </div>
+                        
                         <p style="align:center">
                          <button 
                      type="submit"
