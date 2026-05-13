@@ -463,7 +463,7 @@ label{
                 placeholder="you@example.com"
                 required>
 
-                <i class="fa-solid fa-envelope"></i>
+               
 
             </div>
 
@@ -479,7 +479,7 @@ label{
                 placeholder="Enter password"
                 required>
 
-                <i class="fa-solid fa-lock"></i>
+              
 
             </div>
 
