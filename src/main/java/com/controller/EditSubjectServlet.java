@@ -30,6 +30,7 @@ public class EditSubjectServlet extends HttpServlet {
         s.setSem(request.getParameter("sem"));
         s.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
         s.setFac_id(Integer.parseInt(request.getParameter("fac_id")));
+        s.setFrequency(Integer.parseInt(request.getParameter("frequency")));
         
         SubjectDao dao = DAOFactory.getSubjectDao();
         

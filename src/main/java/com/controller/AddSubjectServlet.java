@@ -37,14 +37,16 @@ public class AddSubjectServlet extends HttpServlet {
         s.setFac_id(Integer.parseInt(request.getParameter("fac_id")));
         s.setSem(request.getParameter("sem"));
         s.setDept_id(Integer.parseInt(request.getParameter("dept_id")));
-
+        s.setFrequency(Integer.parseInt(request.getParameter("frequency")));
+        
+        
         if (dao.addSubject(s)) {
         	request.setAttribute("addS", "Subject Added!!");
-        	RequestDispatcher rd = request.getRequestDispatcher("/views/add_subject.jsp");
+        	RequestDispatcher rd = request.getRequestDispatcher("/views/viewFac_subject.jsp");
             rd.forward(request, response);
         } else {
         	request.setAttribute("addS", "some error occur!!");
-        	RequestDispatcher rd = request.getRequestDispatcher("/views/add_subject.jsp");
+        	RequestDispatcher rd = request.getRequestDispatcher("/views/viewFac_subject.jsp");
             rd.forward(request, response);
         }
     }

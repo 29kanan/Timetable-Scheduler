@@ -12,7 +12,7 @@ public class SubjectDaoImpl implements SubjectDao {
 	public boolean addSubject(Subject s) {
 		 boolean status=false;
 		 int x=0;
-		 String query = "INSERT INTO subjects(sub_name, sub_code, sub_abbr, subject_type, sem, dept_id,faculty_id) VALUES(?,?,?,?,?,?,?)";
+		 String query = "INSERT INTO subjects(sub_name, sub_code, sub_abbr, subject_type, sem, dept_id,faculty_id,frequency) VALUES(?,?,?,?,?,?,?,?)";
          
         try(		Connection con = DBConnection.getConnection();
                PreparedStatement ps = con.prepareStatement(query);
@@ -31,6 +31,7 @@ public class SubjectDaoImpl implements SubjectDao {
             ps.setString(5, s.getSem());
             ps.setInt(6, s.getDept_id());
             ps.setInt(7, s.getFac_id());
+            ps.setInt(8, s.getFrequency());
             x= ps.executeUpdate();
             
             if(x!=0)
@@ -59,6 +60,7 @@ public class SubjectDaoImpl implements SubjectDao {
                 s.setSem(rs.getString(6));
                 s.setDept_id(rs.getInt(7));
                 s.setFac_id(rs.getInt(8));
+                s.setFrequency(rs.getInt(9));
                 list.add(s);
             }
         } catch (Exception e) {
@@ -85,6 +87,7 @@ public class SubjectDaoImpl implements SubjectDao {
                 s.setSem(rs.getString(6));
                 s.setDept_id(rs.getInt(7));
                 s.setFac_id(rs.getInt(8));
+                s.setFrequency(rs.getInt(9));
             }
         } catch (Exception e) {
         }
@@ -92,7 +95,7 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     public boolean updateSubject(Subject s) {
-        String query = "UPDATE subjects SET sub_name=?, sub_code=?, sub_abbr=?, subject_type=?, sem=?, dept_id=?,faculty_id=? WHERE sub_id=?";
+        String query = "UPDATE subjects SET sub_name=?, sub_code=?, sub_abbr=?, subject_type=?, sem=?, dept_id=?,faculty_id=?,frequency=? WHERE sub_id=?";
 
         try(    	Connection con = DBConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(query);
@@ -105,7 +108,8 @@ public class SubjectDaoImpl implements SubjectDao {
             ps.setString(5, s.getSem());
             ps.setInt(6, s.getDept_id());
             ps.setInt(7, s.getFac_id());
-            ps.setInt(8, s.getSub_id());
+            ps.setInt(8, s.getFrequency());
+            ps.setInt(9, s.getSub_id());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
