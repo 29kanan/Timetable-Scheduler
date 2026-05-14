@@ -573,10 +573,10 @@
                                 </div>
                                   
                                 
-                                <div class="mt-4 text-mid">
-                                <center>
+                                <div class="mt-4 text-mid" align="center">
+                            
                                     <button type="submit"  class="btn btn-primary">Save Changes</button>
-                                </center>
+                               
                                 </div>
                                      </form>
                                 

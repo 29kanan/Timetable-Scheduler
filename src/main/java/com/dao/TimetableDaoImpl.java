@@ -13,14 +13,14 @@ public class TimetableDaoImpl implements TimetableDao {
 	
 	
 	public boolean addTimetable(Timetable t) {
-		  Connection con = DBConnection.getConnection();
                  boolean status=false;
                  int x=0;
-        try {
+        try (		  Connection con = DBConnection.getConnection();
+        		 PreparedStatement ps1 = con.prepareStatement("select faculty_id from subjects where sub_abbr= '"+t.getSub_abbr()+"' AND dept_id= "+t.getDept_id()+";");
+           	 ResultSet rs1 = ps1.executeQuery();
+               ){
         	
-        	 PreparedStatement ps1 = con.prepareStatement("select faculty_id from subjects where sub_abbr= '"+t.getSub_abbr()+"' AND dept_id= "+t.getDept_id()+";");
-        	 ResultSet rs1 = ps1.executeQuery();
-             while (rs1.next()) {
+        	 while (rs1.next()) {
             	 t.setFac_id(rs1.getInt("faculty_id"));
              }
         	
@@ -44,13 +44,13 @@ public class TimetableDaoImpl implements TimetableDao {
     }
 
     public List<Timetable> getAllTimetables() {
-    	  Connection con = DBConnection.getConnection();
-
+       
+    	String query = "SELECT * FROM time_table";
         List<Timetable> list = new ArrayList<>();
-        try {
-            String query = "SELECT * FROM time_table";
-            PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+        try (    	  Connection con = DBConnection.getConnection();
+        		 PreparedStatement ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+               ){
             while (rs.next()) {
                 Timetable t = new Timetable();
                 t.setTt_id(rs.getInt(1));
@@ -64,19 +64,20 @@ public class TimetableDaoImpl implements TimetableDao {
                 t.setYear(rs.getString(9));
                 list.add(t);
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {e.printStackTrace(); }
         return list;
     }
 
     public Timetable getTimetableById(int id) {
-    	  Connection con = DBConnection.getConnection();
+          String q = "SELECT * FROM time_table WHERE tt_id=?";
 
         Timetable t = null;
-        try {
-            String q = "SELECT * FROM time_table WHERE tt_id=?";
-            PreparedStatement ps = con.prepareStatement(q);
+        try(    	  Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(q);
+) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 t = new Timetable();
                 t.setTt_id(rs.getInt(1));
@@ -89,19 +90,19 @@ public class TimetableDaoImpl implements TimetableDao {
                 t.setDept_id(rs.getInt(8));
                 t.setYear(rs.getString(9));
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {e.printStackTrace(); }
         return t;
     }
 
     public boolean updateTimetable(Timetable t) {
-    	  Connection con = DBConnection.getConnection();
     	  boolean status=false;
           int x=0;
-        try {
+        try(    	  Connection con = DBConnection.getConnection();
+        		 PreparedStatement ps1 = con.prepareStatement("select faculty_id from subjects where sub_abbr= '"+t.getSub_abbr()+"' AND dept_id="+t.getDept_id()+";");
+           	 ResultSet rs1 = ps1.executeQuery();
+               ) {
         	
-        	 PreparedStatement ps1 = con.prepareStatement("select faculty_id from subjects where sub_abbr= '"+t.getSub_abbr()+"' AND dept_id="+t.getDept_id()+";");
-        	 ResultSet rs1 = ps1.executeQuery();
-             while (rs1.next()) {
+        	 while (rs1.next()) {
             	 t.setFac_id(rs1.getInt("faculty_id"));
              }
         	
@@ -121,22 +122,23 @@ public class TimetableDaoImpl implements TimetableDao {
            
             if(x!=0)
             	status=true;
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace();}
         return status;
     }
 
     public boolean deleteTimetable(int id) {
-    	  Connection con = DBConnection.getConnection();
+          String query = "DELETE FROM time_table WHERE tt_id=?";
+
     	  boolean status=false;
           int x=0;
-        try {
-            String query = "DELETE FROM time_table WHERE tt_id=?";
-            PreparedStatement ps = con.prepareStatement(query);
+        try(    	  Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(query);
+) {
             ps.setInt(1, id);
             x= ps.executeUpdate() ;
             if(x!=0)
             	status=true;
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace();}
         return status;
     }
 }

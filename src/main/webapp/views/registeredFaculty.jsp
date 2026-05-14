@@ -47,6 +47,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
   </head>
   <body>
+  
+  <% 
+         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //http 1.1
+        response.setHeader("Pragma","no-cache");//http 1.0
+    	response.setHeader("Expires","0");// proxies
+    	
+     if(session.getAttribute("username")==null){
+    	 
+    	response.sendRedirect("admin_login.jsp");
+     }
+  
+  
+ %>
+  
     <div class="wrapper">
     
       <!-- Sidebar -->
@@ -766,7 +780,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Dept</th>
-                            <th>Password</th>
+                           
                             <th>Faculty ID</th>
                           </tr>
                         </thead>
@@ -776,7 +790,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Dept</th>
-                            <th>Password</th>
+                        
                             <th>Faculty ID</th>
                           </tr>
                         </tfoot>
@@ -796,7 +810,7 @@
                             <td><%=rs.getString("email")%></td>
                             <td><%=rs.getString("phone")%></td>
                             <td><%=rs.getString("dept")%></td>
-                            <td><%=rs.getString("password")%></td>
+                          
                             <td><%=rs.getInt("fac_id")%></td>
                           </tr>
                           
@@ -820,33 +834,35 @@
                   </div>
                 </div>
               </div>
+</div>
 
-
-        <footer class="footer">
+       <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
-            <nav class="pull-left">
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="http://www.themekita.com">
-                    ThemeKita
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Help </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Licenses </a>
-                </li>
-              </ul>
-            </nav>
-            <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">ThemeKita</a>
-            </div>
-            <div>
-              Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-            </div>
+          
+             <!-- Left: College Name -->
+    <div class="text-muted">
+      © 2026 <strong>SDITS</strong>
+    </div>
+
+    <!-- Center: Social Media Icons -->
+    <div class="footer-icons">
+      <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark">
+        <i class="fa-solid fa-globe fa-lg"></i>
+      </a>
+
+      <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary">
+        <i class="fa-brands fa-linkedin fa-lg"></i>
+      </a>
+
+      <a href="https://www.instagram.com" target="_blank" class="text-danger">
+        <i class="fa-brands fa-instagram fa-lg"></i>
+      </a>
+    </div>
+
+    <!-- Right: Project Info -->
+    <div class="text-muted">
+     Time Table Scheduler
+    </div>
           </div>
         </footer>
       </div>

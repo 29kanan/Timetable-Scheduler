@@ -1,4 +1,6 @@
 # Compiled class file
+build/
+target/
 *.class
 
 # Log file
@@ -23,6 +25,6 @@
 hs_err_pid*
 replay_pid*
 
-# sql password file..............ise last me dalna he 
-# sql_pass.java 
+# sql password file..............ise last me dalna he
+# sql_pass.java
 

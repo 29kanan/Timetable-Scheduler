@@ -583,7 +583,7 @@
             <div class="card mt-3 p-0">
    <div class="banner-bg" role="img" aria-label="Dashboard Banner">
             <br><br><br>
-           <center> <h2></h2></center>
+          
   </div>
                 
              </div>
@@ -600,7 +600,7 @@
           
              <!-- Left: College Name -->
     <div class="text-muted">
-      © 2025 <strong>SDITS College, Khandwa</strong>
+      © 2026 <strong>SDITS</strong>
     </div>
 
     <!-- Center: Social Media Icons -->
@@ -620,7 +620,7 @@
 
     <!-- Right: Project Info -->
     <div class="text-muted">
-      College Time Table Scheduler
+     Time Table Scheduler
     </div>
           </div>
         </footer>
