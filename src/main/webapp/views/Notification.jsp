@@ -138,7 +138,7 @@
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_subject.jsp">
-                  <i class="bi bi-book"></i><p>Add Subject</p></a>
+                  <i class="bi bi-book"></i><p>View Subjects</p></a>
                 </a>
 
               </li>
@@ -162,6 +162,12 @@
               </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
+                  <a href="${pageContext.request.contextPath}/views/Notification.jsp">
+                  <i class="bi bi-calendar4"></i><p>Send Notifications</p></a>
+
+              </li>
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/create_timetable.jsp">
@@ -179,7 +185,7 @@
                    
                   <a href="Login.jsp"><i class="bi bi-box-arrow-in-left"></i><p>Login</p></a>
 
-              </li>-->
+              </li>
               
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
@@ -187,7 +193,8 @@
                         </form>
                   <a href="#" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i><p>Logout</p></a>
 
-              </li>
+              </li>-->
+              
             </ul>
           </div>
         </div>
