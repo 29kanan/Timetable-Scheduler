@@ -142,58 +142,128 @@
     </div>
   </div>
 
-  <!--  NOTIFICATIONS PAGE -->
-  <div class="page" id="page-notifications">
+   <!--  NOTIFICATIONS PAGE -->
+
+<%
+
+List<Notification> notifications =
+DAOFactory.getNotificationDao()
+          .getNotificationsByRole("STUDENT");
+
+%>
+
+<!-- NOTIFICATIONS PAGE -->
+<div class="page" id="page-notifications">
+
     <div class="card">
-      <div class="card-title">
-        <span style="font-size:24px">🔔</span>
-        <h2>Notifications</h2>
-      </div>
-      <p class="card-subtitle">Stay updated with the latest announcements and reminders.</p>
-      <div class="notif-list">
-        <div class="notif-item">
-          <div class="notif-icon">📢</div>
-          <div class="notif-body">
-            <div class="notif-title">Internal Exam Schedule Released</div>
-            <div class="notif-time">🕒 2 hours ago</div>
-          </div>
-          <span class="notif-type">exam</span>
+
+        <!-- Header -->
+        <div class="card-title">
+
+            <h2>Notifications</h2>
+
         </div>
-        <div class="notif-item">
-          <div class="notif-icon">📝</div>
-          <div class="notif-body">
-            <div class="notif-title">Assignment submission deadline: May 5</div>
-            <div class="notif-time">🕒 Yesterday</div>
-          </div>
-          <span class="notif-type">assignment</span>
+
+        <p class="card-subtitle">
+
+            Stay updated with the latest announcements
+            and reminders.
+
+        </p>
+
+        <!-- Notification List -->
+        <div class="notif-list">
+
+        <%
+
+        if(notifications.isEmpty()){
+
+        %>
+
+            <!-- Empty -->
+            <div class="notif-item">
+
+                <div class="notif-body">
+
+                    <div class="notif-title">
+
+                        No Notifications Available
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <%
+
+        } else {
+
+            for(Notification n : notifications){
+
+        %>
+
+            <!-- Single Notification -->
+            <div class="notif-item">
+
+                <!-- Icon -->
+                <div class="notif-icon">
+
+                    🔔
+
+                </div>
+
+                <!-- Body -->
+                <div class="notif-body">
+
+                    <!-- Title -->
+                    <div class="notif-title">
+
+                        <%= n.getTitle() %>
+
+                    </div>
+
+                    <!-- Message -->
+                    <div style="
+                        font-size:14px;
+                        color:#666;
+                        margin-top:4px;
+                        line-height:1.5;">
+
+                        <%= n.getMessage() %>
+
+                    </div>
+
+                    <!-- Time -->
+                    <div class="notif-time">
+
+                        🕒 <%= n.getCreatedAt() %>
+
+                    </div>
+
+                </div>
+
+                <!-- Type Badge -->
+                <span class="notif-type">
+
+                    notice
+
+                </span>
+
+            </div>
+
+        <%
+
+            }
+        }
+
+        %>
+
         </div>
-        <div class="notif-item">
-          <div class="notif-icon">🎉</div>
-          <div class="notif-body">
-            <div class="notif-title">Holiday announced on May 1 (Labour Day)</div>
-            <div class="notif-time">🕒 2 days ago</div>
-          </div>
-          <span class="notif-type">holiday</span>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon">📚</div>
-          <div class="notif-body">
-            <div class="notif-title">New study material uploaded for AI & ML</div>
-            <div class="notif-time">🕒 3 days ago</div>
-          </div>
-          <span class="notif-type">material</span>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon">🔔</div>
-          <div class="notif-body">
-            <div class="notif-title">Fee payment last date: April 30</div>
-            <div class="notif-time">🕒 4 days ago</div>
-          </div>
-          <span class="notif-type">fee</span>
-        </div>
-      </div>
+
     </div>
-  </div>
+
+</div>
 
   
 </main>
