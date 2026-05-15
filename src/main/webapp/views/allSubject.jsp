@@ -1,5 +1,6 @@
-<%@ page import="java.sql.*" %>
-<%@page import="com.util.DBConnection"%>
+<%@page import="com.dao.DAOFactory"%>
+<%@ page import="java.sql.*, java.util.*" %>
+<%@page import="com.model.*, com.dao.*"%>
 <%@ page import="java.sql.* , com.util.*" %>
 
 <!DOCTYPE html>
@@ -11,7 +12,45 @@
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+   
+    
+    <link
+      rel="icon"
+      href="${pageContext.request.contextPath}/assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="${pageContext.request.contextPath}/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["${pageContext.request.contextPath}/assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
+  
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style3.css" />
 
 </head>
@@ -29,17 +68,23 @@ rel="stylesheet">
             Subject List
         </h2>
 
+        
         <a href="adminDashB.jsp"
-           class="btn btn-primary back-btn">
+           class="btn btn-primary back-btn btn-round ms-auto">
 
            Back to Dashboard
 
         </a>
-
     </div>
 
     <div class="table-container">
+<p align="right">
+        <a href="add_subject.jsp"
+           class="btn btn-primary back-btn btn-round ms-auto">
 
+           Filter
+
+        </a></p>
         <table class="table table-hover align-middle">
 
             <thead>
@@ -60,48 +105,45 @@ rel="stylesheet">
 
             <%
                 try {
-
-                    Connection con =
-                        DBConnection.getConnection();
-
-                    Statement st =
-                        con.createStatement();
-
-                    ResultSet rs =
-                        st.executeQuery(
-                        "SELECT * FROM subjects");
-
-                    while(rs.next()) {
+List<Subject> l1=DAOFactory.getSubjectDao().getAllSubjects();
+                    for(Subject rs:l1){
             %>
 
                 <tr>
 
                     <td>
-                        <%= rs.getInt("sub_id") %>
+                        <%= rs.getSub_id() %>
                     </td>
 
                     <td>
-                        <%= rs.getString("sub_name") %>
+                        <%= rs.getSub_name() %>
                     </td>
                     
                     <td>
-                        <%= rs.getString("sub_code") %>
+                        <%= rs.getSub_code() %>
                     </td>
                     
                     <td>
-                        <%= rs.getString("subject_type") %>
+                        <%= rs.getSubject_type() %>
                     </td>
                     
                     <td>
-                        <%= rs.getString("sem") %>
+                        <%= rs.getSem() %>
                     </td>
                     
                     <td>
-                        <%= rs.getInt("dept_id") %>
+                        <%
+                        Department d=DAOFactory.getDepartmentDao().getDepartmentById(rs.getDept_id());
+                        %>
+                        <%=d.getDept_name()%>
                     </td>
                     
                     <td>
-                        <%= rs.getInt("faculty_id") %>
+                    <%
+                       Faculty f=DAOFactory.getFacultyDao().getFacultyById(rs.getFac_id());
+                        %>
+                        <%=f.getUsername()%>
+                     
                     </td>
 
                     
@@ -110,7 +152,7 @@ rel="stylesheet">
             <%
                     }
 
-                    con.close();
+                
 
                 } catch(Exception e) {
 

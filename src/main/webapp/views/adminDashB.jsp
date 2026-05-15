@@ -660,7 +660,7 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h4>Faculty Members</h4>
-        <a href="${pageContext.request.contextPath}/views/allTeacher.jsp">View All →</a>
+        <a href="${pageContext.request.contextPath}/views/registeredFaculty.jsp">View All →</a>
       </div>
       <div class="card-body">
         
@@ -711,9 +711,7 @@
 
         </div>
 
-        <span class="status-badge">
-            Active
-        </span>
+       
 
     </div>
 
