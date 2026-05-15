@@ -425,7 +425,7 @@
                                 Rahmad commented on Admin
                               </span>
                               <span class="time">12 minutes ago</span>
-                            </div>
+                                </div>
                           </a>
                           <a href="#">
                             <div class="notif-img">
