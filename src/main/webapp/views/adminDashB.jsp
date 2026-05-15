@@ -128,7 +128,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	// response.sendRedirect("admin_login.jsp");
+    	 response.sendRedirect("admin_login.jsp");
      }
   
   
@@ -174,11 +174,6 @@
                 </a>
               </li>
        
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -618,6 +613,7 @@
         <p>Teachers</p>
       </div>
     </div>
+    </div>
 
   <div class="col-md-3">
     <div class="card shadow-sm">
@@ -649,7 +645,7 @@
     </div>
   </div>
 
-</div>
+
 
 <br>
 
