@@ -109,7 +109,7 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
            <ul class="nav nav-secondary">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -123,10 +123,10 @@
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
               </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item active" style="text-decoration: row; display:flex;">
                    
                   <a 
-                  class="nav-link"
+                  class="nav-link "
                   href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
                   <i class="bi bi-person-plus"></i><p>Add Teacher</p></a>
 
