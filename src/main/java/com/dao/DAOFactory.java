@@ -9,6 +9,8 @@ static facultyDao Fdao;
 	static RoomDao Rdao;
 	static SubjectDao Sdao;
 	static TimetableDao Tdao;
+	static NotificationDAO Ndao;
+	
 	static {
 		Adao = new adminDaoImpl();
 		Fdao=new facultyDaoImpl();
@@ -16,6 +18,13 @@ static facultyDao Fdao;
 		Rdao=new RoomDaoImpl();
 		Sdao=new SubjectDaoImpl();
 		Tdao=new TimetableDaoImpl();
+		Ndao = new NotificationDaoImpl();
+	}
+
+	
+	public static NotificationDAO getNotificationDao() {
+		//System.out.println("dao factory");
+		return Ndao;
 	}
 	
 	public static adminDao getAdminDao() {

@@ -1,21 +1,29 @@
-<%@page import="com.dao.DAOFactory"%>
-<%@page import="com.util.DBConnection"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.dao.NotificationDAO,com.model.Notification" %>
+    
+    <%@page import="com.util.DBConnection"%>
+    
+<%@page import="java.util.*" %>
+<%@page import="com.dao.*" %>
+<%@page import="com.model.*" %>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>jay shree ganeshay namh</title>
+   
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+ <title>Add Notification</title>
 
+    <link href=
+"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
    
     
@@ -24,40 +32,7 @@
       href="${pageContext.request.contextPath}/assets/img/kaiadmin/favicon.ico"
       type="image/x-icon"
     />
-  <style type="text/css">
-    .banner-bg {
-  width: 100%;
-  height: 1000px;
-  border-radius: 10px;
-  background-image: url("${pageContext.request.contextPath}/assets/img/timetableimg.png"); 
-  background-size: contain;       
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #6861ce; 
-  text-shadow: 1px 1px 2px ;
-  
-};
 
-/* responsive */
-@media (max-width: 768px) {
-  .banner-bg { height: 180px; }
-}
-
-
-
-/*
-.banner-bg {
-    /* Apni image ka path yahan daalein */
-    background-image: url('path/to/your/banner-image.jpg');
-    background-size: cover; /* Responsive aur cover ke liye */
-    background-position: center;
-    min-height: 250px; /* Banner ki height */
-    color: white; /* Text color white karein taki image par dikhe */
-    /* Agar text image par saaf na dikhe toh yeh line use karein: */
-    text-shadow: 2px 2px 4px #000000; 
-}
-*/
-    </style>
     <!-- Fonts and icons -->
     <script src="${pageContext.request.contextPath}/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -87,19 +62,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
   </head>
   <body>
-  
-    <%
+    
+    
+    <% 
          response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //http 1.1
         response.setHeader("Pragma","no-cache");//http 1.0
     	response.setHeader("Expires","0");// proxies
     	
      if(session.getAttribute("username")==null){
     	 
-    	 response.sendRedirect("teacher_login.jsp");
+    	 //response.sendRedirect("admin_login.jsp");
      }
   
   
-    %>
+ %>
+    
+    
     
     <div class="wrapper">
       <!-- Sidebar -->
@@ -135,7 +113,7 @@
               <li class="nav-item active">
                 <a
                   class="nav-link"
-                  href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
+                  href="${pageContext.request.contextPath}/views/adminDashB.jsp">
                   <i class="fas fa-home"></i>
                   <p>Dashboard</p>
                 </a>
@@ -146,26 +124,26 @@
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
               </li>
-           <!--     <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
                   <i class="bi bi-person-plus"></i><p>Add Teacher</p></a>
 
-              </li>-->
+              </li>
               
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
-                  href="${pageContext.request.contextPath}/views/viewFac_subject.jsp">
-                  <i class="bi bi-book"></i><p>Subject list</p></a>
+                  href="${pageContext.request.contextPath}/views/add_subject.jsp">
+                  <i class="bi bi-book"></i><p>View Subjects</p></a>
                 </a>
 
               </li>
                 
-             <!--   <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
@@ -173,26 +151,32 @@
                   <i class="bi bi-building-add"></i><p>Add Department</p></a>
                 </a>
 
-              </li>-->
+              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
-                  href="${pageContext.request.contextPath}/views/viewFac_class.jsp">
-                  <i class="bi bi-door-open"></i><p>Classes list</p></a>
+                  href="${pageContext.request.contextPath}/views/add_room.jsp">
+                  <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
-            <!--    <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+                  <a href="${pageContext.request.contextPath}/views/Notification.jsp">
+                  <i class="bi bi-calendar4"></i><p>Send Notifications</p></a>
+
+              </li>
+              <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/create_timetable.jsp">
                   <i class="bi bi-calendar-plus"></i><p>Create TimeTable</p></a>
 
-              </li>-->
+              </li>
              <li class="nav-item" style="text-decoration: row; display:flex;">
                    
-                  <a href="${pageContext.request.contextPath}/views/viewFac_timetable.jsp">
+                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">
                   <i class="bi bi-calendar4"></i><p>View TimeTable</p></a>
 
               </li>
@@ -201,15 +185,16 @@
                    
                   <a href="Login.jsp"><i class="bi bi-box-arrow-in-left"></i><p>Login</p></a>
 
-              </li>-->
+              </li>
               
               <li class="nav-item" style="text-decoration: row; display:flex;">
-                   <form action="${pageContext.request.contextPath}/facultyLogout" id="logoutForm">
+                   <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
                         <input type="hidden" name="logout" value="true">
                         </form>
                   <a href="#" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i><p>Logout</p></a>
 
-              </li>
+              </li>-->
+              
             </ul>
           </div>
         </div>
@@ -383,179 +368,84 @@
                     </li>
                   </ul>
                 </li>
-
-  
-<%
-
-List<Notification> notifications =
-DAOFactory.getNotificationDao()
-          .getNotificationsByRole("FACULTY");
-
-int latestNotificationId =
-DAOFactory.getNotificationDao()
-          .getLatestNotificationIdByRole("FACULTY");
-
-/* Session stored last seen id */
-Integer lastSeenId =
-(Integer)session.getAttribute("facultyLastSeenNotification");
-
-/* Default */
-if(lastSeenId == null){
-    lastSeenId = 0;
-}
-
-/* New notification count */
-int newNotificationCount = 0;
-
-for(Notification n : notifications){
-
-    if(n.getId() > lastSeenId){
-
-        newNotificationCount++;
-    }
-}
-
-%>
-
-<li class="nav-item topbar-icon dropdown hidden-caret">
-
-    <a class="nav-link dropdown-toggle"
-       href="#"
-       id="notifDropdown"
-       role="button"
-       data-bs-toggle="dropdown"
-       aria-haspopup="true"
-       aria-expanded="false">
-
-        <i class="fa fa-bell"></i>
-
-        <%
-
-if(newNotificationCount > 0){
-
-%>
-
-<span class="notification">
-
-    <%= newNotificationCount %>
-
-</span>
-
-<%
-
-}
-
-%>
-
-    </a>
-
-    <ul class="dropdown-menu notif-box animated fadeIn"
-        aria-labelledby="notifDropdown">
-
-        <!-- Top Title -->
-        <li>
-
-            <div class="dropdown-title">
-
-                You have
-                <%= notifications.size() %>
-                new notifications
-
-            </div>
-
-        </li>
-
-        <!-- Notification Body -->
-        <li>
-
-            <div class="notif-scroll scrollbar-outer">
-
-                <div class="notif-center">
-
-                <%
-
-                if(notifications.isEmpty()){
-
-                %>
-
-                    <div class="text-center p-3 text-muted">
-
-                        No Notifications Available
-
-                    </div>
-
-                <%
-
-                } else {
-
-                    for(Notification n : notifications){
-
-                %>
-
-                    <a href="#">
-
-                        <div class="notif-icon notif-primary">
-
-                            <i class="fa fa-bell"></i>
-
-
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="notifDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-bell"></i>
+                    <span class="notification">4</span>
+                  </a>
+                  <ul
+                    class="dropdown-menu notif-box animated fadeIn"
+                    aria-labelledby="notifDropdown"
+                  >
+                    <li>
+                      <div class="dropdown-title">
+                        You have 4 new notification
+                      </div>
+                    </li>
+                    <li>
+                      <div class="notif-scroll scrollbar-outer">
+                        <div class="notif-center">
+                          <a href="#">
+                            <div class="notif-icon notif-primary">
+                              <i class="fa fa-user-plus"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block"> New user registered </span>
+                              <span class="time">5 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-icon notif-success">
+                              <i class="fa fa-comment"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block">
+                                Rahmad commented on Admin
+                              </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-img">
+                              <img
+                                src="assets/img/profile2.jpg"
+                                alt="Img Profile"
+                              />
+                            </div>
+                            <div class="notif-content">
+                              <span class="block">
+                                Reza send messages to you
+                              </span>
+                              <span class="time">12 minutes ago</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="notif-icon notif-danger">
+                              <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="notif-content">
+                              <span class="block"> Farrah liked Admin </span>
+                              <span class="time">17 minutes ago</span>
+                            </div>
+                          </a>
                         </div>
-
-                        <div class="notif-content">
-
-                            <span class="block">
-
-                                <%= n.getTitle() %>
-
-                            </span>
-
-                            <span class="block text-muted"
-                                  style="font-size:12px;">
-
-                                <%= n.getMessage() %>
-
-                            </span>
-
-                            <span class="time">
-
-                                <%= n.getCreatedAt() %>
-
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                <%
-
-                    }
-                }
-
-                %>
-
-                </div>
-
-            </div>
-
-        </li>
-
-        <!-- Footer -->
-        <li>
-
-            <a class="see-all"
-               href="${pageContext.request.contextPath}/views/Fac_notification.jsp">
-
-                See all notifications
-
-                <i class="fa fa-angle-right"></i>
-
-            </a>
-
-        </li>
-
-    </ul>
-
-</li>
+                      </div>
+                    </li>
+                    <li>
+                      <a class="see-all" href="javascript:void(0);"
+                        >See all notifications<i class="fa fa-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
                 
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
@@ -591,13 +481,9 @@ if(newNotificationCount > 0){
                           <div class="u-text">
                             <h4>${username}</h4>
                             <p class="text-muted">${email}</p>
-                            <form action="${pageContext.request.contextPath}/ProfileServlet" id="pForm">
-                        <input type="hidden" name="id" value="<%=session.getAttribute("fid")%>">
-                        </form>
                             <a
-                              href="#"
+                              href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
-                              onclick="document.getElementById('pForm').submit();"
                               >View Profile</a
                             >
                           </div>
@@ -611,7 +497,7 @@ if(newNotificationCount > 0){
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <form action="${pageContext.request.contextPath}/facultyLogout" id="logoutForm">
+                        <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
                         <input type="hidden" name="logout" value="true">
                         </form>
                         <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
@@ -631,11 +517,11 @@ if(newNotificationCount > 0){
           <!-- End Navbar -->
         </div>
 
-        <div class="container">
+     <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Welcome ${username} !</h3>
-            <!--  <ul class="breadcrumbs mb-3">
+              <h3 class="fw-bold mb-3">Send Notifications...</h3>
+              <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
                     <i class="icon-home"></i>
@@ -645,172 +531,280 @@ if(newNotificationCount > 0){
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_Teacher.jsp">add teacher</a>
+                  <a href="${pageContext.request.contextPath}/views/add_room.jsp">send notifications</a>
                 </li>
-                  <li class="separator">
+               <!--   <li class="separator">
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
                   <a href="#">Datatables</a>
-                </li>   
-              </ul>-->
+                </li>   -->
+              </ul>
             </div>
-           
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Send Notifications</div>
+                  </div>
+                 
+                      <!--   <label class="mt-3 mb-3"
+                          ><b>Form Floating Label</b></label>
+                          --> 
+                <form action="${pageContext.request.contextPath}/NotificationServlet" method="post"> 
+                         
+                       
+                         <div class="form-group">
+                          <label for="largeInput">Title</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-lg"
+                            id="largeInput"
+                            name="title"
+                            placeholder="Enter Title...."
+                            required="required"
+                          />
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="largeInput">Message</label>
+                          <textarea
+                            class="form-control form-control-lg"
+                            id="largeInput"
+                            name="message"
+                            placeholder="Enter Message...."
+                            required="required"
+                          ></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="defaultSelect">Send to</label>
+                          <select
+                           name="targetRole"
+                            required="required"
+                            class="form-select form-control"
+                            id="defaultSelect"
+                          >
+                            <option value="ALL">
+                                      All
+                                 </option>
 
-              <!--  <div class="col-md-12">
+                         <option value="FACULTY">
+                           Faculty
+                          </option>
+
+                       <option value="STUDENT">
+                         Student
+                       </option>
+                       
+                      </select>
+                      </div>
+                        
+                        <p style="align:center">
+                        <button 
+                        type="submit"
+                        class="btn btn-secondary btn-round ms-auto"
+                         >
+                          <i class="fa fa-plus"></i>
+                        Send
+                      </button>
+                      </p>
+                   </form>
+                       
+                      
+                      <div class="container">
+          <div class="page-inner">
+           
+               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
                     <div class="d-flex align-items-center">
-                      <h4 class="card-title">TEACHERS</h4>
-                      <button
+                      <h4 class="card-title">List of Notifications</h4>
+                  <!--    <button
                         class="btn btn-primary btn-round ms-auto"
                         
-                        title="Registered Faculty list"
-                        onclick="window.location.href='${pageContext.request.contextPath}/views/registeredFaculty.jsp'"
+                        title="click here to edit department data"
+                        onclick="window.location.href='${pageContext.request.contextPath}/views/edit_dept.jsp'"
                       >
                         <!--  <i class="fa fa-plus"></i>
-                        See Added Faculty
-                      </button>
+                        Edit Dept Data
+                      </button> --> 
                     </div>
                   </div>
-                  -->
+                  
                   
                   <div class="card-body">
-               <div class="container-fluid mt-4">
+                   
+                    <div class="table-responsive">
+                      <table
+                        id="add-row"
+                        class="display table table-striped table-hover"
+                      >
+                      <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Message</th>
+                            <th>Send To</th>
+                            <th>Time&Date</th>
+                             <th style="width: 10%">Action</th>
+                           
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                           <th>Title</th>
+                            <th>Message</th>
+                            <th>Send To</th>
+                            <th>Time&Date</th>
+                             <th>Action</th>
+                           
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                        <%
+                        List<Notification> list1 = DAOFactory.getNotificationDao().getAllNotification();
 
-     
-<!-- Notification Card -->
-<div class="card shadow-sm border-0 mt-4">
+                          
+                        try {
+                            for(Notification n: list1){
+                            	%>
+                            
+                         
+                          <tr>
+                         
+                            <td><%=n.getTitle()%></td>
+                            <td><%=n.getMessage()%></td>
+                            <td><%=n.getTargetRole()%></td>
+                            <td><%=n.getCreatedAt()%></td>
 
-    <div class="card-header d-flex justify-content-between align-items-center"
-         style="background:#1a2035;color:white;">
+                            <td>
+                            
+              
+                              <div class="form-button-action">
+                                
+       <form action="${pageContext.request.contextPath}/NotificationServlet" method="get" id="deleteForm_<%=n.getId()%>">
+            <input type="hidden" name="msg_id" value="<%=n.getId()%>">
+            <input type="hidden" name="action" value="delete">
+        </form>
+        
+              
+              
+                                <button
+                                  type="button"
+                                  data-bs-toggle="tooltip"
+                                  title="Delete Notification"
+                                  class="btn btn-link btn-danger"
+                                  data-original-title="delete"
+                                 onclick="if(confirm('Are you sure to delete this notification?')) {
+                document.getElementById('deleteForm_<%=n.getId()%>').submit();}"
+                                >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              
+                              </div>
+                            </td>
+                          </tr>
+                         
+                          
+                        <%
+                            }
+                          
+                        } catch(Exception e) {
+                            out.println(e);
+                        }
+                    %>
 
-        <h5 class="mb-0">
-            <i class="fa fa-bell me-2"></i>
-            Notifications
-        </h5>
-
-       <span class="badge rounded-pill"
-      style="background:#1572E8;
-             color:white;
-             font-size:12px;
-             padding:6px 10px;">
-
-   available <%= notifications.size() %>
-
-</span>
-
-    </div>
-
-    <div class="card-body p-3"
-         style="max-height:400px;overflow-y:auto;">
-
-    <%
-    if(notifications.isEmpty()){
-    %>
-
-        <div class="text-center text-muted py-4">
-
-            <i class="fa fa-bell-slash fa-2x mb-2"></i>
-
-            <p class="mb-0">
-                No Notifications Available
-            </p>
-
-        </div>
-
-    <%
-    } else {
-
-        for(Notification n : notifications){
-    %>
-
-        <!-- Single Notification -->
-        <div class="card border-0 shadow-sm mb-3">
-
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between">
-
-                    <h6 class="fw-bold text-primary mb-1">
-
-                        <i class="fa fa-envelope me-1"></i>
-
-                        <%= n.getTitle() %>
-
-                    </h6>
-
-                    <small class="text-muted">
-
-                        <i class="fa fa-clock me-1"></i>
-
-                        <%= n.getCreatedAt() %>
-
-                    </small>
-
-                </div>
-
-                <p class="text-muted mb-0 mt-2">
-
-                    <%= n.getMessage() %>
-
-                </p>
-
-            </div>
-
-        </div>
-
-    <%
-        }
+                          
+                        </tbody>
+                      </table>
+                      
+                      <%
+    String msg = (String)request.getAttribute("send");
+    if(msg != null){
+%>
+<script>alert("<%=msg%>");</script>
+<%
     }
-    %>
-
-    </div>
-
-</div>
-</div>
-            <div class="card mt-3 p-0">
-   <div class="banner-bg" role="img" aria-label="Dashboard Banner">
-            <br><br><br>
-           <center> <h2></h2></center>
-  </div>
-                
-             </div>
-
+    String msg2 = (String)request.getAttribute("error");
+    if(msg2 != null){
+%>
+<script>alert("<%=msg2%>");</script>
+<%
+    }
+    String msg3 = (String)request.getAttribute("delmsg");
+    if(msg3 != null){
+%>
+<script>alert("<%=msg3%>");</script>
+<%
+    }
+%>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          
+          </div>
+        </div>
+              
+        
+            </div>
+          </div>
+         
+            
+        </div>
+                           
+          </div>
+         
+                      
+                   <!--     <div class="form-floating form-floating-custom mb-3">
+                          <select
+                            class="form-select"
+                            id="selectFloatingLabel"
+                            required
+                          >
+                            <option selected>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                         <label for="selectFloatingLabel"><h2 style="color:#86b7fe">Select</h2></label>
+                        </div>
+                         --> 
+                     <!--  
+                  <div class="card-action">
+                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-danger">Cancel</button>
+                  </div>
+                  -->   
+               
         
 
-      <footer class="footer">
+        <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
-          
-             <!-- Left: College Name -->
-    <div class="text-muted">
-      © 2026 <strong>SDITS</strong>
-    </div>
-
-    <!-- Center: Social Media Icons -->
-    <div class="footer-icons">
-      <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark">
-        <i class="fa-solid fa-globe fa-lg"></i>
-      </a>
-
-      <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary">
-        <i class="fa-brands fa-linkedin fa-lg"></i>
-      </a>
-
-      <a href="https://www.instagram.com" target="_blank" class="text-danger">
-        <i class="fa-brands fa-instagram fa-lg"></i>
-      </a>
-    </div>
-
-    <!-- Right: Project Info -->
-    <div class="text-muted">
-     Time Table Scheduler
-    </div>
+            <nav class="pull-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="http://www.themekita.com">
+                    ThemeKita
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Help </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Licenses </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright">
+              2024, made with <i class="fa fa-heart heart text-danger"></i> by
+              <a href="http://www.themekita.com">ThemeKita</a>
+            </div>
+            <div>
+              Distributed by
+              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+            </div>
           </div>
         </footer>
       </div>
@@ -1082,3 +1076,6 @@ if(newNotificationCount > 0){
     </script>
   </body>
 </html>
+
+
+
