@@ -69,7 +69,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	// response.sendRedirect("admin_login.jsp");
+    	response.sendRedirect("admin_login.jsp");
      }
   
   
@@ -775,12 +775,12 @@
         
         
 
-        <footer class="footer">
+           <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
           
              <!-- Left: College Name -->
     <div class="text-muted">
-      © 2025 <strong>SDITS College, Khandwa</strong>
+      © 2026 <strong>SDITS</strong>
     </div>
 
     <!-- Center: Social Media Icons -->
@@ -800,7 +800,7 @@
 
     <!-- Right: Project Info -->
     <div class="text-muted">
-      College Time Table Scheduler
+     Time Table Scheduler
     </div>
           </div>
         </footer>

@@ -13,11 +13,11 @@ public class adminDaoImpl implements adminDao {
 		
 		boolean status=false;
 		
-		  try {
-	            Connection con = DBConnection.getConnection();
-	            PreparedStatement ps = con.prepareStatement(
-	                "SELECT * FROM admin WHERE email=? AND password=?;"
-	            );
+		  try(  Connection con = DBConnection.getConnection();
+		            PreparedStatement ps = con.prepareStatement(
+			                "SELECT * FROM admin WHERE email=? AND password=?;"
+			            );) {
+	          
 
 	            ps.setString(1, admin.getEmail());
 	            ps.setString(2, admin.getPassword());
@@ -45,11 +45,11 @@ public class adminDaoImpl implements adminDao {
 	public boolean approveFaculty(int id) {
 		boolean status=false;
 		int x=0,y=0;
-		 try {
-			 Connection con = DBConnection.getConnection();
-	            PreparedStatement ps = con.prepareStatement(
-	            		"SELECT * FROM regteacher WHERE faculty_id=?;");
-	            ps.setInt(1, id);
+		 try( Connection con = DBConnection.getConnection();
+		            PreparedStatement ps = con.prepareStatement(
+		            		"SELECT * FROM regteacher WHERE faculty_id=?;");
+		           ) {
+			 ps.setInt(1, id);
 	            ResultSet rs = ps.executeQuery();
 
 	            if(rs.next()) {
@@ -72,9 +72,9 @@ public class adminDaoImpl implements adminDao {
 	                if(x!=0) {
 	                	
 	                	PreparedStatement msg = con.prepareStatement(
-	                		    "INSERT INTO fac_msg(email, msg) VALUES(?, ?)");
-	                		msg.setString(1, email);
-	                		msg.setString(2, "Your account has been APPROVED by admin!");
+	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	              		msg.setString(1, "Your account has been APPROVED by admin!");
+	                		msg.setString(2, email);
 	                		msg.executeUpdate();
 
 	                	
@@ -103,11 +103,11 @@ public class adminDaoImpl implements adminDao {
 		
 		boolean status=false;
 		int x=0,y=0;
-		 try {
-			 Connection con = DBConnection.getConnection();
-			 PreparedStatement ps = con.prepareStatement(
-	            		"SELECT * FROM regteacher WHERE faculty_id=?;");
-	            ps.setInt(1, id);
+		 try(Connection con = DBConnection.getConnection();
+				 PreparedStatement ps = con.prepareStatement(
+		            		"SELECT * FROM regteacher WHERE faculty_id=?;");
+		            ) {
+			 ps.setInt(1, id);
 	            ResultSet rs = ps.executeQuery();
 
 	            if(rs.next()) {
@@ -130,13 +130,12 @@ public class adminDaoImpl implements adminDao {
 	                 x=ps2.executeUpdate();
 
 	                if(x!=0) {
-	                	//  System.out.println("inserted");
+	                //	 System.out.println("inserted");
 	                	PreparedStatement msg = con.prepareStatement(
-	                		    "INSERT INTO fac_msg(email, msg) VALUES(?, ?);");
-	                		msg.setString(1, email);
-	                		msg.setString(2,"Your account request has been REJECTED by admin.");
+	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	              		msg.setString(1,"Your account request has been REJECTED by admin.");
+	                		msg.setString(2, email);
 	                		msg.executeUpdate();
-
 	                	
 	                PreparedStatement ps3 = con.prepareStatement(
 	                    "DELETE FROM regteacher WHERE faculty_id=?;");
@@ -144,7 +143,7 @@ public class adminDaoImpl implements adminDao {
 	                 y=ps3.executeUpdate();
 	                
 	                if(y!=0) {
-	                	  //System.out.println("deleted");
+	                	 // System.out.println("deleted");
 	                status=true;
 	                }
 	              }

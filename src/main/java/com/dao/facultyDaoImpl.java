@@ -15,19 +15,14 @@ public class facultyDaoImpl implements facultyDao {
 	public boolean validate(Faculty faculty) {
 	
 		boolean status=false;
-		
-		  try {
-	            Connection con = DBConnection.getConnection();
-	            PreparedStatement ps = con.prepareStatement(
-	                "SELECT * FROM login_teacher WHERE email=? AND password=?;"
-	            );
-
+		String query="SELECT * FROM login_teacher WHERE email=? AND password=?;";
+		  try (Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+         ){
+	            
 	            ps.setString(1, faculty.getEmail());
 	            ps.setString(2, faculty.getPassword());
-
-	            ResultSet rs = ps.executeQuery();
-	            
-	            
+	            ResultSet rs=ps.executeQuery();
 	            if(rs.next())
 	            {
 	               String username=rs.getString("username");
@@ -52,11 +47,10 @@ public class facultyDaoImpl implements facultyDao {
 
 		  String msg=null;
 		
-		  try {
-	            Connection con = DBConnection.getConnection();
-	            PreparedStatement ps = con.prepareStatement(
-	                "SELECT * FROM fac_msg WHERE email=?;"
-	            );
+		  try (Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM fac_msg WHERE email=?;");
+        ){
+	          
 
 	            ps.setString(1,email);
 	          
@@ -92,6 +86,14 @@ public class facultyDaoImpl implements facultyDao {
             ps.setString(4, f.getDept());
             ps.setString(5, f.getPassword());
             status = ps.executeUpdate();
+            if(status!=0) {
+            	
+            	PreparedStatement msg = con.prepareStatement(
+            		    "INSERT INTO fac_msg(email, msg) VALUES(?, ?)");
+            		msg.setString(1, f.getEmail());
+            		msg.setString(2, "pending");
+            		msg.executeUpdate();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,10 +103,10 @@ public class facultyDaoImpl implements facultyDao {
 
     public List<Faculty> getAllFaculty() {
         List<Faculty> list = new ArrayList<>();
-        try {
-            Connection con = DBConnection.getConnection();
+        try ( Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT * FROM login_teacher");
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();){
+           
 
             while (rs.next()) {
                 Faculty f = new Faculty();
@@ -124,10 +126,12 @@ public class facultyDaoImpl implements facultyDao {
     
     public Faculty getFacultyById(int id) {
         Faculty f = null;
-        Connection con = DBConnection.getConnection();
-        try {
-            String query = "SELECT * FROM login_teacher WHERE fac_id=?";
-            PreparedStatement ps = con.prepareStatement(query);
+        String query = "SELECT * FROM login_teacher WHERE fac_id=?";
+
+        try( Connection con = DBConnection.getConnection();
+        		  PreparedStatement ps = con.prepareStatement(query);
+        		) {
+          
             
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -153,10 +157,11 @@ public class facultyDaoImpl implements facultyDao {
     public boolean updateFaculty(Faculty f) {
 
         boolean status = false;
-        Connection con = DBConnection.getConnection();
-        try {
-            String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?  WHERE fac_id=?";
-            PreparedStatement ps = con.prepareStatement(sql);
+        String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?  WHERE fac_id=?";
+
+        try (        Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+             ){
 
             ps.setString(1, f.getEmail());
             ps.setString(2, f.getUsername());

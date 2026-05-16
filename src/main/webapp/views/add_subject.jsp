@@ -507,7 +507,7 @@
      <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Add Subjects...</h3>
+              <h3 class="fw-bold mb-3">Manage Subjects....</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -518,7 +518,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_subject.jsp">add subject</a>
+                  <a href="${pageContext.request.contextPath}/views/add_subject.jsp">Manage Subjects</a>
                 </li>
                <!--   <li class="separator">
                   <i class="icon-arrow-right"></i>
@@ -531,225 +531,12 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
-                  <div class="card-header">
-                    <div class="card-title">Add Subjects</div>
-                  </div>
+                  
                  
                       <!--   <label class="mt-3 mb-3"
                           ><b>Form Floating Label</b></label>
                           --> 
-                   <form action="${pageContext.request.contextPath}/AddSubjectServlet" method="post">
-                         
-                         
-                        <div class="form-group">
-                          <label for="largeInput">Subject Name</label>
-                          <input
-                            type="text"
-                            name="sub_name"
-                            required="required"
-                            class="form-control form-control"
-                            id="defaultInput"
-                            placeholder="Enter Subject Name"
-                          />
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="largeInput">Subject Code</label>
-                          <input
-                            type="text"
-                            name="sub_code"
-                            required="required"
-                            class="form-control form-control"
-                            id="defaultInput"
-                            placeholder="Enter Subject Code"
-                          />
-                        </div>
-                        
-                             <div class="form-group">
-                          <label>Subject Type</label><br />
-                          <div class="d-flex">
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="subject_type"
-                            required="required"
-                               value="Theory"
-                                id="flexRadioDefault1"
-                                checked
-                              />
-                              <label
-                                class="form-check-label"
-                                for="flexRadioDefault1"
-                              >
-                                Theory
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio" name="subject_type"
-                               required="required"
-                               value="Lab"
-                                id="flexRadioDefault2"
-                                
-                              />
-                              <label
-                                class="form-check-label"
-                                for="flexRadioDefault2"
-                              >
-                              Lab
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="largeInput">Short name of subject</label>
-                          <input
-                            type="text"
-                            class="form-control form-control"
-                             name="sub_abbr"
-                            id="defaultInput"
-                            placeholder="Enter Short name of subject"
-                          />
-                        </div>
-                        
-                          <div class="form-group">
-                          <label for="defaultSelect">Semester</label>
-                          <select
-                            class="form-select form-control"
-                            id="defaultSelect"
-                             name="sem"
-                            required="required"
-                              
-                          >
-                            <option value="1 sem">1 sem</option>
-                            <option value="2 sem">2 sem</option>
-                            <option value="3 sem">3 sem</option>
-                            <option value="4 sem">4 sem</option>
-                            <option value="5 sem">5 sem</option>
-                            <option value="6 sem">6 sem</option>
-                            <option value="7 sem">7 sem</option>
-                            <option value="8 sem">8 sem</option>
-                          </select>
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="defaultSelect">Teacher</label>
-                          <select
-                          name="fac_id"
-                            required="required"
-                            class="form-select form-control"
-                            id="defaultSelect"
-                          >
-                            <option value=""></option>
-                      
-                             <%
-                            
-                            
-                List<Faculty> list = DAOFactory.getFacultyDao().getAllFaculty();
-
-    try {
-        for(Faculty f: list){
-        	%>
-        <option value="<%= f.getFac_id() %>">
-                <%= f.getUsername() %>
-        </option>
-
-<%
-        }
-      
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>
-
-                          </select>
-                          </div>
-                        
-                        
-                        
-                        <div class="form-group">
-                          <label for="defaultSelect">Department</label>
-                          <select
-                          id="defaultSelect"
-                          name="dept_id"
-                            required="required"
-                            class="form-select form-control"
-                            
-                          >
-                            <%
-                            
-                            
-                List<Department> list1 = DAOFactory.getDepartmentDao().getAllDepartments();
-
-    try {
-        for(Department d: list1){
-        	%>
-        
-        <option value="<%= d.getDept_id() %>">
-                <%=d.getDept_name() %>
-        </option>
-
-<%
-        }
-      
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>
-
-                          </select>
-                        </div>
-                        
-                         <!--  <div class="form-group">
-                          <label for="defaultSelect">Department</label>
-                          <select
-                          name="dept_id"
-                            required="required"
-                            class="form-select form-control"
-                            id="defaultSelect"
-                          >
-                            <%--
-                            
-                            
-                            
-    try {
-    	 Connection con = DBConnection.getConnection();
-
-         PreparedStatement ps = con.prepareStatement("SELECT * FROM departments");
-        ResultSet rs = ps.executeQuery();
-
-        while(rs.next()) {
-        	
-%>
-        <option value="<%= rs.getInt("dept_id") %>">
-                <%= rs.getString("dept_name") %>
-        </option>
-
-<%
-        }
-        con.close();
-    } catch(Exception e) {
-        out.println(e);
-    }
---%>
-
-                          </select>
-                        </div>--> 
-                        
-                        <p style="align:center">
-                        <button 
-                        type="submit"
-                        class="btn btn-secondary btn-round ms-auto"
-                         >
-                          <i class="fa fa-plus"></i>
-                        Add Subject
-                      </button>
-                      </p>
-                   </form>
-                       
+                  
                       
                       <div class="container">
           <div class="page-inner">
@@ -773,6 +560,7 @@
                             <th>Type</th>
                             <th>Sem</th>
                             <th>Department</th>
+                            <th>Frequency</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -783,7 +571,8 @@
                             <th>Type</th>
                             <th>Sem</th>
                             <th>Department</th>
-                            
+                            <th>Frequency</th>
+                            <th>Action</th>
                           </tr>
                         </tfoot>
                         <tbody>
@@ -836,6 +625,8 @@ try {
         while(rs1.next()) {
 %>
          <td><%=rs1.getString("dept_name")%></td>
+         <td><%=rs.getString("frequency")%></td>
+         
 
 <%
         }
@@ -845,6 +636,12 @@ catch(Exception e) {
         out.println(e);
     }
 %>
+
+
+
+                           <td>frequency</td>
+                           
+                           
                            
                                   <td>
             
@@ -927,31 +724,33 @@ catch(Exception e) {
          
 
 
-        <footer class="footer">
+         <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
-            <nav class="pull-left">
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="http://www.themekita.com">
-                    ThemeKita
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Help </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Licenses </a>
-                </li>
-              </ul>
-            </nav>
-            <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">ThemeKita</a>
-            </div>
-            <div>
-              Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-            </div>
+          
+             <!-- Left: College Name -->
+    <div class="text-muted">
+      © 2026 <strong>SDITS</strong>
+    </div>
+
+    <!-- Center: Social Media Icons -->
+    <div class="footer-icons">
+      <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark">
+        <i class="fa-solid fa-globe fa-lg"></i>
+      </a>
+
+      <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary">
+        <i class="fa-brands fa-linkedin fa-lg"></i>
+      </a>
+
+      <a href="https://www.instagram.com" target="_blank" class="text-danger">
+        <i class="fa-brands fa-instagram fa-lg"></i>
+      </a>
+    </div>
+
+    <!-- Right: Project Info -->
+    <div class="text-muted">
+     Time Table Scheduler
+    </div>
           </div>
         </footer>
       </div>

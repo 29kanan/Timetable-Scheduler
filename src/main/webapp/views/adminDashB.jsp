@@ -128,7 +128,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	// response.sendRedirect("admin_login.jsp");
+    	 response.sendRedirect("admin_login.jsp");
      }
   
   
@@ -174,11 +174,6 @@
                 </a>
               </li>
        
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -618,7 +613,7 @@
         <p>Teachers</p>
       </div>
     </div>
-  </div>
+    </div>
 
   <div class="col-md-3">
     <div class="card shadow-sm">
@@ -650,7 +645,7 @@
     </div>
   </div>
 
-</div>
+
 
 <br>
 
@@ -660,7 +655,7 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h4>Faculty Members</h4>
-        <a href="${pageContext.request.contextPath}/views/allTeacher.jsp">View All →</a>
+        <a href="${pageContext.request.contextPath}/views/registeredFaculty.jsp">View All →</a>
       </div>
       <div class="card-body">
         
@@ -711,9 +706,7 @@
 
         </div>
 
-        <span class="status-badge">
-            Active
-        </span>
+       
 
     </div>
 
@@ -901,7 +894,7 @@
           
              <!-- Left: College Name -->
     <div class="text-muted">
-      © 2025 <strong>SDITS College, Khandwa</strong>
+      © 2026 <strong>SDITS</strong>
     </div>
 
     <!-- Center: Social Media Icons -->
@@ -921,7 +914,7 @@
 
     <!-- Right: Project Info -->
     <div class="text-muted">
-      College Time Table Scheduler
+     Time Table Scheduler
     </div>
           </div>
         </footer>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="com.util.DBConnection"%>
-    <%@page import="java.sql.*" %>
+    <%@page import="com.util.DBConnection , com.dao.*"%>
+    <%@page import="java.sql.* , com.model.* , java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +58,9 @@
 <body>
 
     <div class="container">
+    <p align="left"> <a href="teacher_login.jsp">
+ back
+</a></p>
         <h2>Teacher Registration</h2>
        <form  action="${pageContext.request.contextPath}/RegisterFacServlet" method="post">
             
@@ -82,20 +85,15 @@
    
 <%
     try {
-    	 Connection con = DBConnection.getConnection();
-
-         PreparedStatement ps = con.prepareStatement("SELECT dept_name FROM departments");
-        ResultSet rs = ps.executeQuery();
-
-        while(rs.next()) {
+    	 List<Department> dept=DAOFactory.getDepartmentDao().getAllDepartments();
+        for(Department d : dept) {
 %>
-        <option value="<%= rs.getString("dept_name") %>">
-                <%= rs.getString("dept_name") %>
+        <option value="<%= d.getDept_name() %>">
+                <%= d.getDept_name() %>
         </option>
 
 <%
         }
-        con.close();
     } catch(Exception e) {
         out.println(e);
     }

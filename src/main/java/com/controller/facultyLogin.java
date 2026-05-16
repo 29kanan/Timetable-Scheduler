@@ -46,8 +46,8 @@ public class facultyLogin extends HttpServlet {
             rd.forward(request, response);
             
         } else {
-            request.setAttribute("error", "Invalid 	Email or Password");
-            RequestDispatcher rd = request.getRequestDispatcher("/views/teacher_login.jsp");
+            request.setAttribute("status", "error");
+            RequestDispatcher rd = request.getRequestDispatcher("/show_msgServlet");
             rd.forward(request, response);
         }
 		

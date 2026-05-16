@@ -11,6 +11,7 @@ public class Subject {
     private String sem;
     private int dept_id;
     private int fac_id;
+    private int frequency;
     
 
    
@@ -20,7 +21,7 @@ public class Subject {
 	}
     
     
-	public Subject(String sub_name, String sub_code, String sub_abbr, String subject_type, String sem, int dept_id,int fac_id) {
+	public Subject(String sub_name, String sub_code, String sub_abbr, String subject_type, String sem, int dept_id,int fac_id , int frequency) {
 		
 		this.sub_name = sub_name;
 		this.sub_code = sub_code;
@@ -29,11 +30,12 @@ public class Subject {
 		this.sem = sem;
 		this.dept_id = dept_id;
 		this.fac_id=fac_id;
+		this.frequency = frequency;
 	}
 
 
 	public Subject(int sub_id, String sub_name, String sub_code, String sub_abbr, String subject_type, String sem,
-			int dept_id,int fac_id) {
+			int dept_id,int fac_id , int frequency) {
 		this.sub_id = sub_id;
 		this.sub_name = sub_name;
 		this.sub_code = sub_code;
@@ -42,6 +44,8 @@ public class Subject {
 		this.sem = sem;
 		this.dept_id = dept_id;
 		this.fac_id=fac_id;
+		this.frequency = frequency;
+		
 	}
 	public int getSub_id() { return sub_id; }
     public void setSub_id(int sub_id) { this.sub_id = sub_id; }
@@ -72,6 +76,15 @@ public class Subject {
 	public void setFac_id(int fac_id) {
 		this.fac_id = fac_id;
 	}
+ 
+	 public int getFrequency() {
+			return frequency;
+		}
+
+
+		public void setFrequency(int frequency) {
+			this.frequency = frequency;
+		}
 
 }
 

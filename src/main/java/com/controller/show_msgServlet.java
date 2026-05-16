@@ -24,22 +24,33 @@ public class show_msgServlet extends HttpServlet {
       
         facultyDao dao = DAOFactory.getFacultyDao();
         String msg=dao.show_msg(email);
+        
         if (msg!=null) {
         	
-        	
         	if(msg.contains("APPROVED"))
-        	     {request.setAttribute("error1",msg);}
-        	else
-        	{ request.setAttribute("error2",msg);}
-            RequestDispatcher rd = request.getRequestDispatcher("/views/teacher_login.jsp");
+        	     { 
+        		  request.setAttribute("status","approved");
+        	     request.getRequestDispatcher("/facultyLogin").forward(request, response);
+        	     }
+        	else if(msg.contains("REJECTED"))
+        	{ request.setAttribute("status","rejected"); 
+        	RequestDispatcher rd = request.getRequestDispatcher("/views/fac_status_msg.jsp");
             rd.forward(request, response);
-            
+            }
+        	else{
+         		request.setAttribute("status", "pending");
+        RequestDispatcher rd = request.getRequestDispatcher("/views/fac_status_msg.jsp");
+        rd.forward(request, response);
+         	}
+        	
         } else {
-            request.setAttribute("error3", "Please wait.Your ragistration request is awaiting admin action !!");
-            RequestDispatcher rd = request.getRequestDispatcher("/views/teacher_login.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/views/fac_status_msg.jsp");
             rd.forward(request, response);
+        
         }
+        	
+      }
 		
 	}
 
-}
+
