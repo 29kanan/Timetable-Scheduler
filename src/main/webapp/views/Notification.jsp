@@ -260,7 +260,7 @@
                     <i class="fa fa-search"></i>
                   </a>
                   <ul class="dropdown-menu dropdown-search animated fadeIn">
-                    <form class="navbar-left navbar-form nav-search">
+                    <fosrm class="navbar-left navbar-form nav-search">
                       <div class="input-group">
                         <input
                           type="text"

@@ -625,7 +625,7 @@ try {
         while(rs1.next()) {
 %>
          <td><%=rs1.getString("dept_name")%></td>
-         <td><%=rs.getString("frequency")%></td>
+         
          
 
 <%
@@ -639,7 +639,7 @@ catch(Exception e) {
 
 
 
-                           <td>frequency</td>
+                           <td><%=rs.getString("frequency")%></td>
                            
                            
                            
