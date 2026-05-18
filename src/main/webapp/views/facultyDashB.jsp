@@ -1,9 +1,9 @@
-<%@page import="com.dao.DAOFactory"%>
-<%@page import="com.util.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.dao.NotificationDAO,com.model.Notification" %>
+    <%@page import="com.dao.*"%>
+<%@ page import="java.util.*,com.model.*" %>
 <%@page import="java.sql.*" %>
+<%@page import="com.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
