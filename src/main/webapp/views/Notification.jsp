@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <title>Send Notifications | TTS </title>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
    
@@ -19,7 +20,7 @@
       name="viewport"
     />
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
- <title>Add Notification</title>
+ 
 
     <link href=
 "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -239,7 +240,7 @@
         <!-- Admin Image -->
         <div class="avatar-sm">
             <img
-                src="${pageContext.request.contextPath}/assets/img/adminicon.jpg"
+                src="${pageContext.request.contextPath}/assets/img/admin-icon.jpg"
                 alt="Admin"
                 class="avatar-img rounded-circle"
             />
@@ -247,18 +248,25 @@
 
         <!-- Username -->
         <span class="profile-username ms-2 me-3">
-            <span class="op-7">Hi, </span>
             <span class="fw-bold">${username}</span>
         </span>
     </li>
 
 </ul>
               </nav>
+        
+        
+        <div class="d-flex align-items-center ms-auto">
+    <i class="fa fa-envelope"></i>
+    <a href="Notification.jsp" class="nav-link me-3" >
+        
+    </a>
 
-        <!-- Logout Button -->
-        <a href="logout.jsp" class="btn btn-danger btn-sm">
-   <i class="fa-solid fa-right-from-bracket"></i> Logout
-</a>
+    <a href="logout.jsp" class="btn btn-primary btn-sm">
+        Logout
+    </a>
+
+</div>
             </div>
           </nav>
           

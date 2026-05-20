@@ -78,6 +78,13 @@ rel="stylesheet">
     </div>
 
     <div class="table-container">
+    <p align="right">
+        <a href="add_dept.jsp"
+           class="btn btn-primary back-btn btn-round ms-auto">
+
+           Filter
+
+        </a></p>
 
         <table class="table table-hover align-middle">
 

@@ -78,7 +78,7 @@ rel="stylesheet">
     </div>
 
     <div class="table-container">
-<p align="right">
+       <p align="right">
         <a href="add_subject.jsp"
            class="btn btn-primary back-btn btn-round ms-auto">
 
