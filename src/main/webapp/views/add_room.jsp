@@ -636,7 +636,6 @@
 
                             <td>
                             
-              
                               <div class="form-button-action">
                               <form action="${pageContext.request.contextPath}/views/edit_room.jsp" method="post" id="editForm_<%=rs.getInt("room_id")%>">
             <input type="hidden" name="room_id" value="<%=rs.getInt("room_id")%>">

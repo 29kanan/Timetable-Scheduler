@@ -1,26 +1,22 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-         <%@page import="com.dao.*"%>
-<%@page import="com.model.*"%>
-<%@page import="java.util.List"%>
-<%@page import="com.util.DBConnection"%>
+
+<%@page import="java.util.*" %>
 <%@page import="java.sql.*" %>
+<%@page import="com.dao.*" %>
+<%@page import="com.model.*" %>
+<%@page import="com.util.DBConnection"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> add department </title>
+    <title>Edit Classes..</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-   
-    
     <link
       rel="icon"
       href="${pageContext.request.contextPath}/assets/img/kaiadmin/favicon.ico"
@@ -56,9 +52,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
   </head>
   <body>
-    
-    
-    <% 
+  
+  <% 
          response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //http 1.1
         response.setHeader("Pragma","no-cache");//http 1.0
     	response.setHeader("Expires","0");// proxies
@@ -70,130 +65,67 @@
   
   
  %>
-    
-    
-    
     <div class="wrapper">
+    
       <!-- Sidebar -->
-      <div class="sidebar" data-background-color="dark">
-        <div class="sidebar-logo">
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-             <!--  <img
-                src="${pageContext.request.contextPath}/assets/img/kaiadmin/logo_light.svg"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              /> -->
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-          <!-- End Logo Header -->
-        </div>
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item active">
-                <a
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/adminDashB.jsp">
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                </a>
+    <!--          <span class="sub-item">Level 1</span>
+                        <span class="caret"></span>
+                      </a>
+                      <div class="collapse" id="subnav1">
+                        <ul class="nav nav-collapse subnav">
+                          <li>
+                            <a href="#">
+                              <span class="sub-item">Level 2</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <span class="sub-item">Level 2</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li>
+                      <a data-bs-toggle="collapse" href="#subnav2">
+                        <span class="sub-item">Level 1</span>
+                        <span class="caret"></span>
+                      </a>
+                      <div class="collapse" id="subnav2">
+                        <ul class="nav nav-collapse subnav">
+                          <li>
+                            <a href="#">
+                              <span class="sub-item">Level 2</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span class="sub-item">Level 1</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
-       
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
-                  <i class="bi bi-person-plus"></i><p>Add Teacher</p></a>
-
-              </li>
-              
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_subject.jsp">
-                  <i class="bi bi-book"></i><p>Add Subject</p></a>
-                </a>
-
-              </li>
-                
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_dept.jsp">
-                  <i class="bi bi-building-add"></i><p>Add Department</p></a>
-                </a>
-
-              </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">
-                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
-
-              </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_room.jsp">
-                  <i class="bi bi-door-open"></i><p>Add Room</p></a>
-
-              </li>
-              
-                
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/create_timetable.jsp">
-                  <i class="bi bi-calendar-plus"></i><p>Create TimeTable</p></a>
-
-              </li>
-             <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">
-                  <i class="bi bi-calendar4"></i><p>View TimeTable</p></a>
-
-              </li>
-              
-             <!--   <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a href="Login.jsp"><i class="bi bi-box-arrow-in-left"></i><p>Login</p></a>
-
-              </li>-->
-              
-              
             </ul>
           </div>
         </div>
-      </div>
+      </div>  
+      -->
       
-      <!-- End Sidebar -->
+      
+      <!-- End Sidebar 
 
       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
-            <!-- Logo Header -->
+            <!-- Logo Header 
             <div class="logo-header" data-background-color="dark">
-              <a href="index.html" class="logo">
+              <a href="../index.html" class="logo">
                 <img
-                  src="assets/img/kaiadmin/logo_light.svg"
+                  src="../assets/img/kaiadmin/logo_light.svg"
                   alt="navbar brand"
                   class="navbar-brand"
                   height="20"
@@ -211,9 +143,9 @@
                 <i class="gg-more-vertical-alt"></i>
               </button>
             </div>
-            <!-- End Logo Header -->
+            <!-- End Logo Header 
           </div>
-          <!-- Navbar Header -->
+          <!-- Navbar Header 
           <nav
             class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
           >
@@ -291,7 +223,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/jm_denis.jpg"
+                                src="../assets/img/jm_denis.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -304,7 +236,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/chadengle.jpg"
+                                src="../assets/img/chadengle.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -317,7 +249,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/mlane.jpg"
+                                src="../assets/img/mlane.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -332,7 +264,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/talha.jpg"
+                                src="../assets/img/talha.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -400,7 +332,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/profile2.jpg"
+                                src="../assets/img/profile2.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -430,7 +362,84 @@
                     </li>
                   </ul>
                 </li>
-                
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-layer-group"></i>
+                  </a>
+                  <div class="dropdown-menu quick-actions animated fadeIn">
+                    <div class="quick-actions-header">
+                      <span class="title mb-1">Quick Actions</span>
+                      <span class="subtitle op-7">Shortcuts</span>
+                    </div>
+                    <div class="quick-actions-scroll scrollbar-outer">
+                      <div class="quick-actions-items">
+                        <div class="row m-0">
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div class="avatar-item bg-danger rounded-circle">
+                                <i class="far fa-calendar-alt"></i>
+                              </div>
+                              <span class="text">Calendar</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-warning rounded-circle"
+                              >
+                                <i class="fas fa-map"></i>
+                              </div>
+                              <span class="text">Maps</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div class="avatar-item bg-info rounded-circle">
+                                <i class="fas fa-file-excel"></i>
+                              </div>
+                              <span class="text">Reports</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-success rounded-circle"
+                              >
+                                <i class="fas fa-envelope"></i>
+                              </div>
+                              <span class="text">Emails</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-primary rounded-circle"
+                              >
+                                <i class="fas fa-file-invoice-dollar"></i>
+                              </div>
+                              <span class="text">Invoice</span>
+                            </div>
+                          </a>
+                          <a class="col-6 col-md-4 p-0" href="#">
+                            <div class="quick-actions-item">
+                              <div
+                                class="avatar-item bg-secondary rounded-circle"
+                              >
+                                <i class="fas fa-credit-card"></i>
+                              </div>
+                              <span class="text">Payments</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
@@ -441,14 +450,14 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
+                        src="../assets/img/profile.jpg"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">${username}</span>
+                      <span class="fw-bold">Hizrian</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -457,14 +466,14 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
+                              src="../assets/img/profile.jpg"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
                           </div>
                           <div class="u-text">
-                            <h4>${username}</h4>
-                            <p class="text-muted">${email}</p>
+                            <h4>Hizrian</h4>
+                            <p class="text-muted">hello@example.com</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
@@ -481,12 +490,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
-                        <input type="hidden" name="logout" value="true">
-                        </form>
-                        <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
-                        Logout
-                        </a>
+                        <a class="dropdown-item" href="#">Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -495,16 +499,15 @@
             </div>
           </nav>
           
-          
-  
-          
-          <!-- End Navbar -->
+         
+          End Navbar 
         </div>
-
-     <div class="container">
+        -->
+ 
+        <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Add Rooms...</h3>
+              <h3 class="fw-bold mb-3">Edit Classes...</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -515,79 +518,55 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_room.jsp">add room</a>
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">add Classes</a>
                 </li>
-               <!--   <li class="separator">
+                 <li class="separator">
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">Datatables</a>
-                </li>   -->
+                  <a href="${pageContext.request.contextPath}/views/edit_class.jsp">Edit Class </a>
+                </li>   
               </ul>
             </div>
+            
+            
+            <br>
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-header">
-    <div class="card-title">Add Class</div>
-</div>
-                 
-
-<div class="card-body">
-
-<form action="${pageContext.request.contextPath}/ClassesServlet" method="post">
-
-    <input type="hidden"
-           name="action"
-           value="add">
-
-    <div class="form-group">
-
-        <label>Class Name</label>
-
-        <input type="text"
-               name="class_name"
-               class="form-control"
-               placeholder="Enter Class Name"
-               required>
-
-    </div>
-
-   
-
-
-                     <div class="form-group">
-                          <label for="defaultSelect">Department</label>
-                          <select
-                          name="dept_id"
+                    <div class="card-title">Edit Classes Data </div>
+                  </div>
+                  
+                  
+                  
+                  <div class="card-body">
+                    <div class="row">
+                    
+                      <div class="col-md-6 col-lg-4">
+                      <%
+              
+                      Classes_name s = (Classes_name)request.getAttribute("classData");
+             
+              	      %>
+              	      
+                      <form action="${pageContext.request.contextPath}/ClassesServlet" method="post">
+                         
+                        <input type="hidden" name="action" value="update">
+            
+                     <input type="hidden" name="class_id" value="<%=s.getClassId()%>">
+                        <div class="form-group">
+                          <label for="largeInput">Class Name</label>
+                          <input
+                            type="text"
+                            name="class_name"
                             required="required"
-                            class="form-select form-control"
-                            id="defaultSelect"
-                          >
-                          <option > Select Department</option>
-                            <%
-                         try{   
-                          List<Department> d=DAOFactory.getDepartmentDao().getAllDepartments();
-                        		 for(Department rs1:d) {
-%>
-        <option value="<%= rs1.getDept_id() %>">
-                <%= rs1.getDept_name() %>
-        </option>
-
-    <%
-        }
-       
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>
-    
-                          </select>
-                          </div>
-                         
-                         
-                         
+                            class="form-control form-control"
+                            id="defaultInput"
+                            value="<%=s.getClassName()%>"
+                          />
+                        </div>
+                        
                           <div class="form-group">
                           <label for="defaultSelect">Semester</label>
                           <select
@@ -595,9 +574,9 @@
                             id="defaultSelect"
                              name="sem"
                             required="required"
-                              
                           >
-                           <option >Select Semester</option>
+                          <option value="<%= s.getSem() %>"><%=s.getSem() %></option>
+                          <option value=""></option>
                             <option value="1 sem">1 sem</option>
                             <option value="2 sem">2 sem</option>
                             <option value="3 sem">3 sem</option>
@@ -609,233 +588,58 @@
                           </select>
                         </div>
                         
-                 <p style="align:center">
-                        <button 
-                        type="submit"
-                        class="btn btn-secondary btn-round ms-auto"
-                         >
-                          <i class="fa fa-plus"></i>
-                        Add Class
+                        
+                           <div class="form-group">
+                          <label for="defaultSelect">Department</label>
+                          <select
+                          name="dept_id"
+                            required="required"
+                            class="form-select form-control"
+                            id="defaultSelect"
+                          >
+                            <%
+                            
+                            
+                List<Department> list1 = DAOFactory.getDepartmentDao().getAllDepartments();
+
+    try {
+        for(Department d: list1){
+        	%>
+        
+        <option value="<%= d.getDept_id() %>">
+                <%=d.getDept_name() %>
+        </option>
+
+<%
+        }
+      
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+
+                          </select>
+                        </div>
+                        
+                        <p style="align:center">
+                         <button 
+                     type="submit"
+                     class="btn btn-success">
+                        <span class="btn-label">
+                          <i class="fa fa-check"></i>
+                        </span>
+                        Edit
                       </button>
                       </p>
-
-</form>
-
-
-                       
-                      
-                      <div class="container">
-          <div class="page-inner">
-           
-               <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="d-flex align-items-center">
-                      <h4 class="card-title">List of Classes</h4>
-                  <!--    <button
-                        class="btn btn-primary btn-round ms-auto"
-                        
-                        title="click here to edit department data"
-                        onclick="window.location.href='${pageContext.request.contextPath}/views/edit_dept.jsp'"
-                      >
-                        <!--  <i class="fa fa-plus"></i>
-                        Edit Dept Data
-                      </button> --> 
-                    </div>
-                  </div>
-                  
-                  
-                  <div class="card-body">
-                   
-                    <div class="table-responsive">
-                      <table
-                        id="add-row"
-                        class="display table table-striped table-hover"
-                      >
-                      <thead>
-                          <tr>
-                            <th>Class Id</th>
-                            <th>Class Name</th>
-                            <th>Semester</th>
-                            <th>Department </th>
-                             <th style="width: 10%">Action</th>
-                           
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr>
-                           <th>Class Id</th>
-                            <th>Class Name</th>
-                            <th>Semester</th>
-                            <th>Department </th>
-                            <th>Action</th>
-                           
-                          </tr>
-                        </tfoot>
-                        <tbody>
-                        <%
-
-                        try{   
-                            List<Classes_name> c=DAOFactory.getClassesDao().getAllClasses();
-                          		 for(Classes_name rs:c) {
-  %>
-                         
-                          <tr>
-                         
-                            <td><%=rs.getClassId()%></td>
-                            <td><%=rs.getClassName()%></td>
-                           <td><%=rs.getSem()%></td>
-                                 <td>       
-                                  <%  Department d1=DAOFactory.getDepartmentDao().getDepartmentById(rs.getDeptId());%>
-                                  <%= d1.getDept_name() %>
-                            </td>
-                          <td>
-                            
-              
-                              <div class="form-button-action">
-                              <form action="${pageContext.request.contextPath}/ClassesServlet" method="get" id="editForm_<%=rs.getClassId()%>">
-            <input type="hidden" name="class_id" value="<%=rs.getClassId()%>">
-                       <input type="hidden" name="action" value="edit">
-           
-        </form>
-        
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title="edit"
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                onclick="document.getElementById('editForm_<%=rs.getClassId()%>').submit();"
-                                >
-                                  <i class="fa fa-edit"></i>
-                                </button>
-                                
-       <form action="${pageContext.request.contextPath}/ClassesServlet" method="get" id="deleteForm_<%=rs.getClassId()%>">
-            <input type="hidden" name="class_id" value="<%=rs.getClassId()%>">
-            <input type="hidden" name="action" value="delete">
-        </form>
-        
-              
-              
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title="remove"
-                                  class="btn btn-link btn-danger"
-                                  data-original-title="delete"
-                                 onclick="if(confirm('Are you sure to delete this Class?')) {document.getElementById('deleteForm_<%=rs.getClassId()%>').submit();}"
-                                >
-                                  <i class="fa fa-times"></i>
-                                </button>
-                              
-                              </div>
-                            </td>
-                          </tr>
-                         
-                          
-                        <%
-                         }
-                       
-                    } catch(Exception e) {
-                        out.println(e);
-                    }
-                %>
-
-                          
-                        </tbody>
-                      </table>
-                      
-                      <%
-    String msg = (String)request.getAttribute("msg");
-    if(msg != null){
-%>
-<script>alert("<%=msg%>");</script>
-<%
-    }
-    String msg2 = (String)request.getAttribute("addR");
-    if(msg2 != null){
-%>
-<script>alert("<%=msg2%>");</script>
-<%
-    }
-    String msg3 = (String)request.getAttribute("delmsg");
-    if(msg3 != null){
-%>
-<script>alert("<%=msg3%>");</script>
-<%
-    }
-%>
-                    </div>
-                  </div>
+                   </form>
+            
                 </div>
               </div>
             </div>
           </div>
         </div>
-              
-        
-            </div>
-          </div>
-         
-            
-        </div>
-                           
-          </div>
-         
-                      
-                   <!--     <div class="form-floating form-floating-custom mb-3">
-                          <select
-                            class="form-select"
-                            id="selectFloatingLabel"
-                            required
-                          >
-                            <option selected>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                         <label for="selectFloatingLabel"><h2 style="color:#86b7fe">Select</h2></label>
-                        </div>
-                         --> 
-                     <!--  
-                  <div class="card-action">
-                    <button class="btn btn-success">Submit</button>
-                    <button class="btn btn-danger">Cancel</button>
-                  </div>
-                  -->   
-               
-        
 
-          <footer class="footer">
-          <div class="container-fluid d-flex justify-content-between">
-          
-             <!-- Left: College Name -->
-    <div class="text-muted">
-      © 2026 <strong>SDITS</strong>
-    </div>
-
-    <!-- Center: Social Media Icons -->
-    <div class="footer-icons">
-      <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark">
-        <i class="fa-solid fa-globe fa-lg"></i>
-      </a>
-
-      <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary">
-        <i class="fa-brands fa-linkedin fa-lg"></i>
-      </a>
-
-      <a href="https://www.instagram.com" target="_blank" class="text-danger">
-        <i class="fa-brands fa-instagram fa-lg"></i>
-      </a>
-    </div>
-
-    <!-- Right: Project Info -->
-    <div class="text-muted">
-     Time Table Scheduler
-    </div>
-          </div>
-        </footer>
+         </div>
       </div>
 
       <!-- Custom template | don't include it in your project! -->
@@ -1034,74 +838,42 @@
       <!-- End Custom template -->
     </div>
     <!--   Core JS Files   -->
-    <script src="${pageContext.request.contextPath}/assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
 
     <!-- jQuery Scrollbar -->
-    <script src="${pageContext.request.contextPath}/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+
     <!-- Datatables -->
-    <script src="${pageContext.request.contextPath}/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="../assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="../assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Google Maps Plugin -->
+    <script src="../assets/js/plugin/gmaps/gmaps.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
     <!-- Kaiadmin JS -->
-    <script src="${pageContext.request.contextPath}/assets/js/kaiadmin.min.js"></script>
+    <script src="../assets/js/kaiadmin.min.js"></script>
+
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="${pageContext.request.contextPath}/assets/js/setting-demo2.js"></script>
-    <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 5,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
-      });
-    </script>
+    <script src="../assets/js/setting-demo2.js"></script>
   </body>
 </html>

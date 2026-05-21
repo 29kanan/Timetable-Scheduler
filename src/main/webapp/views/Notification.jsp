@@ -150,6 +150,12 @@
               </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">
+                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
+
+              </li>
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_room.jsp">
@@ -157,12 +163,6 @@
 
               </li>
               
-                <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a href="${pageContext.request.contextPath}/views/Notification.jsp">
-                  <i class="bi bi-calendar4"></i><p>Send Notifications</p></a>
-
-              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
