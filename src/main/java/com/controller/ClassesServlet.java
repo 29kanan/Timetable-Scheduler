@@ -50,16 +50,13 @@ public class ClassesServlet extends HttpServlet {
 	        // ================= GET BY ID =================
 	        else if(action.equals("edit")) {
 
-	            int classId =
-	                    Integer.parseInt(request.getParameter("class_id"));
+	            int classId =Integer.parseInt(request.getParameter("class_id"));
 
 	            Classes_name c =DAOFactory.getClassesDao().getClassById(classId);
 
 	            request.setAttribute("classData", c);
 
-	            request.getRequestDispatcher(
-	                    "/views/edit_class.jsp")
-	                    .forward(request, response);
+	            request.getRequestDispatcher("/views/edit_class.jsp").forward(request, response);
 	        }
 	    }
 
