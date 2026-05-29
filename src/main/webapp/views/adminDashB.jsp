@@ -274,16 +274,18 @@
           </div>
           <!-- Navbar Header -->
           <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+           
             <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
+            
+            <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+                
               <ul class="navbar-nav topbar-nav align-items-center" style="margin-left:0 ;">
 
-                <!-- Admin User -->
-             <li class="nav-item topbar-user dropdown hidden-caret d-flex align-items-center">
+    
+    <!-- Admin User -->
+    <li class="nav-item topbar-user dropdown hidden-caret d-flex align-items-center">
 
         <!-- Admin Image -->
         <div class="avatar-sm">
@@ -298,10 +300,15 @@
         <span class="profile-username ms-2 me-3">
             <span class="fw-bold">${username}</span>
         </span>
+
     </li>
 
 </ul>
               </nav>
+            
+            
+            
+             
         
         
         <div class="d-flex align-items-center ms-auto">
@@ -316,6 +323,7 @@
 
 </div>
             </div>
+            
           </nav>
           
           
