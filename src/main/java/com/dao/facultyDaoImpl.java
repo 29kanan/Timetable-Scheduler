@@ -43,17 +43,17 @@ public class facultyDaoImpl implements facultyDao {
 	}
 
 	@Override
-	public String show_msg(String email) {
+	public String show_msg(String email,String pass) {
 
 		  String msg=null;
-		
+		  
 		  try (Connection con = DBConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT * FROM fac_msg WHERE email=?;");
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM fac_msg WHERE email=? and password=?;");
         ){
 	          
 
 	            ps.setString(1,email);
-	          
+	            ps.setString(2, pass);
 
 	            ResultSet rs = ps.executeQuery();
 	            
@@ -89,9 +89,10 @@ public class facultyDaoImpl implements facultyDao {
             if(status!=0) {
             	
             	PreparedStatement msg = con.prepareStatement(
-            		    "INSERT INTO fac_msg(email, msg) VALUES(?, ?)");
+            		    "INSERT INTO fac_msg(email, msg, password) VALUES(?, ?, ?)");
             		msg.setString(1, f.getEmail());
             		msg.setString(2, "pending");
+            		msg.setString(3, f.getPassword());
             		msg.executeUpdate();
             }
 

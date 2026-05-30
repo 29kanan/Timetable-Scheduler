@@ -21,9 +21,9 @@ public class show_msgServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-      
+		String pass = request.getParameter("password");
         facultyDao dao = DAOFactory.getFacultyDao();
-        String msg=dao.show_msg(email);
+        String msg=dao.show_msg(email,pass);
         
         if (msg!=null) {
         	

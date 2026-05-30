@@ -72,9 +72,10 @@ public class adminDaoImpl implements adminDao {
 	                if(x!=0) {
 	                	
 	                	PreparedStatement msg = con.prepareStatement(
-	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	                			"UPDATE fac_msg SET msg=? WHERE email=? and password=?;");
 	              		msg.setString(1, "Your account has been APPROVED by admin!");
 	                		msg.setString(2, email);
+	                		msg.setString(3, password);
 	                		msg.executeUpdate();
 
 	                	
@@ -132,9 +133,10 @@ public class adminDaoImpl implements adminDao {
 	                if(x!=0) {
 	                //	 System.out.println("inserted");
 	                	PreparedStatement msg = con.prepareStatement(
-	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	                			"UPDATE fac_msg SET msg=? WHERE email=? and password=?;");
 	              		msg.setString(1,"Your account request has been REJECTED by admin.");
 	                		msg.setString(2, email);
+	                		msg.setString(3, password);
 	                		msg.executeUpdate();
 	                	
 	                PreparedStatement ps3 = con.prepareStatement(
