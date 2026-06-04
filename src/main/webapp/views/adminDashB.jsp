@@ -317,7 +317,7 @@
         
     </a>
 
-    <a href="${pageContext.request.contextPath}/facultyLogout" class="btn btn-primary btn-sm">
+    <a href="${pageContext.request.contextPath}/adminLogout" class="btn btn-primary btn-sm">
         Logout
     </a>
                               
