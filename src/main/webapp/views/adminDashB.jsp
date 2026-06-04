@@ -317,10 +317,10 @@
         
     </a>
 
-    <a href="${pageContext.request.contextPath}/view/logout.jsp" class="btn btn-primary btn-sm">
+    <a href="${pageContext.request.contextPath}/facultyLogout" class="btn btn-primary btn-sm">
         Logout
     </a>
-
+                              
 </div>
             </div>
             
