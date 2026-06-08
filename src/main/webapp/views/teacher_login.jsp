@@ -403,6 +403,20 @@ label{
 
 <body>
 
+<%
+String msg = (String) request.getAttribute("msg");
+
+if(msg != null){
+%>
+
+<script>
+alert("<%= msg %>");
+</script>
+
+<%
+}
+%>
+
 <div class="container">
 
     <!-- LEFT PANEL -->
@@ -488,7 +502,7 @@ label{
 
             <div class="forgot-box">
 
-                <a href="${pageContext.request.contextPath}/views/forgotPassword.jsp">
+                <a href="${pageContext.request.contextPath}/views/forgot_password.jsp">
 
                     Forgot Password?
 
