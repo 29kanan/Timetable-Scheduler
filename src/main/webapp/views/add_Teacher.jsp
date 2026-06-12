@@ -699,7 +699,7 @@
                                   title="add"
                                   class="btn btn-link btn-primary btn-lg"
                                   data-original-title="Edit Task"
-                                onclick="document.getElementById('approveForm_<%=rs.getInt("faculty_id")%>').submit();"
+                                onclick="if(confirm('Are you sure to Approve this Faculty?')) {document.getElementById('approveForm_<%=rs.getInt("faculty_id")%>').submit()};"
                                 >
                                 <i class="bi bi-check-circle-fill"></i>
                                 <!--  <i class="bi bi-box-arrow-in-right"></i>
@@ -714,10 +714,10 @@
                                 <button
                                   type="button"
                                   data-bs-toggle="tooltip"
-                                  title="remove"
+                                  title="reject"
                                   class="btn btn-link btn-danger"
                                   data-original-title="Remove"
-                                 onclick="document.getElementById('rejectForm_<%=rs.getInt("faculty_id")%>').submit();"
+                                 onclick="if(confirm('Are you sure to Reject this Faculty?')) {document.getElementById('rejectForm_<%=rs.getInt("faculty_id")%>').submit()};"
                                 >
                                   <i class="fa fa-times"></i>
                                 </button>

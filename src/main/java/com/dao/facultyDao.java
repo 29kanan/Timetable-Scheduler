@@ -13,4 +13,5 @@ public interface facultyDao {
     List<Faculty> getAllFaculty();
     Faculty getFacultyById(int id);
     boolean updateFaculty(Faculty f);
+    public boolean deleteFaculty(int id);
 }

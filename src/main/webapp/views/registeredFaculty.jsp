@@ -785,7 +785,7 @@
                             <th>Phone</th>
                             <th>Dept</th>
                            <th>Availability Time</th>
-                            
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tfoot>
@@ -796,6 +796,7 @@
                             <th>Phone</th>
                             <th>Dept</th>
                             <th>Availability Time</th>
+                            <th>Action</th>
                           </tr>
                         </tfoot>
                         <tbody>
@@ -812,7 +813,29 @@
                             <td><%=rs.getPhone()%></td>
                             <td><%=rs.getDept()%></td>
                           <td><%=rs.getAvailStart()%> to <%=rs.getAvailEnd()%></td>
+                             <td>
                             
+              
+                              <div class="form-button-action">
+                                
+        <form action="${pageContext.request.contextPath}/RejectFacServlet" method="get" id="rejectForm_<%=rs.getFac_id()%>">
+            <input type="hidden" name="facid" value="<%=rs.getFac_id()%>">
+              </form>
+              
+              
+                                <button
+                                  type="button"
+                                  data-bs-toggle="tooltip"
+                                  title="Delete"
+                                  class="btn btn-link btn-danger"
+                                  data-original-title="Remove"
+                                 onclick="if(confirm('Are you sure to Reject this Faculty?')) {document.getElementById('rejectForm_<%=rs.getFac_id()%>').submit();}"
+                                >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              
+                              </div>
+                            </td>
                           </tr>
                           
                           <%
@@ -836,7 +859,14 @@
                 </div>
               </div>
 </div>
-
+                    <%
+    String msg = (String)request.getAttribute("msg11");
+    if(msg != null){
+%>
+<script>alert("<%=msg%>");</script>
+<%
+    }
+%>
        <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
           
