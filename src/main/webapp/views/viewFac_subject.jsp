@@ -1,8 +1,12 @@
-<%@page import="com.util.DBConnection"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@page import="java.util.*" %>
+<%@page import="com.dao.*" %>
+<%@page import="com.model.*" %>
 <%@page import="java.sql.*" %>
+<%@page import="com.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -94,7 +98,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	 response.sendRedirect("teacher_login.jsp");
+    	 //response.sendRedirect("teacher_login.jsp");
      }
   
   
@@ -131,7 +135,7 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-              <li class="nav-item active">
+              <li class="nav-item ">
                 <a
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
@@ -154,7 +158,7 @@
 
               </li>-->
               
-              <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item active" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
@@ -382,84 +386,179 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="notifDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i class="fa fa-bell"></i>
-                    <span class="notification">4</span>
-                  </a>
-                  <ul
-                    class="dropdown-menu notif-box animated fadeIn"
-                    aria-labelledby="notifDropdown"
-                  >
-                    <li>
-                      <div class="dropdown-title">
-                        You have 4 new notification
-                      </div>
-                    </li>
-                    <li>
-                      <div class="notif-scroll scrollbar-outer">
-                        <div class="notif-center">
-                          <a href="#">
-                            <div class="notif-icon notif-primary">
-                              <i class="fa fa-user-plus"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block"> New user registered </span>
-                              <span class="time">5 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-icon notif-success">
-                              <i class="fa fa-comment"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block">
-                                Rahmad commented on Admin
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="assets/img/profile2.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="block">
-                                Reza send messages to you
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-icon notif-danger">
-                              <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block"> Farrah liked Admin </span>
-                              <span class="time">17 minutes ago</span>
-                            </div>
-                          </a>
+               
+  
+<%
+
+List<Notification> notifications =
+DAOFactory.getNotificationDao()
+          .getNotificationsByRole("FACULTY");
+
+int latestNotificationId =
+DAOFactory.getNotificationDao()
+          .getLatestNotificationIdByRole("FACULTY");
+
+/* Session stored last seen id */
+Integer lastSeenId =
+(Integer)session.getAttribute("facultyLastSeenNotification");
+
+/* Default */
+if(lastSeenId == null){
+    lastSeenId = 0;
+}
+
+/* New notification count */
+int newNotificationCount = 0;
+
+for(Notification n : notifications){
+
+    if(n.getId() > lastSeenId){
+
+        newNotificationCount++;
+    }
+}
+
+%>
+
+<li class="nav-item topbar-icon dropdown hidden-caret">
+
+    <a class="nav-link dropdown-toggle"
+       href="#"
+       id="notifDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+
+        <i class="fa fa-bell"></i>
+
+        <%
+
+if(newNotificationCount > 0){
+
+%>
+
+<span class="notification">
+
+    <%= newNotificationCount %>
+
+</span>
+
+<%
+
+}
+
+%>
+
+    </a>
+
+    <ul class="dropdown-menu notif-box animated fadeIn"
+        aria-labelledby="notifDropdown">
+
+        <!-- Top Title -->
+        <li>
+
+            <div class="dropdown-title">
+
+                You have
+                <%= notifications.size() %>
+                new notifications
+
+            </div>
+
+        </li>
+
+        <!-- Notification Body -->
+        <li>
+
+            <div class="notif-scroll scrollbar-outer">
+
+                <div class="notif-center">
+
+                <%
+
+                if(notifications.isEmpty()){
+
+                %>
+
+                    <div class="text-center p-3 text-muted">
+
+                        No Notifications Available
+
+                    </div>
+
+                <%
+
+                } else {
+
+                    for(Notification n : notifications){
+
+                %>
+
+                    <a href="#">
+
+                        <div class="notif-icon notif-primary">
+
+                            <i class="fa fa-bell"></i>
+
                         </div>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="see-all" href="javascript:void(0);"
-                        >See all notifications<i class="fa fa-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+
+                        <div class="notif-content">
+
+                            <span class="block">
+
+                                <%= n.getTitle() %>
+
+                            </span>
+
+                            <span class="block text-muted"
+                                  style="font-size:12px;">
+
+                                <%= n.getMessage() %>
+
+                            </span>
+
+                            <span class="time">
+
+                                <%= n.getCreatedAt() %>
+
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                <%
+
+                    }
+                }
+
+                %>
+
+                </div>
+
+            </div>
+
+        </li>
+
+        <!-- Footer -->
+        <li>
+
+            <a class="see-all"
+               href="${pageContext.request.contextPath}/views/Fac_notification.jsp">
+
+                See all notifications
+
+                <i class="fa fa-angle-right"></i>
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</li>
+                
                 
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
@@ -581,7 +680,235 @@
                   
             <div class="row">
               <div class="col-md-12">
-                <div class="card">    
+              
+              <div class="page-header">
+              <h3 class="fw-bold mb-3">Add Subjects...</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="${pageContext.request.contextPath}/views/add_subject.jsp">add subject</a>
+                </li>
+               <!--   <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="#">Datatables</a>
+                </li>   -->
+              </ul>
+              </div>
+              
+              
+                <div class="card">
+                
+                 <div class="card-header">
+                    <div class="card-title">Add Subjects</div>
+                  </div>
+                 
+                      <!--   <label class="mt-3 mb-3"
+                          ><b>Form Floating Label</b></label>
+                          --> 
+                   <form action="${pageContext.request.contextPath}/AddSubjectServlet" method="post">
+                         <input type="hidden" name="fac_id" value="<%=session.getAttribute("fid")%>">
+                        
+                         
+                        <div class="form-group">
+                          <label for="largeInput">Subject Name</label>
+                          <input
+                            type="text"
+                            name="sub_name"
+                            required="required"
+                            class="form-control form-control"
+                            id="defaultInput"
+                            placeholder="Enter Subject Name"
+                          />
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="largeInput">Subject Code</label>
+                          <input
+                            type="text"
+                            name="sub_code"
+                            required="required"
+                            class="form-control form-control"
+                            id="defaultInput"
+                            placeholder="Enter Subject Code"
+                          />
+                        </div>
+                        
+                             <div class="form-group">
+                          <label>Subject Type</label><br />
+                          <div class="d-flex">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="subject_type"
+                            required="required"
+                               value="Theory"
+                                id="flexRadioDefault1"
+                                checked
+                              />
+                              <label
+                                class="form-check-label"
+                                for="flexRadioDefault1"
+                              >
+                                Theory
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio" name="subject_type"
+                               required="required"
+                               value="Lab"
+                                id="flexRadioDefault2"
+                                
+                              />
+                              <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                              >
+                              Lab
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="largeInput">Short name of subject</label>
+                          <input
+                            type="text"
+                            class="form-control form-control"
+                             name="sub_abbr"
+                            id="defaultInput"
+                            placeholder="Enter Short name of subject"
+                          />
+                        </div>
+                        
+                          <div class="form-group">
+                          <label for="defaultSelect">Semester</label>
+                          <select
+                            class="form-select form-control"
+                            id="defaultSelect"
+                             name="sem"
+                            required="required"
+                              
+                          >
+                            <option value="1 sem">1 sem</option>
+                            <option value="2 sem">2 sem</option>
+                            <option value="3 sem">3 sem</option>
+                            <option value="4 sem">4 sem</option>
+                            <option value="5 sem">5 sem</option>
+                            <option value="6 sem">6 sem</option>
+                            <option value="7 sem">7 sem</option>
+                            <option value="8 sem">8 sem</option>
+                          </select>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="largeInput">Frequency</label>
+                          <input
+                            type="number"
+                            name="frequency"
+                            required="required"
+                            class="form-control form-control"
+                            id="defaultInput"
+                            placeholder="Enter week-wise subject frequency(no. of lectures per week)"
+                          />
+                        </div>
+                        
+                        
+                        
+                        <div class="form-group">
+                          <label for="defaultSelect">Department</label>
+                          <select
+                          id="defaultSelect"
+                          name="dept_id"
+                            required="required"
+                            class="form-select form-control"
+                            
+                          >
+                            <%
+                            
+                            
+                List<Department> list1 = DAOFactory.getDepartmentDao().getAllDepartments();
+
+    try {
+        for(Department d: list1){
+        	%>
+        
+        <option value="<%= d.getDept_id() %>">
+                <%=d.getDept_name() %>
+        </option>
+
+<%
+        }
+      
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+
+                          </select>
+                        </div>
+                        
+                         <!--  <div class="form-group">
+                          <label for="defaultSelect">Department</label>
+                          <select
+                          name="dept_id"
+                            required="required"
+                            class="form-select form-control"
+                            id="defaultSelect"
+                          >
+                            <%--
+                            
+                            
+                            
+    try {
+    	 Connection con = DBConnection.getConnection();
+
+         PreparedStatement ps = con.prepareStatement("SELECT * FROM departments");
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+        	
+%>
+        <option value="<%= rs.getInt("dept_id") %>">
+                <%= rs.getString("dept_name") %>
+        </option>
+
+<%
+        }
+        con.close();
+    } catch(Exception e) {
+        out.println(e);
+    }
+--%>
+
+                          </select>
+                        </div>--> 
+                        
+                        <p style="align:center">
+                        <button 
+                        type="submit"
+                        class="btn btn-secondary btn-round ms-auto"
+                         >
+                          <i class="fa fa-plus"></i>
+                        Add Subject
+                      </button>
+                      </p>
+                   </form>
+                   
+                   
+                   
+                       
                       <div class="container">
           <div class="page-inner">
            
@@ -605,6 +932,7 @@
                             <th>Short name</th>
                             <th>Sem</th>
                             <th>Department</th>
+                            <th>frequency</th>
                             
                           </tr>
                         </thead>
@@ -616,6 +944,7 @@
                             <th>Short Name</th>
                             <th>Sem</th>
                             <th>Department</th>
+                            <th> Frequency </th>
                             
                           </tr>
                         </tfoot>
@@ -653,6 +982,7 @@
         while(rs1.next()) {
 %>
          <td><%=rs1.getString("dept_name")%></td>
+         <td><%=rs.getString("frequency")%></td>
 
 <%
         }

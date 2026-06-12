@@ -1,42 +1,162 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jay shree ganesh</title>
-    <link rel="stylesheet" href="assets/css/indexStyle.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TimeTable Scheduler</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- CSS FILE -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <h1 class="headline">Who Are You?</h1>
-        <div class="roles">
-            <a href="${pageContext.request.contextPath}/views/admin_login.jsp" class="role-card admin">
-                <img src="assets/img/admin-icon.svg" alt="Admin Icon">
-                <h2>Admin</h2>
-                <p>Manage faculty, lectures, department, and create and update timetables.</p>
-                 <button class="continue-btn" onclick="window.location.href='${pageContext.request.contextPath}/views/admin_login.jsp'">Continue</button> 
-             </a>
-            <a href="${pageContext.request.contextPath}/views/teacher_login.jsp" class="role-card teacher">
-                <img src="assets/img/teacher-icon.svg" alt="Teacher Icon">
-                <h2>Teacher</h2>
-                <p>See timetable, create or edit your profile, check day-wise lectures.</p>
-                <button class="continue-btn" onclick="window.location.href='${pageContext.request.contextPath}/views/teacher_login.jsp'">Continue</button>
-            </a>
-            <a href="${pageContext.request.contextPath}/views/studentDashB.jsp" class="role-card student">
-                <img src="assets/img/student-icon.svg" alt="Student Icon">
-                <h2>Student</h2>
-                <p>Search class timetable and day-wise schedule.</p>
-                <button class="continue-btn" onclick="window.location.href='${pageContext.request.contextPath}/views/studentDashB.jsp'">Continue</button>
-            </a>
-        </div>
-        <footer>
-            SDITS KHANDWA 
-        </footer>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        TimeTable<span> Scheduler</span>
     </div>
+
+    <div class="nav-links">
+
+        <a href="index.jsp">Home</a>	
+
+        <a href="${pageContext.request.contextPath}/views/teacher_login.jsp">
+            Faculty
+        </a>
+
+        <a href="${pageContext.request.contextPath}/views/admin_login.jsp">
+            Admin
+        </a>
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" id="themeToggle"></div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="hero">
+
+    <!--<div class="hero-small">
+        • College Timetable Management System
+    </div>-->
+
+    <h1>
+        Smart Scheduling <br>
+        for <span>Modern</span> <br>
+        Colleges
+    </h1>
+
+    <p>
+        Effortlessly manage classes, faculty schedules, and department timetables in one smart platform.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="${pageContext.request.contextPath}/views/studentDashB.jsp"
+           class="btn primary-btn">
+            View Timetable →
+        </a>
+
+    </div>
+
+</section>
+<!-- ================= PORTAL SECTION ================= -->
+<section class="portal-section">
+
+    <h2>Who Are You?</h2>
+
+    <p class="portal-subtitle">
+        
+    </p>
+    
+
+    <div class="portal-container">
+
+        <!-- ADMIN -->
+
+        <div class="portal-card">
+
+            <div class="portal-icon">🧑‍💻</div>
+
+            <h3>Admin</h3>
+
+            <p>
+                Manage departments, teachers, subjects and timetable scheduling.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/views/admin_login.jsp">
+                Continue
+            </a>
+
+        </div>
+
+        <!-- TEACHER -->
+
+        <div class="portal-card">
+
+            <div class="portal-icon">👨‍🏫</div>
+
+            <h3>Teacher</h3>
+
+            <p>
+                View assigned lectures, timetable slots and classroom schedules.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/views/teacher_login.jsp">
+                Continue
+            </a>
+
+        </div>
+
+        <!-- STUDENT -->
+
+        <div class="portal-card">
+
+            <div class="portal-icon">🎓</div>
+
+            <h3>Student</h3>
+
+            <p>
+                Check class timetable, subjects and daily lecture timings quickly.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/views/studentDashB.jsp">
+                Continue
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 SDITS KHANDWA
+    </p>
+
+</footer>
+<!-- JS FILE -->
+<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+
 </body>
 </html>

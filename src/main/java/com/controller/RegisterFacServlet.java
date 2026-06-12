@@ -31,7 +31,11 @@ public class RegisterFacServlet extends HttpServlet {
 		    
 		    String dept=request.getParameter("dept");
 		    
-	        Faculty f = new Faculty(username, password, email, ph, dept);
+            String aStart= request.getParameter("availStart");
+		    
+            String aEnd= request.getParameter("availEnd");
+		    
+	        Faculty f = new Faculty(username, password, email, ph, dept,aStart,aEnd);
 	       
 	        facultyDao dao = DAOFactory.getFacultyDao();
 	        int status = dao.register(f);

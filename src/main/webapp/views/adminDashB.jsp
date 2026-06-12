@@ -3,6 +3,40 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="java.sql.*" %>
+<%@ page import="java.sql.* , com.util.*" %>
+
+<%
+    int teacherCount = 0;
+    int subjectCount = 0;
+    int pendingTeacherCount = 0;
+    int deptCount = 0;
+
+    try {
+       
+        Connection con = DBConnection.getConnection();
+
+        Statement st = con.createStatement();
+
+        ResultSet rs;
+
+        rs = st.executeQuery("SELECT COUNT(*) FROM login_teacher");
+        if (rs.next()) teacherCount = rs.getInt(1);
+
+        rs = st.executeQuery("SELECT COUNT(*) FROM subjects");
+        if (rs.next()) subjectCount = rs.getInt(1);
+
+        rs = st.executeQuery("SELECT COUNT(*) FROM regteacher");
+        if (rs.next()) pendingTeacherCount = rs.getInt(1);
+
+        rs = st.executeQuery("SELECT COUNT(*) FROM departments");
+        if (rs.next()) deptCount = rs.getInt(1);
+
+        con.close();
+
+    } catch (Exception e) {
+        out.println(e);
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -82,9 +116,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kaiadmin.min.css" />
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style2.css" />
   </head>
   <body>
   
@@ -95,7 +128,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	// response.sendRedirect("admin_login.jsp");
+    	 response.sendRedirect("admin_login.jsp");
      }
   
   
@@ -131,7 +164,7 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
+               <ul class="nav nav-secondary">
               <li class="nav-item active">
                 <a
                   class="nav-link"
@@ -141,11 +174,6 @@
                 </a>
               </li>
        
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -176,12 +204,27 @@
               </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">
+                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
+
+              </li>
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_room.jsp">
                   <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
+               <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+                  <a 
+                  class="nav-link"
+                  href="${pageContext.request.contextPath}/views/Notification.jsp">
+                  <i class="bi bi-door-open"></i><p>Send Notification</p></a>
+
+              </li>
+              
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -203,13 +246,7 @@
 
               </li>-->
               
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
-                        <input type="hidden" name="logout" value="true">
-                        </form>
-                  <a href="#" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i><p>Logout</p></a>
-
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -575,21 +612,287 @@
                     </div>
                   </div>
                   -->
-                  
-                  <div class="card-body">
-               <div class="container-fluid mt-4">
+<div class="row">
 
-           
-            <div class="card mt-3 p-0">
-   <div class="banner-bg" role="img" aria-label="Dashboard Banner">
-            <br><br><br>
-          
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div style="font-size:30px;">👨‍🏫</div>
+        <h3><%= teacherCount %></h3>
+        <p>Teachers</p>
+      </div>
+    </div>
+    </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div style="font-size:30px;">📚</div>
+        <h3><%= subjectCount %></h3>
+        <p>Subjects</p>
+      </div>
+    </div>
   </div>
-                
-             </div>
 
-                  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div style="font-size:30px;">⏳</div>
+        <h3><%= pendingTeacherCount %></h3>
+        <p> Pending Teachers </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <div style="font-size:30px;">🏛️</div>
+        <h3><%= deptCount %></h3>
+        <p>Departments</p>
+      </div>
+    </div>
+  </div>
+
+
+
+<br>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4>Faculty Members</h4>
+        <a href="${pageContext.request.contextPath}/views/registeredFaculty.jsp">View All →</a>
+      </div>
+      <div class="card-body">
+        
+        <%
+    try {
+
+        Connection facultyCon = DBConnection.getConnection();
+
+        Statement facultySt =
+            facultyCon.createStatement();
+
+        ResultSet facultyRs =
+            facultySt.executeQuery(
+                "SELECT * FROM login_teacher LIMIT 5"
+            );
+
+        while(facultyRs.next()) {
+
+            String name =
+                facultyRs.getString("username");
+          
+            String department =
+                facultyRs.getString("dept");
+
+            String initials =
+                name.substring(0,1).toUpperCase();
+%>
+
+    <div class="faculty-card">
+
+        <div class="faculty-left">
+
+            <div class="faculty-avatar">
+                <%= initials %>
+            </div>
+
+            <div class="faculty-info">
+
+                <div class="faculty-name">
+                    <%= name %>
                 </div>
+                
+                <div class="faculty-dept">
+                    <%= department %>
+                </div>
+
+            </div>
+
+        </div>
+
+       
+
+    </div>
+
+<%
+        }
+
+        facultyCon.close();
+
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4>This Week — Timetable</h4>
+        <a href="#">Full View →</a>
+      </div>
+      <div class="card-body">
+        Timetable preview here
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4>Subject List</h4>
+        <a href="${pageContext.request.contextPath}/views/allSubject.jsp">View All →</a>
+      </div>
+      <div class="card-body">
+        <%
+    try {
+
+        Connection subjectCon = DBConnection.getConnection();
+
+        Statement subjectSt =
+            subjectCon.createStatement();
+
+        ResultSet subjectRs =
+            subjectSt.executeQuery(
+                "SELECT * FROM subjects LIMIT 5"
+            );
+
+        while(subjectRs.next()) {
+
+            String sname =
+                subjectRs.getString("sub_name");
+          
+            String scode =
+                subjectRs.getString("sub_code");
+
+            String initials =
+                sname.substring(0,1).toUpperCase();
+%>
+
+    <div class="faculty-card">
+
+        <div class="faculty-left">
+
+            <div class="faculty-avatar">
+                <%= initials %>
+            </div>
+
+            <div class="faculty-info">
+
+                <div class="faculty-name">
+                    <%= sname %>
+                </div>
+                
+                <div class="faculty-dept">
+                    <%= scode %>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+<%
+        }
+
+        subjectCon.close();
+
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4>Department List</h4>
+        <a href="${pageContext.request.contextPath}/views/allDepartment.jsp">Full View →</a>
+      </div>
+      <div class="card-body">
+                <%
+    try {
+
+        Connection deptCon = DBConnection.getConnection();
+
+        Statement DeptSt =
+            deptCon.createStatement();
+
+        ResultSet deptRs =
+            DeptSt.executeQuery(
+                "SELECT * FROM departments LIMIT 5"
+            );
+
+        while(deptRs.next()) {
+
+            int dId =
+                deptRs.getInt("dept_id");
+          
+            String dName =
+                deptRs.getString("dept_name");
+
+            String initials =
+                dName.substring(0,1).toUpperCase();
+%>
+
+    <div class="faculty-card">
+
+        <div class="faculty-left">
+
+            <div class="faculty-avatar">
+                <%= initials %>
+            </div>
+
+            <div class="faculty-info">
+
+                <div class="faculty-name">
+                    <%= dId %>
+                </div>
+                
+                <div class="faculty-dept">
+                    <%= dName %>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+<%
+        }
+
+        deptCon.close();
+
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<br>
+
+    </div>
               </div>
             </div>
           

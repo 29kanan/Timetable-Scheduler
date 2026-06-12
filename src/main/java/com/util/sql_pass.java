@@ -6,13 +6,13 @@ public class sql_pass {
  static String url;
  static String uname;
 	static {
-		pass = "Mahadev21";
+		pass = "";
 	}
 	static {
 		uname = "root";
 	}
 	static {
-		url="jdbc:Mysql://localhost:3306/timetable_db";
+		url="jdbc:mysql://localhost:3306/timetable_db";
 	}
 	public static String getPass() {
 		return pass;

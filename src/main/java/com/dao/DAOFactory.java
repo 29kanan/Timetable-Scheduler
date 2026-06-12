@@ -9,6 +9,9 @@ static facultyDao Fdao;
 	static RoomDao Rdao;
 	static SubjectDao Sdao;
 	static TimetableDao Tdao;
+	static NotificationDAO Ndao;
+	static ClassesDao Cdao;
+	
 	static {
 		Adao = new adminDaoImpl();
 		Fdao=new facultyDaoImpl();
@@ -16,6 +19,14 @@ static facultyDao Fdao;
 		Rdao=new RoomDaoImpl();
 		Sdao=new SubjectDaoImpl();
 		Tdao=new TimetableDaoImpl();
+		Ndao = new NotificationDaoImpl();
+		Cdao=new ClassesDaoImpl();
+	}
+
+	
+	public static NotificationDAO getNotificationDao() {
+		//System.out.println("dao factory");
+		return Ndao;
 	}
 	
 	public static adminDao getAdminDao() {
@@ -46,5 +57,10 @@ public static SubjectDao getSubjectDao() {
 public static TimetableDao getTimetableDao() {
 	
 	return Tdao;
+}
+
+public static ClassesDao getClassesDao() {
+	// TODO Auto-generated method stub
+	return Cdao;
 }
 }

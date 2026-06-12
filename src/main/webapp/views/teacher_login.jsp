@@ -403,6 +403,20 @@ label{
 
 <body>
 
+<%
+String msg = (String) request.getAttribute("msg");
+
+if(msg != null){
+%>
+
+<script>
+alert("<%= msg %>");
+</script>
+
+<%
+}
+%>
+
 <div class="container">
 
     <!-- LEFT PANEL -->
@@ -463,7 +477,7 @@ label{
                 placeholder="you@example.com"
                 required>
 
-                <i class="fa-solid fa-envelope"></i>
+               
 
             </div>
 
@@ -479,7 +493,7 @@ label{
                 placeholder="Enter password"
                 required>
 
-                <i class="fa-solid fa-lock"></i>
+              
 
             </div>
 
@@ -488,7 +502,7 @@ label{
 
             <div class="forgot-box">
 
-                <a href="${pageContext.request.contextPath}/views/forgotPassword.jsp">
+                <a href="${pageContext.request.contextPath}/views/forgot_password.jsp">
 
                     Forgot Password?
 
@@ -526,6 +540,13 @@ label{
     </div>
 
 </div>
-
+          <%
+    String msg1 = (String)request.getAttribute("msg");
+    if(msg1 != null){
+%>
+<script>alert("<%=msg1%>");</script>
+<%
+    }
+    %>
 </body>
 </html>
