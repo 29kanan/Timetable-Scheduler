@@ -677,7 +677,7 @@ catch(Exception e) {
                                   title="remove"
                                   class="btn btn-link btn-danger"
                                   data-original-title="delete"
-                                 onclick="document.getElementById('deleteSForm_<%=rs.getInt("sub_id")%>').submit();"
+                                 onclick="if(confirm('Are you sure to Delete this Subject?')) {document.getElementById('deleteSForm_<%=rs.getInt("sub_id")%>').submit()};"
                                 >
                                   <i class="fa fa-times"></i>
                                 </button>

@@ -829,7 +829,7 @@
                                   title="Delete"
                                   class="btn btn-link btn-danger"
                                   data-original-title="Remove"
-                                 onclick="if(confirm('Are you sure to Reject this Faculty?')) {document.getElementById('rejectForm_<%=rs.getFac_id()%>').submit();}"
+                                 onclick="if(confirm('Are you sure to Delete this Faculty?')) {document.getElementById('rejectForm_<%=rs.getFac_id()%>').submit();}"
                                 >
                                   <i class="fa fa-times"></i>
                                 </button>
