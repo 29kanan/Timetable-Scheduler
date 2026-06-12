@@ -11,7 +11,7 @@
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> add department </title>
+    <title> add Classes </title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -103,8 +103,8 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item active">
+             <ul class="nav nav-secondary">
+              <li class="nav-item">
                 <a
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -141,7 +141,7 @@
                 </a>
 
               </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item active" style="text-decoration: row; display:flex;">
                    
                   <a href="${pageContext.request.contextPath}/views/add_class.jsp">
                   <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
@@ -155,8 +155,15 @@
                   <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
+               <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+                  <a 
+                  class="nav-link"
+                  href="${pageContext.request.contextPath}/views/Notification.jsp">
+                  <i class="bi bi-door-open"></i><p>Send Notification</p></a>
+
+              </li>
               
-                
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -504,7 +511,7 @@
      <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">Add Rooms...</h3>
+              <h3 class="fw-bold mb-3">Add Classes...</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -515,7 +522,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_room.jsp">add room</a>
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">add Classes</a>
                 </li>
                <!--   <li class="separator">
                   <i class="icon-arrow-right"></i>

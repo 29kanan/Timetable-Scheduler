@@ -103,7 +103,7 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
+             <ul class="nav nav-secondary">
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -113,11 +113,6 @@
                 </a>
               </li>
        
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -148,12 +143,27 @@
               </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
+                  <a class="nav-link" href="${pageContext.request.contextPath}/views/add_class.jsp">
+                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
+
+              </li>
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_room.jsp">
                   <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
+               <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+                  <a 
+                  class="nav-link"
+                  href="${pageContext.request.contextPath}/views/Notification.jsp">
+                  <i class="bi bi-door-open"></i><p>Send Notification</p></a>
+
+              </li>
+              
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -175,13 +185,7 @@
 
               </li>-->
               
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
-                        <input type="hidden" name="logout" value="true">
-                        </form>
-                  <a href="#" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i><p>Logout</p></a>
-
-              </li>
+              
             </ul>
           </div>
         </div>
