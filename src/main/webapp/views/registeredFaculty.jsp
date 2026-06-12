@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.util.DBConnection"%>
+<%@page import="java.util.*" %>
 <%@page import="java.sql.*" %>
+<%@page import="com.dao.*" %>
+<%@page import="com.model.*" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -776,42 +779,40 @@
                       >
                         <thead>
                           <tr>
+                          <th>Faculty ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Dept</th>
-                           
-                            <th>Faculty ID</th>
+                           <th>Availability Time</th>
+                            
                           </tr>
                         </thead>
                         <tfoot>
                           <tr>
+                          <th>Faculty ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Dept</th>
-                        
-                            <th>Faculty ID</th>
+                            <th>Availability Time</th>
                           </tr>
                         </tfoot>
                         <tbody>
                         <%
 
-                           Connection con = DBConnection.getConnection();
-
-                                Statement st = con.createStatement();
-                               ResultSet rs = st.executeQuery("SELECT * FROM login_teacher;");
-
-                            while(rs.next()) {
+                    List<Faculty> f=DAOFactory.getFacultyDao().getAllFaculty();
+                            for(Faculty rs : f) {
                          %>
                          
                           <tr>
-                            <td><%=rs.getString("username")%></td>
-                            <td><%=rs.getString("email")%></td>
-                            <td><%=rs.getString("phone")%></td>
-                            <td><%=rs.getString("dept")%></td>
-                          
-                            <td><%=rs.getInt("fac_id")%></td>
+                          <td><%=rs.getFac_id()%></td>
+                            <td><%=rs.getUsername()%></td>
+                            <td><%=rs.getEmail()%></td>
+                            <td><%=rs.getPhone()%></td>
+                            <td><%=rs.getDept()%></td>
+                          <td><%=rs.getAvailStart()%> to <%=rs.getAvailEnd()%></td>
+                            
                           </tr>
                           
                           <%

@@ -78,13 +78,15 @@ public class facultyDaoImpl implements facultyDao {
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO regteacher(name,phone,email,dept,password) VALUES(?,?,?,?,?)");
+                "INSERT INTO regteacher(name,phone,email,dept,password,avail_start,avail_end) VALUES(?,?,?,?,?,?,?);");
 
             ps.setString(1, f.getUsername());
             ps.setString(2, f.getPhone());
             ps.setString(3, f.getEmail());
             ps.setString(4, f.getDept());
             ps.setString(5, f.getPassword());
+            ps.setString(6, f.getAvailStart());
+            ps.setString(7, f.getAvailEnd());
             status = ps.executeUpdate();
             if(status!=0) {
             	
@@ -116,6 +118,8 @@ public class facultyDaoImpl implements facultyDao {
                 f.setPhone(rs.getString("phone"));
                 f.setEmail(rs.getString("email"));
                 f.setDept(rs.getString("dept"));
+                f.setAvailStart(rs.getString("avail_start"));
+                f.setAvailEnd(rs.getString("avail_end"));
                 list.add(f);
             }
 
@@ -146,7 +150,8 @@ public class facultyDaoImpl implements facultyDao {
                 f.setPhone(rs.getString("phone"));
                 f.setEmail(rs.getString("email"));
                 f.setDept(rs.getString("dept"));
-                
+                f.setAvailStart(rs.getString("avail_start"));
+                f.setAvailEnd(rs.getString("avail_end"));
             }
         } catch (Exception e) {
         }
@@ -158,7 +163,7 @@ public class facultyDaoImpl implements facultyDao {
     public boolean updateFaculty(Faculty f) {
 
         boolean status = false;
-        String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?  WHERE fac_id=?";
+        String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?,,dept=?, avail_start=?,avail_end=? WHERE fac_id=?";
 
         try (        Connection con = DBConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -168,7 +173,10 @@ public class facultyDaoImpl implements facultyDao {
             ps.setString(2, f.getUsername());
             ps.setString(3, f.getPassword());
             ps.setString(4, f.getPhone());
-            ps.setInt(5,f.getFac_id());
+            ps.setString(5,f.getDept());
+            ps.setString(6,f.getAvailStart());
+            ps.setString(7,f.getAvailEnd());
+            ps.setInt(8,f.getFac_id());
 
             int i = ps.executeUpdate();
             if (i > 0) status = true;
@@ -177,6 +185,25 @@ public class facultyDaoImpl implements facultyDao {
             e.printStackTrace();
         }
         return status;
+    }
+    
+    // Delete Faculty
+    public boolean deleteFaculty(int id) {
+        String sql="DELETE FROM login_teacher WHERE fac_id=?";
+
+        try(Connection con = DBConnection.getConnection();
+                PreparedStatement ps=con.prepareStatement(sql);
+             ) {
+
+            ps.setInt(1,id);
+
+            return ps.executeUpdate()>0;
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }
