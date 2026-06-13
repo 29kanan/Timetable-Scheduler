@@ -1,14 +1,17 @@
-<%@page import="com.util.DBConnection"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+         <%@page import="com.dao.*"%>
+<%@page import="com.model.*"%>
+<%@page import="java.util.List"%>
+<%@page import="com.util.DBConnection"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> view timetable </title>
+    <title> add Classes </title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -62,7 +65,7 @@
     	
      if(session.getAttribute("username")==null){
     	 
-    	response.sendRedirect("admin_login.jsp");
+    	// response.sendRedirect("admin_login.jsp");
      }
   
   
@@ -100,7 +103,7 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
+             <ul class="nav nav-secondary">
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -138,9 +141,9 @@
                 </a>
 
               </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
+              <li class="nav-item active" style="text-decoration: row; display:flex;">
                    
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/add_class.jsp">
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">
                   <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
 
               </li>
@@ -169,7 +172,7 @@
                   <i class="bi bi-calendar-plus"></i><p>Create TimeTable</p></a>
 
               </li>
-             <li class="nav-item active" style="text-decoration: row; display:flex;">
+             <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">
                   <i class="bi bi-calendar4"></i><p>View TimeTable</p></a>
@@ -508,7 +511,7 @@
      <div class="container">
           <div class="page-inner">
             <div class="page-header">
-              <h3 class="fw-bold mb-3">View Timetables...</h3>
+              <h3 class="fw-bold mb-3">Add Classes...</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -519,7 +522,7 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">view timetable</a>
+                  <a href="${pageContext.request.contextPath}/views/add_class.jsp">add Classes</a>
                 </li>
                <!--   <li class="separator">
                   <i class="icon-arrow-right"></i>
@@ -532,126 +535,237 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
-                  
+                  <div class="card-header">
+                    <div class="card-header">
+    <div class="card-title">Add Class</div>
+</div>
+                 
+
+<div class="card-body">
+
+<form action="${pageContext.request.contextPath}/ClassesServlet" method="post">
+
+    <input type="hidden"
+           name="action"
+           value="add">
+
+    <div class="form-group">
+
+        <label>Class Name</label>
+
+        <input type="text"
+               name="class_name"
+               class="form-control"
+               placeholder="Enter Class Name"
+               required>
+
+    </div>
+
+   
+
+
+                     <div class="form-group">
+                          <label for="defaultSelect">Department</label>
+                          <select
+                          name="dept_id"
+                            required="required"
+                            class="form-select form-control"
+                            id="defaultSelect"
+                          >
+                          <option > Select Department</option>
+                            <%
+                         try{   
+                          List<Department> d=DAOFactory.getDepartmentDao().getAllDepartments();
+                        		 for(Department rs1:d) {
+%>
+        <option value="<%= rs1.getDept_id() %>">
+                <%= rs1.getDept_name() %>
+        </option>
+
+    <%
+        }
+       
+    } catch(Exception e) {
+        out.println(e);
+    }
+%>
+    
+                          </select>
+                          </div>
+                         
+                         
+                         
+                          <div class="form-group">
+                          <label for="defaultSelect">Semester</label>
+                          <select
+                            class="form-select form-control"
+                            id="defaultSelect"
+                             name="sem"
+                            required="required"
+                              
+                          >
+                           <option >Select Semester</option>
+                            <option value="1 sem">1 sem</option>
+                            <option value="2 sem">2 sem</option>
+                            <option value="3 sem">3 sem</option>
+                            <option value="4 sem">4 sem</option>
+                            <option value="5 sem">5 sem</option>
+                            <option value="6 sem">6 sem</option>
+                            <option value="7 sem">7 sem</option>
+                            <option value="8 sem">8 sem</option>
+                          </select>
+                        </div>
+                        
+                 <p style="align:center">
+                        <button 
+                        type="submit"
+                        class="btn btn-secondary btn-round ms-auto"
+                         >
+                          <i class="fa fa-plus"></i>
+                        Add Class
+                      </button>
+                      </p>
+
+</form>
+
+
+                       
+                      
                       <div class="container">
           <div class="page-inner">
            
-           
-                         <div class="col-md-12">
+               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">TimeTable list...</h4>
+                    <div class="d-flex align-items-center">
+                      <h4 class="card-title">List of Classes</h4>
+                  <!--    <button
+                        class="btn btn-primary btn-round ms-auto"
+                        
+                        title="click here to edit department data"
+                        onclick="window.location.href='${pageContext.request.contextPath}/views/edit_dept.jsp'"
+                      >
+                        <!--  <i class="fa fa-plus"></i>
+                        Edit Dept Data
+                      </button> --> 
+                    </div>
                   </div>
+                  
+                  
                   <div class="card-body">
+                   
                     <div class="table-responsive">
                       <table
-                        id="multi-filter-select"
+                        id="add-row"
                         class="display table table-striped table-hover"
                       >
-                        <thead>
+                      <thead>
                           <tr>
-                            <th>Class</th>
-                            <th>Day</th>
-                            <th>Time Slot</th>
-                            <th>Subject</th>
-                            <th>Teacher</th>
-                            <th>Room</th>
+                            <th>Class Id</th>
+                            <th>Class Name</th>
+                            <th>Semester</th>
+                            <th>Department </th>
+                             <th style="width: 10%">Action</th>
+                           
                           </tr>
                         </thead>
                         <tfoot>
                           <tr>
-                            <th>Class</th>
-                            <th>Day</th>
-                            <th>Time Slot</th>
-                            <th>Subject</th>
-                            <th>Teacher</th>
-                            <th>Room</th>
+                           <th>Class Id</th>
+                            <th>Class Name</th>
+                            <th>Semester</th>
+                            <th>Department </th>
+                            <th>Action</th>
+                           
                           </tr>
                         </tfoot>
                         <tbody>
-          
-                                  <%
-                                  try {
-                           Connection con = DBConnection.getConnection();
+                        <%
 
-                                Statement st = con.createStatement();
-                               ResultSet rs = st.executeQuery("SELECT * FROM time_table");
-
-                                 while(rs.next()) {
-                        
-                                	 int d_id=rs.getInt("dept_id");
-                                	 String s_abbr=rs.getString("sub_abbr");
-                                	 int f_id=rs.getInt("fac_id");
-                                	 int r_id=rs.getInt("room_id");
-
-                 PreparedStatement ps1 = con.prepareStatement("SELECT * FROM departments where dept_id="+d_id+";");
-                  ResultSet rs1 = ps1.executeQuery();
-
-                 while(rs1.next()) {
-        	                   %>
+                        try{   
+                            List<Classes_name> c=DAOFactory.getClassesDao().getAllClasses();
+                          		 for(Classes_name rs:c) {
+  %>
+                         
                           <tr>
-                              <td><%=rs.getString("sem")%>&nbsp;<%=rs1.getString("dept_name")%>&nbsp;<%=rs.getString("year")%></td>
-                            <%} %>
+                         
+                            <td><%=rs.getClassId()%></td>
+                            <td><%=rs.getClassName()%></td>
+                           <td><%=rs.getSem()%></td>
+                                 <td>       
+                                  <%  Department d1=DAOFactory.getDepartmentDao().getDepartmentById(rs.getDeptId());%>
+                                  <%= d1.getDept_name() %>
+                            </td>
+                          <td>
                             
-                            <td><%=rs.getString("day")%></td>
-                            <td><%=rs.getString("time_slot")%></td>
-                               
-                               <% 
-                                 PreparedStatement ps2 = con.prepareStatement("SELECT * FROM subjects where sub_abbr='"+s_abbr+"' and dept_id="+d_id+";");
-                  ResultSet rs2 = ps2.executeQuery();
-
-                 while(rs2.next()) {
-        	                   %>
-                         
-                              <td><%=rs2.getString("sub_name")%> - <%=rs2.getString("subject_type")%></td>
-                            <%  } 
-                 
-                 PreparedStatement ps3 = con.prepareStatement("SELECT * FROM login_teacher where fac_id="+f_id+";");
-                  ResultSet rs3 = ps3.executeQuery();
-
-                 while(rs3.next()) {
-        	                   %>
-                         
-                              <td><%=rs3.getString("username")%></td>
-                            <%} %>
-
-                      
-                      
-                            <% PreparedStatement ps4 = con.prepareStatement("SELECT * FROM rooms where room_id="+r_id+";");
-                  ResultSet rs4 = ps4.executeQuery();
-
-                 while(rs4.next()) {
-        	                   %>
-        	                   <td><%=rs4.getString("room_num")%>&nbsp;<%=rs4.getString("room_name")%> </td>
-        	                   <%} %>
+              
+                              <div class="form-button-action">
+                              <form action="${pageContext.request.contextPath}/ClassesServlet" method="get" id="editForm_<%=rs.getClassId()%>">
+            <input type="hidden" name="class_id" value="<%=rs.getClassId()%>">
+                       <input type="hidden" name="action" value="edit">
+           
+        </form>
+        
+                                <button
+                                  type="button"
+                                  data-bs-toggle="tooltip"
+                                  title="edit"
+                                  class="btn btn-link btn-primary btn-lg"
+                                  data-original-title="Edit Task"
+                                onclick="document.getElementById('editForm_<%=rs.getClassId()%>').submit();"
+                                >
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                                
+       <form action="${pageContext.request.contextPath}/ClassesServlet" method="get" id="deleteForm_<%=rs.getClassId()%>">
+            <input type="hidden" name="class_id" value="<%=rs.getClassId()%>">
+            <input type="hidden" name="action" value="delete">
+        </form>
+        
+              
+              
+                                <button
+                                  type="button"
+                                  data-bs-toggle="tooltip"
+                                  title="remove"
+                                  class="btn btn-link btn-danger"
+                                  data-original-title="delete"
+                                 onclick="if(confirm('Are you sure to delete this Class?')) {document.getElementById('deleteForm_<%=rs.getClassId()%>').submit();}"
+                                >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              
+                              </div>
+                            </td>
                           </tr>
                          
                           
                         <%
                          }
-                                 con.close();
-                                  } catch(Exception e) {
-                                      out.println(e);
-                                  }
-                        %>
+                       
+                    } catch(Exception e) {
+                        out.println(e);
+                    }
+                %>
+
+                          
                         </tbody>
                       </table>
                       
-                                            
                       <%
-    String msg = (String)request.getAttribute("editmsg3");
+    String msg = (String)request.getAttribute("msg");
     if(msg != null){
 %>
 <script>alert("<%=msg%>");</script>
 <%
     }
-    String msg2 = (String)request.getAttribute("addT");
+    String msg2 = (String)request.getAttribute("addR");
     if(msg2 != null){
 %>
 <script>alert("<%=msg2%>");</script>
 <%
     }
-    String msg3 = (String)request.getAttribute("delmsg2");
+    String msg3 = (String)request.getAttribute("delmsg");
     if(msg3 != null){
 %>
 <script>alert("<%=msg3%>");</script>
@@ -661,18 +775,46 @@
                     </div>
                   </div>
                 </div>
-                 </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+              
+        
+            </div>
+          </div>
          
+            
+        </div>
+                           
+          </div>
+         </div>
+                      
+                   <!--     <div class="form-floating form-floating-custom mb-3">
+                          <select
+                            class="form-select"
+                            id="selectFloatingLabel"
+                            required
+                          >
+                            <option selected>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                         <label for="selectFloatingLabel"><h2 style="color:#86b7fe">Select</h2></label>
+                        </div>
+                         --> 
+                     <!--  
+                  <div class="card-action">
+                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-danger">Cancel</button>
+                  </div>
+                  -->   
+               
+        
 
-
-      <footer class="footer">
+          <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
           
              <!-- Left: College Name -->
@@ -702,7 +844,7 @@
           </div>
         </footer>
       </div>
- 
+
       <!-- Custom template | don't include it in your project! -->
       <div class="custom-template">
         <div class="title">Settings</div>

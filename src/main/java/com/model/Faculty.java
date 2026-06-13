@@ -8,20 +8,23 @@ public class Faculty {
     private String email;
     private String phone;
     private String dept;
-    
+    private String availStart;
+    private String availEnd;
 
 	public Faculty() {
 		
 	}
 	
 	
-	public Faculty(String username, String password, String email, String phone, String dept) {
+	public Faculty(String username, String password, String email, String phone, String dept, String availStart, String availEnd) {
 	
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phone = phone;
 		this.dept = dept;
+		this.availStart=availStart;
+		this.availEnd= availEnd;
 	}
 
 
@@ -32,7 +35,7 @@ public class Faculty {
 	}
 	
 	
-	public Faculty(int fac_id, String username, String password, String email, String phone, String dept) {
+	public Faculty(int fac_id, String username, String password, String email, String phone, String dept, String availStart, String availEnd) {
 	
 		this.fac_id = fac_id;
 		this.username = username;
@@ -40,6 +43,8 @@ public class Faculty {
 		this.email = email;
 		this.phone = phone;
 		this.dept = dept;
+		this.availStart=availStart;
+		this.availEnd= availEnd;
 	}
 	public int getFac_id() {
 		return fac_id;
@@ -77,7 +82,21 @@ public class Faculty {
 	public void setDept(String dept) {
 		this.dept = dept;
 	}
-    
+	   public String getAvailStart() {
+	        return availStart;
+	    }
+
+	    public void setAvailStart(String availStart) {
+	        this.availStart = availStart;
+	    }
+
+	    public String getAvailEnd() {
+	        return availEnd;
+	    }
+
+	    public void setAvailEnd(String availEnd) {
+	        this.availEnd = availEnd;
+	    }
     
     
 }

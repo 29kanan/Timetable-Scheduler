@@ -10,6 +10,7 @@ static facultyDao Fdao;
 	static SubjectDao Sdao;
 	static TimetableDao Tdao;
 	static NotificationDAO Ndao;
+	static ClassesDao Cdao;
 	
 	static {
 		Adao = new adminDaoImpl();
@@ -19,6 +20,7 @@ static facultyDao Fdao;
 		Sdao=new SubjectDaoImpl();
 		Tdao=new TimetableDaoImpl();
 		Ndao = new NotificationDaoImpl();
+		Cdao=new ClassesDaoImpl();
 	}
 
 	
@@ -55,5 +57,10 @@ public static SubjectDao getSubjectDao() {
 public static TimetableDao getTimetableDao() {
 	
 	return Tdao;
+}
+
+public static ClassesDao getClassesDao() {
+	// TODO Auto-generated method stub
+	return Cdao;
 }
 }

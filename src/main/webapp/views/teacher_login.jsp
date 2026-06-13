@@ -540,6 +540,13 @@ alert("<%= msg %>");
     </div>
 
 </div>
-
+          <%
+    String msg = (String)request.getAttribute("msg");
+    if(msg != null){
+%>
+<script>alert("<%=msg%>");</script>
+<%
+    }
+    %>
 </body>
 </html>

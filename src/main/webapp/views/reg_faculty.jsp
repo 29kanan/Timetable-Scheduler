@@ -78,9 +78,15 @@
        pattern="[0-9]{10}" maxlength="10" required
        title="Phone number must be exactly 10 digits">
 
+            <label for="time">Availability Time</label><br>
+            From
+            <input type="time" name="availStart" placeholder="" required>
+            To
+            <input type="time" name="availEnd" placeholder="" required>
+
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Create Password" required>
-
+               
             <label for="dept">Department</label>
             <select name="dept" required>
                 <option value="">Select Department</option>

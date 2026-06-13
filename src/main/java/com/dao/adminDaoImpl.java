@@ -58,23 +58,28 @@ public class adminDaoImpl implements adminDao {
 	                String password = rs.getString("password");
 	                String dept = rs.getString("dept");
 	               String ph=rs.getString("phone");
-	              
+	               String aStart=rs.getString("avail_start");
+	               String aEnd=rs.getString("avail_end");
+	               
 	                PreparedStatement ps2 = con.prepareStatement(
-	                		"INSERT INTO login_teacher(email,password,username,dept,phone) VALUES(?,?,?,?,?);");
+	                		"INSERT INTO login_teacher(email,password,username,dept,phone,avail_start,avail_end) VALUES(?,?,?,?,?,?,?);");
 	                
 	                ps2.setString(1, email);
 	                ps2.setString(2, password);
 	                ps2.setString(3, name);
 	                ps2.setString(4, dept);
 	                ps2.setString(5, ph);
+	                ps2.setString(6, aStart);
+	                ps2.setString(7, aEnd);
 	                 x=ps2.executeUpdate();
 
 	                if(x!=0) {
 	                	
 	                	PreparedStatement msg = con.prepareStatement(
-	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	                			"UPDATE fac_msg SET msg=? WHERE email=? and password=?;");
 	              		msg.setString(1, "Your account has been APPROVED by admin!");
 	                		msg.setString(2, email);
+	                		msg.setString(3, password);
 	                		msg.executeUpdate();
 
 	                	
@@ -117,9 +122,11 @@ public class adminDaoImpl implements adminDao {
 	                String password = rs.getString("password");
 	                String dept = rs.getString("dept");
 	               String ph=rs.getString("phone");
+	               String aStart=rs.getString("avail_start");
+	               String aEnd=rs.getString("avail_end");
 	             // System.out.println("selected");
 	                PreparedStatement ps2 = con.prepareStatement(
-	                		"INSERT INTO rejected_teacher(faculty_id,email,password,name,dept,phone) VALUES(?,?,?,?,?,?);");
+	                		"INSERT INTO rejected_teacher(faculty_id,email,password,name,dept,phone,avail_start,avail_end) VALUES(?,?,?,?,?,?,?);");
 	                
 	                ps2.setInt(1, fid);
 	                ps2.setString(2, email);
@@ -127,14 +134,17 @@ public class adminDaoImpl implements adminDao {
 	                ps2.setString(4, name);
 	                ps2.setString(5, dept);
 	                ps2.setString(6, ph);
+	                ps2.setString(6, aStart);
+	                ps2.setString(7, aEnd);
 	                 x=ps2.executeUpdate();
 
 	                if(x!=0) {
 	                //	 System.out.println("inserted");
 	                	PreparedStatement msg = con.prepareStatement(
-	                			"UPDATE fac_msg SET msg=? WHERE email=?");
+	                			"UPDATE fac_msg SET msg=? WHERE email=? and password=?;");
 	              		msg.setString(1,"Your account request has been REJECTED by admin.");
 	                		msg.setString(2, email);
+	                		msg.setString(3, password);
 	                		msg.executeUpdate();
 	                	
 	                PreparedStatement ps3 = con.prepareStatement(
