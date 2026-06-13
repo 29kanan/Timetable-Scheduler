@@ -12,7 +12,7 @@ public class sql_pass {
 		uname = "root";
 	}
 	static {
-		url="jdbc:Mysql://localhost:3306/timetable_db";
+		url="jdbc:mysql://localhost:3306/timetable_db";
 	}
 	public static String getPass() {
 		return pass;
