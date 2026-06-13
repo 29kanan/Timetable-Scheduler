@@ -95,6 +95,19 @@ public class DBConnection {
 			e.printStackTrace();
 		    }
 	   }
+		
+		public static void clean(ResultSet rs,PreparedStatement ps,Connection conn) {
+			try {
+				
+				if(rs!=null)rs.close();
+				if(ps!=null)ps.close();
+				if(conn!=null)conn.close();	
+				
+				}
+			catch(Exception e) {
+			e.printStackTrace();
+		    }
+	   }
 	}
 
 	

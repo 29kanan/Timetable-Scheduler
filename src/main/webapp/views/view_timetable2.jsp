@@ -1,15 +1,14 @@
 <%@page import="com.util.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.*" %>
-<%@page import="java.sql.*" %>
 
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> add department </title>
+    <title> view timetable </title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -52,87 +51,22 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
-    <style>
-	    /* Card per day timetable layout elements */
-	    .tt-class-section { margin-bottom: 36px; display: block !important; }
-	    .tt-class-title {
-	      background: rgba(13, 82, 179, 0.08);
-	      color: #0d52b3;
-	      padding: 12px 18px;
-	      border-radius: 8px;
-	      font-size: 15px;
-	      font-weight: 700;
-	      margin-bottom: 12px;
-	      border-left: 4px solid #0d52b3;
-	    }
-	    .tt-day-card {
-	      border: 1px solid #e8eef7;
-	      border-radius: 10px;
-	      margin-bottom: 10px;
-	      overflow: hidden;
-	      box-shadow: 0 1px 4px rgba(13,82,179,0.06);
-	      display: block !important;
-	    }
-	    .tt-day-header {
-	      background: #0d52b3;
-	      color: white;
-	      padding: 9px 16px;
-	      font-size: 13px;
-	      font-weight: 600;
-	      letter-spacing: 0.3px;
-	    }
-	    .tt-slot-row {
-		  display: flex;
-		  align-items: center;
-		  padding: 12px 16px;
-		  border: 1px solid #e8eef7;
-		  border-radius: 8px;
-		  margin-bottom: 8px;
-		  gap: 12px;
-		  font-size: 13px;
-		  background: #fff;
-		  box-shadow: 0 1px 3px rgba(13,82,179,0.04);
-		}
-		.tt-slot-row.lab-row { 
-		  background: #f6fff7; 
-		  border-color: #a5d6a7;
-		}
-		.tt-slot-row:hover { 
-		  background: #f0f5ff; 
-		  transition: background 0.15s; 
-		}
-		.tt-time { color: #888; font-size: 12px; min-width: 140px; font-weight: 500; }
-		.tt-subject { flex: 1; color: #1a1a2e; font-weight: 600; font-size: 14px; }
-		.tt-badge { padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-align: center; min-width: 70px; }
-		.tt-badge-theory { background: #e3f2fd; color: #0d52b3; border: 1px solid #90caf9; }
-		.tt-badge-lab { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-		.tt-teacher { color: #666; font-size: 12px; min-width: 150px; }
-		.tt-actions { display: flex; gap: 8px; border-left: 1px solid #e8eef7; padding-left: 10px; margin-left: 4px; }
-		.tt-actions .btn-link { background: none; border: none; padding: 0; cursor: pointer; }
-	</style>
   </head>
   <body>
     
     
-	<%
-	  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-	  response.setHeader("Pragma","no-cache");
-	  response.setHeader("Expires","0");
-	  if(session.getAttribute("username")==null){
-	    response.sendRedirect("admin_login.jsp");
-	  }
-	  
-	  boolean isFinalized = false;
-	  try {
-	    Connection conStatus = DBConnection.getConnection();
-	    ResultSet rs0 = conStatus.createStatement()
-	        .executeQuery("SELECT is_finalized FROM timetable_status WHERE id = 1");
-	    if (rs0.next()) isFinalized = rs0.getBoolean("is_finalized");
-	    conStatus.close(); // its own separate connection, safe to close
-	  } catch (Exception e) {
-	    e.printStackTrace();
-	  }
-	%>
+    <% 
+         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //http 1.1
+        response.setHeader("Pragma","no-cache");//http 1.0
+    	response.setHeader("Expires","0");// proxies
+    	
+     if(session.getAttribute("username")==null){
+    	 
+    	response.sendRedirect("admin_login.jsp");
+     }
+  
+  
+ %>
     
     
     
@@ -166,8 +100,8 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-             <ul class="nav nav-secondary">
-              <li class="nav-item">
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
                 <a
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/adminDashB.jsp">
@@ -176,6 +110,11 @@
                 </a>
               </li>
        
+              <li class="nav-section">
+                <span class="sidebar-mini-icon">
+                  <i class="fa fa-ellipsis-h"></i>
+                </span>
+              </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
@@ -206,28 +145,13 @@
               </li>
               <li class="nav-item" style="text-decoration: row; display:flex;">
                    
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/add_class.jsp">
-                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
-
-              </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
                   <a 
                   class="nav-link"
                   href="${pageContext.request.contextPath}/views/add_room.jsp">
                   <i class="bi bi-door-open"></i><p>Add Room</p></a>
 
               </li>
-               <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/Notification.jsp">
-                  <i class="bi bi-door-open"></i><p>Send Notification</p></a>
-
-              </li>
-              
-              <li class="nav-item active" style="text-decoration: row; display:flex;">
+              <li class="nav-item" style="text-decoration: row; display:flex;">
                    
                   <a 
                   class="nav-link"
@@ -248,7 +172,13 @@
 
               </li>-->
               
-              
+              <li class="nav-item" style="text-decoration: row; display:flex;">
+                   <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
+                        <input type="hidden" name="logout" value="true">
+                        </form>
+                  <a href="#" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i><p>Logout</p></a>
+
+              </li>
             </ul>
           </div>
         </div>
@@ -573,434 +503,172 @@
 
      <div class="container">
           <div class="page-inner">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-			    <!-- Left Side: Title & Breadcrumbs -->
-			    <div class="page-header">
-			        <h3 class="fw-bold mb-1">Create Timetable...</h3>
-			        <ul class="breadcrumbs mb-0 list-unstyled d-flex align-items-center">
-			            <li class="nav-home">
-			                <a href="#"><i class="bi bi-house-door-fill"></i></a>
-			            </li>
-			            <li class="separator mx-2"><i class="bi bi-chevron-right"></i></li>
-			            <li class="nav-item">
-			                <a href="#" class="text-muted text-decoration-none">create timetable</a>
-			            </li>
-			        </ul>
-			    </div>
-			
-			    <!-- Right Side: Action Button -->
-			    <div>
-			        <a href="${pageContext.request.contextPath}/views/GenerateTimetable.jsp" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm">
-			            <i class="bi bi-cpu-fill"></i> Generate Automatic Timetable
-			        </a>
-			    </div>
-			</div>
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">View Timetables...</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">view timetable</a>
+                </li>
+               <!--   <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="#">Datatables</a>
+                </li>   -->
+              </ul>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
+                  
+                      <div class="container">
+          <div class="page-inner">
+           
+           
+                         <div class="col-md-12">
+                <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Add Timetable's Slot</div>
+                    <h4 class="card-title">TimeTable list...</h4>
                   </div>
-                 
-                      <!--   <label class="mt-3 mb-3"
-                          ><b>Form Floating Label</b></label>
-                          --> 
-                   <form action="${pageContext.request.contextPath}/AddTimetableServlet" method="post">
-                         
-                         
-                         <div class="form-group">
-                          <label for="defaultSelect">Department</label>
-                          <select
-                          name="dept_id"
-                            required="required"
-                            class="form-select form-control"
-                            id="defaultSelect"
-                          >
-                            <%
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="multi-filter-select"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                            <th>Class</th>
+                            <th>Day</th>
+                            <th>Time Slot</th>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Room</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>Class</th>
+                            <th>Day</th>
+                            <th>Time Slot</th>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Room</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+          
+                                  <%
+                                  try {
+                           Connection con = DBConnection.getConnection();
+
+                                Statement st = con.createStatement();
+                               ResultSet rs = st.executeQuery("SELECT * FROM time_table");
+
+                                 while(rs.next()) {
+                        
+                                	 int d_id=rs.getInt("dept_id");
+                                	 String s_abbr=rs.getString("sub_abbr");
+                                	 int f_id=rs.getInt("fac_id");
+                                	 int r_id=rs.getInt("room_id");
+
+                 PreparedStatement ps1 = con.prepareStatement("SELECT * FROM departments where dept_id="+d_id+";");
+                  ResultSet rs1 = ps1.executeQuery();
+
+                 while(rs1.next()) {
+        	                   %>
+                          <tr>
+                              <td><%=rs.getString("sem")%>&nbsp;<%=rs1.getString("dept_name")%>&nbsp;<%=rs.getString("year")%></td>
+                            <%} %>
                             
-                            Connection con1 = DBConnection.getConnection();
-    try {
+                            <td><%=rs.getString("day")%></td>
+                            <td><%=rs.getString("time_slot")%></td>
+                               
+                               <% 
+                                 PreparedStatement ps2 = con.prepareStatement("SELECT * FROM subjects where sub_abbr='"+s_abbr+"' and dept_id="+d_id+";");
+                  ResultSet rs2 = ps2.executeQuery();
 
-         PreparedStatement ps1 = con1.prepareStatement("SELECT * FROM departments");
-        ResultSet rs1 = ps1.executeQuery();
-
-        while(rs1.next()) {
-%>
-        <option value="<%= rs1.getInt("dept_id") %>">
-                <%= rs1.getString("dept_name") %>
-        </option>
-
-<%
-        }
-       
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>
-
-                          </select>
-                          </div>
+                 while(rs2.next()) {
+        	                   %>
                          
-                         
-                         
-                          <div class="form-group">
-                          <label for="defaultSelect">Semester</label>
-                          <select
-                            class="form-select form-control"
-                            id="defaultSelect"
-                             name="sem"
-                            required="required"
-                              
-                          >
-                            <option value="1 sem">1 sem</option>
-                            <option value="2 sem">2 sem</option>
-                            <option value="3 sem">3 sem</option>
-                            <option value="4 sem">4 sem</option>
-                            <option value="5 sem">5 sem</option>
-                            <option value="6 sem">6 sem</option>
-                            <option value="7 sem">7 sem</option>
-                            <option value="8 sem">8 sem</option>
-                          </select>
-                        </div>
-                        
-                        
-                        
-                         <div class="form-group">
-                          <label for="defaultSelect">Day</label>
-                          <select
-                            class="form-select form-control"
-                            id="defaultSelect"
-                             name="day"
-                            required="required"
-                              
-                          >
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
-                          </select>
-                        </div>
-                        
-                        
-                        
-                        
-                         <div class="form-group">
-                          <label for="defaultSelect">Time Slot</label>
-                          <select
-                            class="form-select form-control"
-                            id="defaultSelect"
-                             name="time_slot"
-                            required="required"
-                              
-                          >
-                            <option value="10:15-11:10">10:15-11:10</option>
-                            <option value="11:10-12:05">11:10-12:05</option>
-                            <option value="12:40-01:35">12:40-01:35</option>
-                            <option value="01:35-02:30">01:35-02:30</option>
-                            <option value="02:40-03:35">02:40-03:35</option>
-                            <option value="03:35-04:30">03:35-04:30</option>
-                          </select>
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                  
-               <%
-    try {
-
-         PreparedStatement ps2 = con1.prepareStatement("SELECT * FROM subjects");
-        ResultSet rs2 = ps2.executeQuery();
-        %> 
-        <label for="defaultSelect">Subject</label>
-        <select
-        name="sub_abbr"
-          required="required"
-          class="form-select form-control"
-          id="defaultSelect"
-        >
-        <option value=""></option>
-        <%
-        while(rs2.next()) {
-%>         
-
-        <option value="<%=rs2.getString("sub_abbr") %>">
-         
-                <%= rs2.getString("sub_name")%> - <%=rs2.getString("subject_type") %> &nbsp; &nbsp;/&nbsp;
-<%
-                            
-                         
-    try {
-
-         PreparedStatement ps1 = con1.prepareStatement("SELECT * FROM departments where dept_id="+ rs2.getString("dept_id") +";");
-        ResultSet rs1 = ps1.executeQuery();
-
-        while(rs1.next()) {
-
-        	%><%= rs1.getString("dept_name") %> 
-               
-<%
-        }
-       
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>
-                  </option>
-               
-                 <%
+                              <td><%=rs2.getString("sub_name")%> - <%=rs2.getString("subject_type")%></td>
+                            <%  } 
                  
-        }
-        
-    } catch(Exception e) {
-        out.println(e);
-    }
-%> 
-</select>
- </div>
-        
+                 PreparedStatement ps3 = con.prepareStatement("SELECT * FROM login_teacher where fac_id="+f_id+";");
+                  ResultSet rs3 = ps3.executeQuery();
 
-                          <div class="form-group">
-                          <label for="defaultSelect">Room</label>
-                          <select
-                          name="room_id"
-                            required="required"
-                            class="form-select form-control"
-                            id="defaultSelect"
-                          >
-                            <option value=""></option>
-                     
-                            <%
-    try {
+                 while(rs3.next()) {
+        	                   %>
+                         
+                              <td><%=rs3.getString("username")%></td>
+                            <%} %>
 
-         PreparedStatement ps3 = con1.prepareStatement("SELECT * FROM rooms");
-        ResultSet rs3 = ps3.executeQuery();
+                      
+                      
+                            <% PreparedStatement ps4 = con.prepareStatement("SELECT * FROM rooms where room_id="+r_id+";");
+                  ResultSet rs4 = ps4.executeQuery();
 
-        while(rs3.next()) {
+                 while(rs4.next()) {
+        	                   %>
+        	                   <td><%=rs4.getString("room_num")%>&nbsp;<%=rs4.getString("room_name")%> </td>
+        	                   <%} %>
+                          </tr>
+                         
+                          
+                        <%
+                         }
+                                 con.close();
+                                  } catch(Exception e) {
+                                      out.println(e);
+                                  }
+                        %>
+                        </tbody>
+                      </table>
+                      
+                                            
+                      <%
+    String msg = (String)request.getAttribute("editmsg3");
+    if(msg != null){
 %>
-        <option value="<%= rs3.getInt("room_id") %>">
-                <%= rs3.getString("room_num") %>&nbsp;<%= rs3.getString("room_name") %>
-        </option>
-
+<script>alert("<%=msg%>");</script>
 <%
-        }
-%>
-
-                          </select>
-                          </div>
-                           <div class="form-group">
-                          <label for="largeInput">Year</label>
-                          <input
-                            type="text"
-                            name="year"
-                            required="required"
-                            class="form-control form-control"
-                            id="defaultInput"
-                            placeholder="Enter year (e.g. 20yy-yy)"
-                          />
-                        </div>
-                   
-                        
-                        <p style="align:center">
-                        <button 
-                        type="submit"
-                        class="btn btn-secondary btn-round ms-auto"
-                         >
-                          <i class="fa fa-plus"></i>
-                        Add Time Slot
-                      </button>
-                      </p>
-                   </form>
-                       
-            <%
-        
-        con1.close();
-    } catch(Exception e) {
-        out.println(e);
     }
-%>          
-
-		<div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="card-title">TimeTable</h4>
-                <div class="tt-legend">
-                  <span class="tt-legend-badge tt-badge-theory">Theory</span>
-                  <span class="tt-legend-badge tt-badge-lab">Lab</span>
+    String msg2 = (String)request.getAttribute("addT");
+    if(msg2 != null){
+%>
+<script>alert("<%=msg2%>");</script>
+<%
+    }
+    String msg3 = (String)request.getAttribute("delmsg2");
+    if(msg3 != null){
+%>
+<script>alert("<%=msg3%>");</script>
+<%
+    }
+%>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="card-body">
-              	
-                <%
-                try {
-                  Connection conn = DBConnection.getConnection();
-                  Statement st = conn.createStatement();
-                  ResultSet rs = st.executeQuery(
-                		  "SELECT tt.*, d.dept_name, s.subject_type, lt.username as teacher_name " +
-                	      "FROM time_table tt " +
-                	      "LEFT JOIN departments d ON tt.dept_id = d.dept_id " +
-                          "LEFT JOIN (" +
-        	              "SELECT DISTINCT sub_abbr, dept_id, subject_type FROM subjects" +
-                	      ") s ON s.sub_abbr = tt.sub_abbr AND s.dept_id = tt.dept_id " +
-                          "LEFT JOIN login_teacher lt ON lt.fac_id = tt.fac_id " +
-                	      "ORDER BY tt.dept_id, tt.sem, tt.day, tt.time_slot"
-                  );
-
-                  Map<String, Map<String, List<String[]>>> classMap = new LinkedHashMap<>();
-                  while (rs.next()) {
-                	  String sem = rs.getString("sem");
-                      String deptName = rs.getString("dept_name");
-                      
-                      String classKey = "Timetable Schedule Setup";
-                      if (deptName != null && deptName.trim().length() >= 2) {
-                          classKey = deptName.trim().substring(0, 2).toUpperCase() + " - " + (sem != null ? sem : "");
-                      } else if (sem != null) {
-                          classKey = "Class - " + sem;
-                      }
-                      
-                      String day = rs.getString("day") != null ? rs.getString("day") : "Monday";
-                      String timeSlot = rs.getString("time_slot") != null ? rs.getString("time_slot") : "Time Slot Unassigned";
-                      String subAbbr = rs.getString("sub_abbr") != null ? rs.getString("sub_abbr") : "No Subject Specified";
-                      String subType = rs.getString("subject_type") != null ? rs.getString("subject_type") : "Theory";
-                      String teacherName = rs.getString("teacher_name") != null ? rs.getString("teacher_name") : "Not Assigned";
-                      String ttId = String.valueOf(rs.getInt("tt_id"));
-
-                      classMap.computeIfAbsent(classKey, k -> new LinkedHashMap<>())
-                            .computeIfAbsent(day, k -> new ArrayList<>())
-                            .add(new String[]{timeSlot, subAbbr, subType, teacherName, ttId});
-                  }
-                  conn.close(); // Cleaned variable reference to match con1
-                  
-                  String[] dayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-                %>
-
-                <div class="table-responsive">
-                  <table id="multi-filter-select" class="display table" style="width:100%;">
-                    <thead>
-                      <tr>
-                        <th>Class Details</th>
-                        <th>Day</th>
-                        <th>Time Slot</th>
-                        <th>Subject</th>
-                        <th>Type</th>
-                        <th>Teacher</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>Class Details</th>
-                        <th>Day</th>
-                        <th>Time Slot</th>
-                        <th>Subject</th>
-                        <th>Type</th>
-                        <th>Teacher</th>
-                        <th>Actions</th>
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                    <%
-                    // YOUR EXACT NESTED LOOPS START HERE - UNTOUCHED
-                    for (Map.Entry<String, Map<String, List<String[]>>> classEntry : classMap.entrySet()) {
-                        String className = classEntry.getKey();
-                        Map<String, List<String[]>> dayMap = classEntry.getValue();
-                        
-                        for (String day : dayOrder) {
-                            List<String[]> slots = dayMap.get(day);
-                            if (slots != null && !slots.isEmpty()) { 
-                                for (String[] slot : slots) {
-                                  String subType = slot[2] != null ? slot[2].toLowerCase() : "";
-                                  boolean isLab = subType.contains("lab") || subType.contains("practical");
-                                  String rowClass = isLab ? "lab-row" : "";
-                                  String badgeClass = isLab ? "tt-badge-lab" : "tt-badge-theory";
-                                  String badgeText = isLab ? "Lab" : "Theory";
-                                  String ttId = slot[4];
-                                %>
-                                  <tr class="<%= rowClass %>">
-                                    <td class="fw-bold text-primary"><i class="bi bi-mortarboard me-2"></i><%= className %></td>
-                                    <td><span class="badge bg-dark text-white"><%= day %></span></td>
-                                    <td class="tt-time"><i class="far fa-clock me-1"></i><%= slot[0] != null ? slot[0] : "-" %></td>
-                                    <td class="tt-subject"><%= slot[1] != null ? slot[1] : "-" %></td>
-                                    <td><span class="tt-badge <%= badgeClass %>"><%= badgeText %></span></td>
-                                    <td class="tt-teacher"><i class="bi bi-person me-1"></i><%= slot[3] != null ? slot[3] : "-" %></td>
-                                    <td>
-                                      <div class="tt-actions">
-                                        <form action="${pageContext.request.contextPath}/views/edit_timetable.jsp" method="post" id="editTForm_<%= ttId %>" class="m-0 d-inline">
-                                          <input type="hidden" name="tt_id" value="<%= ttId %>">
-                                          <button type="button" class="btn btn-link text-primary p-1" data-bs-toggle="tooltip" title="Edit" onclick="document.getElementById('editTForm_<%= ttId %>').submit();">
-                                            <i class="fa fa-edit"></i>
-                                          </button>
-                                        </form>
-                
-                                        <form action="${pageContext.request.contextPath}/DeleteTimetableServlet" method="get" id="deleteTForm_<%= ttId %>" class="m-0 d-inline">
-                                          <input type="hidden" name="tt_id" value="<%= ttId %>">
-                                          <button type="button" class="btn btn-link text-danger p-1" data-bs-toggle="tooltip" title="Remove" onclick="document.getElementById('deleteTForm_<%= ttId %>').submit();">
-                                            <i class="fa fa-times"></i>
-                                          </button>
-                                        </form>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                <% 
-                                } 
-                            } 
-                        } 
-                    }
-                    %>
-                    </tbody>
-                  </table>
+                 </div>
                 </div>
-                <%
-                } catch(Exception e) {
-                  out.println("<div class='alert alert-danger'>Error: " + e.getMessage() + "</div>");
-                }
-                %>
-
-                <%-- Global Action Buttons --%>
-                <% if (request.getAttribute("message") != null) { %>
-				    <div class="alert alert-<%= request.getAttribute("messageType") %> alert-dismissible fade show text-center mx-auto my-3" role="alert" style="max-width: 600px;">
-				        <i class="fa <%= "success".equals(request.getAttribute("messageType")) ? "fa-check-circle" : "fa-exclamation-triangle" %> me-2"></i>
-				        <%= request.getAttribute("message") %>
-				        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				    </div>
-				<% } %>
-                <form method="GET" action="#">
-				    <div class="d-flex justify-content-center gap-3 my-4">
-				        
-				        <% if (isFinalized) { %>
-						  <button class="btn btn-primary" disabled>
-						    <i class="bi bi-check-circle-fill"></i> Finalized
-						  </button>
-						<% } else { %>
-						  <a href="${pageContext.request.contextPath}/FinalizeTimetable" 
-						     class="btn btn-success" id="finalizeBtn">
-						    <i class="bi bi-check-lg"></i> Finalize
-						  </a>
-						  <button class="btn btn-danger" id="deleteBtn" onclick="...your existing delete function...">
-						    <i class="bi bi-exclamation-circle"></i> Delete All data
-						  </button>
-						<% } %>
-				        
-				    </div>
-				</form>
-
-                <%
-                String msg = (String)request.getAttribute("editmsg3");
-                if(msg != null){ %><script>alert("<%=msg%>");</script><% }
-                String msg2 = (String)request.getAttribute("addT");
-                if(msg2 != null){ %><script>alert("<%=msg2%>");</script><% }
-                String msg3 = (String)request.getAttribute("delmsg2");
-                if(msg3 != null){ %><script>alert("<%=msg3%>");</script><% }
-                %>
-              </div>
-            </div>
-          </div>
-        </div>    
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>    
          
 
-     <footer class="footer">
+
+      <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
           
              <!-- Left: College Name -->
@@ -1244,35 +912,36 @@
         $("#basic-datatables").DataTable({});
 
         $("#multi-filter-select").DataTable({
-        	  pageLength: 5,
-        	  initComplete: function () {
-        	    this.api()
-        	      .columns()
-        	      .every(function () {
-        	        var column = this;
-        	        var select = $(
-        	          '<select class="form-select"><option value=""></option></select>'
-        	        )
-        	          .appendTo($(column.footer()).empty())
-        	          .on("change", function () {
-        	            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-        	            column.search(val ? "^" + val + "$" : "", true, false).draw();
-        	          });
+          pageLength: 5,
+          initComplete: function () {
+            this.api()
+              .columns()
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select class="form-select"><option value=""></option></select>'
+                )
+                  .appendTo($(column.footer()).empty())
+                  .on("change", function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
-        	        var data = column
-        	          .nodes()
-        	          .to$()
-        	          .map(function() {
-        	            return $(this).attr('data-filter') || $(this).text().trim();
-        	          })
-        	          .toArray();
+                    column
+                      .search(val ? "^" + val + "$" : "", true, false)
+                      .draw();
+                  });
 
-        	        [...new Set(data)].sort().forEach(function (d) {
-        	          select.append('<option value="' + d + '">' + d + "</option>");
-        	        });
-        	      });
-        	  },
-        	});
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append(
+                      '<option value="' + d + '">' + d + "</option>"
+                    );
+                  });
+              });
+          },
+        });
 
         // Add Row
         $("#add-row").DataTable({

@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.DAOFactory;
 import com.dao.TimetableDao;
 import com.model.Timetable;
+import com.util.DBConnection;
 
 public class EditTimetableServlet extends HttpServlet {
 
@@ -33,15 +36,25 @@ public class EditTimetableServlet extends HttpServlet {
         t.setYear(request.getParameter("year"));
         TimetableDao dao = DAOFactory.getTimetableDao();
       
-
+		
         if (dao.updateTimetable(t)) {
-        	request.setAttribute("editmsg3", "Record Updated!!");
-        	RequestDispatcher rd = request.getRequestDispatcher("/views/create_timetable.jsp");
-            rd.forward(request, response);
+	        	try {
+	    	        Connection con = DBConnection.getConnection();
+	    	        PreparedStatement ps = con.prepareStatement(
+	    	            "UPDATE timetable_status SET is_finalized = FALSE WHERE id = 1"
+	    	        );
+	    	        ps.executeUpdate();
+	    	        con.close();
+	    	    } catch (Exception e) {
+	    	        e.printStackTrace();
+	    	    }
+	        	request.setAttribute("editmsg3", "Record Updated!!");
+	        	RequestDispatcher rd = request.getRequestDispatcher("/views/create_timetable.jsp");
+	            rd.forward(request, response);
         } else {
-        	request.setAttribute("editmsg3", "some error occur!!");
-        	RequestDispatcher rd = request.getRequestDispatcher("/views/create_timetable.jsp");
-            rd.forward(request, response);
+	        	request.setAttribute("editmsg3", "some error occur!!");
+	        	RequestDispatcher rd = request.getRequestDispatcher("/views/create_timetable.jsp");
+	            rd.forward(request, response);
         }
 	}
 

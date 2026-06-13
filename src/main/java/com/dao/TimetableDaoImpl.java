@@ -129,16 +129,98 @@ public class TimetableDaoImpl implements TimetableDao {
     public boolean deleteTimetable(int id) {
           String query = "DELETE FROM time_table WHERE tt_id=?";
 
-    	  boolean status=false;
-          int x=0;
-        try(    	  Connection con = DBConnection.getConnection();
+	    	  boolean status=false;
+	          int x=0;
+	        try(    	  Connection con = DBConnection.getConnection();
+	                PreparedStatement ps = con.prepareStatement(query);
+	        		) {
+	            ps.setInt(1, id);
+	            x= ps.executeUpdate() ;
+	            if(x!=0)
+	            	status=true;
+	        } catch (Exception e) { e.printStackTrace();}
+	        return status;
+	    }
+
+	public boolean deleteAllTimetableRecords() {
+		String query = "DELETE FROM time_table";
+		
+		boolean status=false;
+		int x=0;
+		
+		try(    	  Connection con = DBConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(query);
-) {
-            ps.setInt(1, id);
+        		) {
             x= ps.executeUpdate() ;
             if(x!=0)
             	status=true;
         } catch (Exception e) { e.printStackTrace();}
-        return status;
-    }
+		return status;
+	}
+	
+	public boolean finalizeTimetable(){
+		String query = 
+				"INSERT INTO final_timetable(class_id, day, lecture_name, slot_start_time, " +
+				"slot_end_time, faculty_id) VALUES(?,?,?,?,?,?)";
+		Connection conn = null;
+	    PreparedStatement ps = null;
+
+	    try {
+	        conn = DBConnection.getConnection();
+	        conn.setAutoCommit(false);
+	    		
+	        Statement st = conn.createStatement();
+	        ResultSet rs = st.executeQuery(
+	        		"SELECT tt.*, c.class_id AS class_id FROM time_table tt JOIN classes_name c " +
+	        		"ON c.sem = tt.sem AND c.dept_id = tt.dept_id"
+	        	);
+	        ps = conn.prepareStatement(query);
+	        int batchSize = 0;
+
+	        while (rs.next()) {
+	        		int class_id = rs.getInt("class_id");
+	        		String day = rs.getString("day");
+	        		String lecture_name = rs.getString("sub_abbr");
+	        		
+	        		java.time.LocalTime slot_start_time = null;
+	        		java.time.LocalTime slot_end_time = null;
+	        		
+	        		String rawTimeString = rs.getString("time_slot");
+	        		if (rawTimeString != null && !rawTimeString.trim().isEmpty()) {
+	        			String[] parts = rawTimeString.split("-");
+	        			String startTimeStr = parts[0].trim();
+	        		    String endTimeStr = parts[1].trim();
+	        		    slot_start_time = java.time.LocalTime.parse(startTimeStr);
+	        		    slot_end_time = java.time.LocalTime.parse(endTimeStr);
+	        		}
+	        		int fac_id = rs.getInt("fac_id");
+	        		
+	        		ps.setInt(1, class_id);
+		        ps.setString(2, day);
+		        ps.setString(3, lecture_name);
+		        ps.setObject(4, slot_start_time);
+		        ps.setObject(5, slot_end_time);
+		        ps.setInt(6, fac_id);
+
+		        ps.addBatch();
+		        batchSize++;
+
+		        if (batchSize % 100 == 0) {
+		            ps.executeBatch();
+		            batchSize = 0;
+		        }
+		    }
+
+		    if (batchSize > 0) ps.executeBatch();
+		    conn.commit();
+		    return true;
+		    
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); } }
+	        return false;
+	    } finally {
+	        DBConnection.clean(ps, conn);
+	    }
+	}
 }
