@@ -8,7 +8,7 @@ import com.model.TimetableSlot;
 
 public interface AutoTimetableDAO {
 	
-	boolean confirmTimetable(TimetableResult timetableResult) throws SQLException;
+	boolean confirmTimetable() throws SQLException;
 
 	// Save complete timetable result
     boolean saveTimetable(TimetableResult timetableResult);

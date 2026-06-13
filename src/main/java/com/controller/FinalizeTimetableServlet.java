@@ -13,33 +13,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
-
-import com.model.TimetableFormInputDTO;
-import com.model.TimetableResult;
-import com.model.TimetableSlot;
 import com.service.TimetableService;
 
-@WebServlet("/TimetableController")
-public class TimetableControllerServlet extends HttpServlet {
+@WebServlet("/FinalizeTimetable")
+public class FinalizeTimetableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TimetableControllerServlet() {
+    public FinalizeTimetableServlet() {
         super();
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session=request.getSession();
-		TimetableFormInputDTO timetableInp = (TimetableFormInputDTO) session.getAttribute("timetableInp");
 		TimetableService ttService=new TimetableService();
-		TimetableResult result =ttService.generateAndFinalizeTimetable(timetableInp);
-		ttService.saveTimetable(result);
-		List<TimetableSlot> timetable=ttService.showTimetable();
+		Boolean status = ttService.FinalizeTimetable();
 		
-		request.setAttribute("timetableSlots", timetable);
+		if (status != null && status) {
+	        request.setAttribute("message", "Timetable saved successfully!");
+	        request.setAttribute("messageType", "success");
+	    } else {
+	        request.setAttribute("message", "Failed to save timetable. Please try again.");
+	        request.setAttribute("messageType", "error");
+	    }
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/ViewTimetable.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/views/create_timetable.jsp");
 		rd.forward(request, response);
 	}
 

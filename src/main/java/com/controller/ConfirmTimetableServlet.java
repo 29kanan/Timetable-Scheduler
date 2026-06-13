@@ -7,34 +7,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class ConfirmTimetableServlet
- */
+import com.dao.AutoTimetableDAOImpl;
+
 @WebServlet("/ConfirmTimetableServlet")
 public class ConfirmTimetableServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ConfirmTimetableServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        AutoTimetableDAOImpl tdao = new AutoTimetableDAOImpl();
+        
+        try {
+            boolean success = tdao.confirmTimetable();
+            if (success) {
+                response.sendRedirect(request.getContextPath() + "/views/view_timetable.jsp");
+            } else {
+                request.setAttribute("error", "Failed to confirm timetable. Please try again.");
+                request.getRequestDispatcher("/views/ViewTimetable.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "An error occurred: " + e.getMessage());
+            request.getRequestDispatcher("/views/ViewTimetable.jsp").forward(request, response);
+        }
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
-	}
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

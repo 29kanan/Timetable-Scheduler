@@ -278,12 +278,14 @@ public class TimetableGenerator {
 	                freqMap.getOrDefault(a.getSubjectShortName(), 0)
 	            );
 
-	            // --- Assign Project/Internship lab (first 4 slots) ---
-	            if (!projectLabs.isEmpty()) {
-	                LectureDetailsImpl chosenLab = projectLabs.get(0);
+	         // --- Assign Project/Internship lab (first 4 slots) ---
+	            for (LectureDetailsImpl chosenLab : projectLabs) {
 	                int slot1 = -1, slot2 = -1;
-	                for (int s = 0; s < 3; s++) {
-	                    if (!LecSlots[classIdx][s].isMarked() && !LecSlots[classIdx][s + 1].isMarked()
+	                int lecCount = 0;
+	                for (int s = 0; s < totalSlotsPerDay - 2 && lecCount < 4; s++) {
+	                    if (LecSlots[classIdx][s].isMarked()) continue; // skip breaks
+	                    lecCount++;
+	                    if (s + 1 < totalSlotsPerDay && !LecSlots[classIdx][s + 1].isMarked()
 	                            && isFacultyAvailable(FacultySlots, chosenLab.getFacultyId(), s)
 	                            && isFacultyAvailable(FacultySlots, chosenLab.getFacultyId(), s + 1)) {
 	                        slot1 = s;
@@ -299,6 +301,7 @@ public class TimetableGenerator {
 	                    markFacultyBusy(FacultySlots, chosenLab.getFacultyId(), slot1);
 	                    markFacultyBusy(FacultySlots, chosenLab.getFacultyId(), slot2);
 	                    freqMap.put(chosenLab.getSubjectShortName(), freqMap.get(chosenLab.getSubjectShortName()) - 1);
+	                    break; // assigned successfully
 	                }
 	            }
 
@@ -381,80 +384,6 @@ public class TimetableGenerator {
 	    ttSlot.setFacultyId(facultyId);
 	    ttSlot.setSlot(slot);
 	    dayList.add(ttSlot);
-	}
-
-	public static void printWeeklyLecSlots(TimeSlot[][][] weeklyLecSlots, String[] days, String[] classNames) {
-	    System.out.println("==================================================");
-	    System.out.println("           WEEKLY LECTURE SLOTS (BY CLASS)        ");
-	    System.out.println("==================================================");
-
-	    int totalDays = weeklyLecSlots.length;
-	    int totalClasses = weeklyLecSlots[0].length;
-	    int totalSlots = weeklyLecSlots[0][0].length;
-
-	    for (int dayIdx = 0; dayIdx < totalDays; dayIdx++) {
-	        String day = days[dayIdx];
-	        
-	        System.out.println("\n--- DAY: " + day + " ---");
-	        
-	        // Print header for the time slots
-	        System.out.print("Class |");
-	        for(int s = 0; s < totalSlots; s++) {
-	            System.out.printf(" Slot %-4d |", s);
-	        }
-	        System.out.println();
-	        System.out.println("------" + "--------|".repeat(totalSlots));
-	        
-	        // Print slots for each class
-	        for (int classIdx = 0; classIdx < totalClasses; classIdx++) {
-	            System.out.printf("%-5s |", classNames[classIdx]);
-	            for (int slotIdx = 0; slotIdx < totalSlots; slotIdx++) {
-	                TimeSlot slot = weeklyLecSlots[dayIdx][classIdx][slotIdx];
-	                // Assuming TimeSlot has a descriptive toString() or a way to show state
-	                String content = slot.isMarked() ? "BUSY" : "FREE";
-	                System.out.printf(" %-8s |", content);
-	            }
-	            System.out.println();
-	        }
-	    }
-	}
-	
-	public static void printWeeklyFacultySlots(TimeSlot[][][] weeklyFacultySlots, String[] days) {
-	    System.out.println("\n==================================================");
-	    System.out.println("          WEEKLY FACULTY SLOTS (BY FACULTY)       ");
-	    System.out.println("==================================================");
-
-	    int totalDays = weeklyFacultySlots.length;
-	    int totalFaculty = weeklyFacultySlots[0].length;
-	    int totalSlots = weeklyFacultySlots[0][0].length;
-	    
-	    // Note: We assume Faculty IDs range from 0 to totalFaculty-1
-
-	    for (int dayIdx = 0; dayIdx < totalDays; dayIdx++) {
-	        String day = days[dayIdx];
-	        
-	        System.out.println("\n--- DAY: " + day + " ---");
-
-	        // Print header for the time slots
-	        System.out.print("Fac ID |");
-	        for(int s = 0; s < totalSlots; s++) {
-	            System.out.printf(" Slot %-4d |", s);
-	        }
-	        System.out.println();
-	        System.out.println("-------" + "--------|".repeat(totalSlots));
-	        
-	        // Print availability for each faculty
-	        for (int facIdx = 0; facIdx < totalFaculty; facIdx++) {
-	            System.out.printf(" %-5d |", facIdx);
-	            for (int slotIdx = 0; slotIdx < totalSlots; slotIdx++) {
-	                TimeSlot slot = weeklyFacultySlots[dayIdx][facIdx][slotIdx];
-	                // Assuming TimeSlot has a way to show if the faculty is busy (marked)
-	                String content = slot.isMarked() ? "BUSY" : "FREE";
-	                System.out.printf(" %-8s |", content);
-	            }
-	            System.out.println();
-	        }
-	    }
 	}
 	
 	public static TimetableResult generate(AlgorithmInputModel model) {

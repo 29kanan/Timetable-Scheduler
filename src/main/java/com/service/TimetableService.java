@@ -1,5 +1,7 @@
 package com.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,15 +11,20 @@ import com.model.LectureDetailsImpl;
 import com.model.TimetableFormInputDTO;
 import com.model.TimetableResult;
 import com.model.TimetableSlot;
+import com.util.DBConnection;
 import com.dao.LectureDetailsDAOImpl;
 import com.dao.AutoTimetableDAO;
 import com.dao.AutoTimetableDAOImpl;
+import com.dao.TimetableDao;
+import com.dao.TimetableDaoImpl;
 import com.dao.LectureDetailsDAO;
 
 public class TimetableService {
 	
 	LectureDetailsDAO ldao=new LectureDetailsDAOImpl();
-	AutoTimetableDAO tdao=new AutoTimetableDAOImpl();
+	AutoTimetableDAO atdao=new AutoTimetableDAOImpl();
+	TimetableDao tdao=new TimetableDaoImpl();
+	
 	
 	public TimetableResult generateAndFinalizeTimetable(TimetableFormInputDTO constraints){
 		
@@ -48,7 +55,7 @@ public class TimetableService {
 	}
 	
 	public void saveTimetable(TimetableResult result) {
-		boolean isSaved=tdao.saveTimetable(result);
+		boolean isSaved=atdao.saveTimetable(result);
 		if(isSaved) {
 			System.out.println("Timetable Saved Succesfully.");
 		}
@@ -58,7 +65,7 @@ public class TimetableService {
 	}
 	
 	public List<TimetableSlot> showTimetable(){
-		List<TimetableSlot> timetable=tdao.showAllTimetable();
+		List<TimetableSlot> timetable=atdao.showAllTimetable();
 		return timetable;
 	}
 	
@@ -69,5 +76,29 @@ public class TimetableService {
 	        default:          return 2;
 	    }
 	}
+
+	public boolean FinalizeTimetable() {
+		
+		boolean status = tdao.finalizeTimetable();
+		
+		try {
+	        Connection con = DBConnection.getConnection();
+	        PreparedStatement ps = con.prepareStatement(
+	            "UPDATE timetable_status SET is_finalized = TRUE WHERE id = 1"
+	        );
+	        ps.executeUpdate();
+	        con.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		return status;
+	}
 	
+	public boolean deleteAllTimetableRec() {
+		
+		boolean status = tdao.deleteAllTimetableRecords();
+
+		return status;
+	}
 }

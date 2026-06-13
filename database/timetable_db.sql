@@ -81,8 +81,8 @@ CREATE TABLE `classes_name` (
 -- ----------------------------
 -- Table structure for auto_timetable
 -- ----------------------------
-DROP TABLE IF EXISTS `auto_timetable`;
-CREATE TABLE `auto_timetable` (
+DROP TABLE IF EXISTS `timetable`;
+CREATE TABLE `timetable` (
     `timetable_id` INT AUTO_INCREMENT PRIMARY KEY,
     `class_id` INT NOT NULL,
     `day` VARCHAR(20) NOT NULL,
@@ -190,3 +190,25 @@ CREATE TABLE `time_table` (
   `year` varchar(11) NOT NULL,
   PRIMARY KEY (`tt_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `final_timetable`;
+CREATE TABLE final_timetable (
+	timetable_id INT AUTO_INCREMENT PRIMARY KEY,
+    class_id INT NOT NULL,
+    day VARCHAR(20) NOT NULL,
+    lecture_name VARCHAR(100),
+    slot_start_time TIME NOT NULL,
+    slot_end_time TIME NOT NULL,
+    faculty_id INT NOT NULL,
+    semester_type VARCHAR(10),
+    INDEX idx_class_day (class_id, day),
+    INDEX idx_faculty (faculty_id),
+    FOREIGN KEY (faculty_id) REFERENCES login_teacher(fac_id),
+    FOREIGN KEY (class_id) REFERENCES classes_name(class_id)
+);
+DROP TABLE IF EXISTS `timetable_status`;
+CREATE TABLE timetable_status (
+  id INT PRIMARY KEY DEFAULT 1,
+  is_finalized BOOLEAN DEFAULT FALSE
+);
+INSERT INTO timetable_status VALUES (1, FALSE);

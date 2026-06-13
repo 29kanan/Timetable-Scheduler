@@ -14,9 +14,9 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: #f4f6fb;
+            background: #ffffff;
             border-radius: 14px;
             padding: 28px;
             box-shadow: 0 8px 32px rgba(13,82,179,0.18);
@@ -31,7 +31,7 @@
         .filter-section {
             margin-bottom: 24px;
             padding: 16px 20px;
-            background: #fff;
+            background: #f4f6fb;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -46,7 +46,7 @@
             border-radius: 20px;
             font-size: 14px;
             color: #0d52b3;
-            background: #f0f5ff;
+            background: #fff;
             cursor: pointer;
         }
         .confirmtt-button {
@@ -62,75 +62,110 @@
             transition: background 0.2s;
         }
         .confirmtt-button:hover { background-color: #0a3f8a; }
+
+        /* Legend */
         .legend {
             display: flex;
             gap: 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             font-size: 13px;
             align-items: center;
         }
         .legend-item { display: flex; align-items: center; gap: 6px; }
-        .legend-box { width: 16px; height: 16px; border-radius: 4px; }
-        .legend-theory { background: #e3f2fd; border: 1px solid #90caf9; }
-        .legend-lab { background: #e8f5e9; border: 1px solid #a5d6a7; }
+        .legend-badge {
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .legend-theory { background: #e3f2fd; color: #0d52b3; border: 1px solid #90caf9; }
+        .legend-lab { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+
+        /* Class section */
         .class-section { margin-bottom: 40px; }
         .class-title {
             background: #0d52b3;
             color: white;
             padding: 13px 20px;
-            border-radius: 10px 10px 0 0;
-            font-size: 17px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 700;
-            text-align: center;
-            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
         }
-        .timetable-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            border-radius: 0 0 10px 10px;
+
+        /* Day card */
+        .day-card {
+            border: 1px solid #e0e8f7;
+            border-radius: 10px;
+            margin-bottom: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(13,82,179,0.08);
+            box-shadow: 0 1px 4px rgba(13,82,179,0.07);
         }
-        .timetable-table thead tr { background: #1a63c4; }
-        .timetable-table th {
-            padding: 11px 14px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 12px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-        .timetable-table td {
-            padding: 11px 14px;
-            text-align: center;
-            border: 1px solid #dce6f7;
-            font-size: 13px;
-            color: #222;
-        }
-        .day-header {
+        .day-card-header {
             background: #0d52b3;
-            color: white !important;
+            color: white;
+            padding: 10px 18px;
+            font-size: 14px;
             font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Slot row */
+        .slot-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-bottom: 1px solid #f0f4fc;
+            gap: 12px;
             font-size: 13px;
+        }
+        .slot-row:last-child { border-bottom: none; }
+        .slot-row.lab-row { background: #f6fff7; }
+        .slot-row.theory-row { background: #ffffff; }
+        .slot-row:hover { background: #f0f5ff; transition: background 0.15s; }
+
+        .slot-time {
+            color: #888;
+            font-size: 12px;
+            min-width: 110px;
+            font-weight: 500;
+        }
+        .slot-name {
+            flex: 1;
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .slot-badge {
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-theory { background: #e3f2fd; color: #0d52b3; border: 1px solid #90caf9; }
+        .badge-lab { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .slot-faculty {
+            color: #666;
+            font-size: 12px;
             min-width: 100px;
+            text-align: right;
         }
-        .lab-slot {
-            background: #e8f5e9 !important;
-            border-left: 4px solid #2e7d32 !important;
-            color: #1b5e20;
-        }
-        .theory-slot {
-            background: #e3f2fd !important;
-            border-left: 4px solid #1565c0 !important;
-            color: #0d3b8a;
-        }
-        .timetable-table tbody tr:hover td { opacity: 0.92; transition: opacity 0.2s; }
+
         .no-data { text-align: center; padding: 50px; color: #999; font-size: 18px; }
     </style>
 </head>
 <body>
+
+<%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma","no-cache");
+  response.setHeader("Expires","0");
+  if(session.getAttribute("username")==null){
+    response.sendRedirect("admin_login.jsp");
+  }
+%>
+
 <div class="container">
     <h1>Timetable Viewer</h1>
 
@@ -154,13 +189,13 @@
                 <option value="odd">Odd Semester</option>
                 <option value="even">Even Semester</option>
             </select>
-            <button formaction="ConfirmTimetableServlet" type="submit" class="confirmtt-button">Confirm</button>
+            <button formaction="ConfirmTimetableServlet" type="submit" class="confirmtt-button">Next -></button>
         </form>
     </div>
 
     <div class="legend">
-        <div class="legend-item"><div class="legend-box legend-theory"></div> Theory</div>
-        <div class="legend-item"><div class="legend-box legend-lab"></div> Lab</div>
+        <div class="legend-item"><span class="legend-badge legend-theory">Theory</span></div>
+        <div class="legend-item"><span class="legend-badge legend-lab">Lab</span></div>
     </div>
 
     <%
@@ -174,50 +209,47 @@
             for (TimetableSlot slot : timetableSlots) {
                 slotsByClass.computeIfAbsent(slot.getClassName(), k -> new ArrayList<>()).add(slot);
             }
+            String[] dayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
             for (Map.Entry<String, List<TimetableSlot>> entry : slotsByClass.entrySet()) {
                 String className = entry.getKey();
                 List<TimetableSlot> classSlots = entry.getValue();
+
+                Map<String, List<TimetableSlot>> slotsByDay = new LinkedHashMap<>();
+                for (String d : dayOrder) slotsByDay.put(d, new ArrayList<>());
+                for (TimetableSlot slot : classSlots) {
+                    if (slotsByDay.containsKey(slot.getDay())) slotsByDay.get(slot.getDay()).add(slot);
+                }
     %>
     <div class="class-section">
         <div class="class-title">Class: <%= className %></div>
-        <table class="timetable-table">
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Lecture Name</th>
-                    <th>Time Slot</th>
-                    <th>Faculty Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                    String[] dayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-                    Map<String, List<TimetableSlot>> slotsByDay = new LinkedHashMap<>();
-                    for (String d : dayOrder) slotsByDay.put(d, new ArrayList<>());
-                    for (TimetableSlot slot : classSlots) {
-                        if (slotsByDay.containsKey(slot.getDay())) slotsByDay.get(slot.getDay()).add(slot);
-                    }
-                    for (String day : dayOrder) {
-                        List<TimetableSlot> daySlots = slotsByDay.get(day);
-                        if (!daySlots.isEmpty()) {
-                            Collections.sort(daySlots, (s1, s2) -> s1.getSlot().getStartTime().compareTo(s2.getSlot().getStartTime()));
-                            for (int i = 0; i < daySlots.size(); i++) {
-                                TimetableSlot slot = daySlots.get(i);
-                                String name = slot.getLectureName();
-                                boolean isLab = name != null && (name.toLowerCase().contains("lab") || name.toLowerCase().contains("workshop") || name.toLowerCase().contains("project") || name.toLowerCase().contains("internship"));
-                                String rowClass = isLab ? "lab-slot" : "theory-slot";
-                %>
-                <tr class="<%= rowClass %>">
-                    <% if (i == 0) { %>
-                        <td rowspan="<%= daySlots.size() %>" class="day-header"><strong><%= day %></strong></td>
-                    <% } %>
-                    <td><%= name != null ? name : "-" %></td>
-                    <td><%= slot.getSlot().getStartTime() %> - <%= slot.getSlot().getEndTime() %></td>
-                    <td><%= slot.getFacultyName() != null ? slot.getFacultyName() : "-" %></td>
-                </tr>
-                <% } } } %>
-            </tbody>
-        </table>
+
+        <% for (String day : dayOrder) {
+            List<TimetableSlot> daySlots = slotsByDay.get(day);
+            if (!daySlots.isEmpty()) {
+                Collections.sort(daySlots, (s1, s2) -> s1.getSlot().getStartTime().compareTo(s2.getSlot().getStartTime()));
+        %>
+        <div class="day-card">
+            <div class="day-card-header"><%= day %></div>
+            <% for (TimetableSlot slot : daySlots) {
+                String name = slot.getLectureName();
+                boolean isLab = name != null && (name.toLowerCase().contains("lab") ||
+                    name.toLowerCase().contains("workshop") ||
+                    name.toLowerCase().contains("project") ||
+                    name.toLowerCase().contains("internship"));
+                String rowClass = isLab ? "lab-row" : "theory-row";
+                String badgeClass = isLab ? "badge-lab" : "badge-theory";
+                String badgeText = isLab ? "Lab" : "Theory";
+            %>
+            <div class="slot-row <%= rowClass %>">
+                <span class="slot-time"><%= slot.getSlot().getStartTime() %> – <%= slot.getSlot().getEndTime() %></span>
+                <span class="slot-name"><%= name != null ? name : "-" %></span>
+                <span class="slot-badge <%= badgeClass %>"><%= badgeText %></span>
+                <span class="slot-faculty"><%= slot.getFacultyName() != null ? slot.getFacultyName() : "-" %></span>
+            </div>
+            <% } %>
+        </div>
+        <% } } %>
     </div>
     <% } } %>
 </div>

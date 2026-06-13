@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Create Timetable</title>
+<title>Generate Timetable</title>
 <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { 
@@ -129,6 +129,16 @@
 </style>
 </head>
 <body>
+
+	<%
+	  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	  response.setHeader("Pragma","no-cache");
+	  response.setHeader("Expires","0");
+	  if(session.getAttribute("username")==null){
+	    response.sendRedirect("admin_login.jsp");
+	  }
+	%>
+
 	<form action="${pageContext.request.contextPath}/TimetableFormInputServlet" method="post">
 		<h2>Create Timetable</h2>
 	    <p class="subtitle">Configure your timetable settings</p>

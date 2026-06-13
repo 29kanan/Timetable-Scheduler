@@ -1,198 +1,186 @@
 <%@page import="com.util.DBConnection"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*" %>
+<%@page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
   <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> view timetable </title>
-    <meta
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-      name="viewport"
-    />
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>View Timetable</title>
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <script src="${pageContext.request.contextPath}/assets/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: ["Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
+        urls: ["${pageContext.request.contextPath}/assets/css/fonts.min.css"],
+      },
+      active: function () { sessionStorage.fonts = true; },
+    });
+  </script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins.min.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
+  <style>
+    .tt-class-section { margin-bottom: 36px; }
+    .tt-class-title {
+      background: #0d52b3;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px 8px 0 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .tt-grid-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(13,82,179,0.08);
+    }
+    .tt-grid-table thead tr { background: #1a63c4; }
+    .tt-grid-table th {
+      padding: 10px 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: #fff;
+      border: 1px solid #1557b0;
+      white-space: nowrap;
+    }
+    .tt-grid-table td {
+      padding: 10px 8px;
+      text-align: center;
+      border: 1px solid #dce6f7;
+      background: #fff;
+      font-size: 13px;
+      color: #222;
+    }
+    .tt-grid-table td.day-col {
+      background: #0d52b3;
+      color: #fff;
+      font-weight: 600;
+      min-width: 70px;
+      white-space: nowrap;
+    }
+    .tt-grid-table td.lab-cell {
+      background: #e8f5e9;
+      color: #1b5e20;
+      font-weight: 500;
+    }
+    .tt-grid-table td.theory-cell {
+      background: #e3f2fd;
+      color: #0d3b8a;
+    }
+    .tt-grid-table td.empty-cell {
+      background: #f8fafc;
+      color: #ccc;
+    }
+    .tt-legend {
+      display: flex; gap: 14px; margin-bottom: 16px;
+      font-size: 13px; align-items: center;
+    }
+    .tt-legend-badge {
+      padding: 3px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+    }
+    .legend-theory, .tt-badge-theory { background: #e3f2fd; color: #0d52b3; border: 1px solid #90caf9; }
+    .legend-lab, .tt-badge-lab { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  </style>
+</head>
+<body>
+<%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma","no-cache");
+  response.setHeader("Expires","0");
+  if(session.getAttribute("username")==null){
+    response.sendRedirect("admin_login.jsp");
+  }
+%>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-   
-    
-    <link
-      rel="icon"
-      href="${pageContext.request.contextPath}/assets/img/kaiadmin/favicon.ico"
-      type="image/x-icon"
-    />
-
-    <!-- Fonts and icons -->
-    <script src="${pageContext.request.contextPath}/assets/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["${pageContext.request.contextPath}/assets/css/fonts.min.css"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
-
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kaiadmin.min.css" />
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
-  </head>
-  <body>
-    
-    
-    <% 
-         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //http 1.1
-        response.setHeader("Pragma","no-cache");//http 1.0
-    	response.setHeader("Expires","0");// proxies
-    	
-     if(session.getAttribute("username")==null){
-    	 
-    	response.sendRedirect("admin_login.jsp");
-     }
-  
-  
- %>
-    
-    
-    
-    <div class="wrapper">
-      <!-- Sidebar -->
-      <div class="sidebar" data-background-color="dark">
-        <div class="sidebar-logo">
-          <!-- Logo Header -->
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-             <!--  <img
-                src="${pageContext.request.contextPath}/assets/img/kaiadmin/logo_light.svg"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              /> -->
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
-            </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-          <!-- End Logo Header -->
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+      <div class="logo-header" data-background-color="dark">
+        <a href="index.html" class="logo"></a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
+          <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
         </div>
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/adminDashB.jsp">
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-       
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
-                  <i class="bi bi-person-plus"></i><p>Add Teacher</p></a>
-
-              </li>
-              
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_subject.jsp">
-                  <i class="bi bi-book"></i><p>Add Subject</p></a>
-                </a>
-
-              </li>
-                
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_dept.jsp">
-                  <i class="bi bi-building-add"></i><p>Add Department</p></a>
-                </a>
-
-              </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/add_class.jsp">
-                  <i class="bi bi-calendar4"></i><p>Add Classes</p></a>
-
-              </li>
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_room.jsp">
-                  <i class="bi bi-door-open"></i><p>Add Room</p></a>
-
-              </li>
-               <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/Notification.jsp">
-                  <i class="bi bi-door-open"></i><p>Send Notification</p></a>
-
-              </li>
-              
-              <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/create_timetable.jsp">
-                  <i class="bi bi-calendar-plus"></i><p>Create TimeTable</p></a>
-
-              </li>
-             <li class="nav-item active" style="text-decoration: row; display:flex;">
-                   
-                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">
-                  <i class="bi bi-calendar4"></i><p>View TimeTable</p></a>
-
-              </li>
-              
-             <!--   <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a href="Login.jsp"><i class="bi bi-box-arrow-in-left"></i><p>Login</p></a>
-
-              </li>-->
-              
-              
-            </ul>
-          </div>
-        </div>
+        
+        <button class="topbar-toggler more"><i class="gg-more-vertical-alt"></i></button>
       </div>
-      
-      <!-- End Sidebar -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/adminDashB.jsp">
+              <i class="fas fa-home"></i><p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-section"><span class="sidebar-mini-icon"><i class="fa fa-ellipsis-h"></i></span></li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
+              <i class="bi bi-person-plus"></i><p>Add Teacher</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/add_subject.jsp">
+              <i class="bi bi-book"></i><p>Add Subject</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/add_dept.jsp">
+              <i class="bi bi-building-add"></i><p>Add Department</p>
+            </a>
+          </li>
+          <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/add_class.jsp">
+              <i class="bi bi-calendar4"></i><p>Add Classes</p>
+            </a>
 
-      <div class="main-panel">
-        <div class="main-header">
-          <div class="main-header-logo">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/add_room.jsp">
+              <i class="bi bi-door-open"></i><p>Add Room</p>
+            </a>
+          </li>
+          <li class="nav-item" style="text-decoration: row; display:flex;">
+                   
+              <a 
+              class="nav-link"
+              href="${pageContext.request.contextPath}/views/Notification.jsp">
+              <i class="bi bi-door-open"></i><p>Send Notification</p></a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/create_timetable.jsp">
+              <i class="bi bi-calendar-plus"></i><p>Create TimeTable</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="${pageContext.request.contextPath}/views/view_timetable.jsp">
+              <i class="bi bi-calendar4"></i><p>View TimeTable</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-panel">
+    <div class="main-header">
+      <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
               <a href="index.html" class="logo">
@@ -217,55 +205,18 @@
             </div>
             <!-- End Logo Header -->
           </div>
-          <!-- Navbar Header -->
-          <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
-            <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
-              </nav>
-
-              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li
-                  class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
-                >
-                  <a
-                    class="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    <i class="fa fa-search"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-search animated fadeIn">
-                    <form class="navbar-left navbar-form nav-search">
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          placeholder="Search ..."
-                          class="form-control"
-                        />
-                      </div>
-                    </form>
-                  </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+      <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button type="submit" class="btn btn-search pe-1"><i class="fa fa-search search-icon"></i></button>
+              </div>
+              <input type="text" placeholder="Search ..." class="form-control" />
+            </div>
+          </nav>
+          <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+            <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link dropdown-toggle"
                     href="#"
@@ -495,478 +446,204 @@
                     </div>
                   </ul>
                 </li>
-              </ul>
-            </div>
-          </nav>
-          
-          
-  
-          
-          <!-- End Navbar -->
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="page-inner">
+        <div class="page-header">
+          <h3 class="fw-bold mb-3">View Timetables...</h3>
+          <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+              <a href="${pageContext.request.contextPath}/views/adminDashB.jsp"><i class="icon-home"></i></a>
+            </li>
+            <li class="separator"><i class="icon-arrow-right"></i></li>
+            <li class="nav-item"><a href="#">view timetable</a></li>
+          </ul>
         </div>
 
-     <div class="container">
-          <div class="page-inner">
-            <div class="page-header">
-              <h3 class="fw-bold mb-3">View Timetables...</h3>
-              <ul class="breadcrumbs mb-3">
-                <li class="nav-home">
-                  <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
-                    <i class="icon-home"></i>
-                  </a>
-                </li>
-                <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">view timetable</a>
-                </li>
-               <!--   <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="#">Datatables</a>
-                </li>   -->
-              </ul>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  
-                      <div class="container">
-          <div class="page-inner">
-           
-           
-                         <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">TimeTable list...</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">TimeTable</h4>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                  <input type="text" id="ttSearch" class="form-control form-control-sm" style="width:200px;" placeholder="Search class or subject..." oninput="filterTimetable()" />
+                  <div class="tt-legend mb-0">
+                    <span class="tt-legend-badge tt-badge-theory">Theory</span>
+                    <span class="tt-legend-badge tt-badge-lab">Lab</span>
                   </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table
-                        id="multi-filter-select"
-                        class="display table table-striped table-hover"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Class</th>
-                            <th>Day</th>
-                            <th>Time Slot</th>
-                            <th>Subject</th>
-                            <th>Teacher</th>
-                            <th>Room</th>
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr>
-                            <th>Class</th>
-                            <th>Day</th>
-                            <th>Time Slot</th>
-                            <th>Subject</th>
-                            <th>Teacher</th>
-                            <th>Room</th>
-                          </tr>
-                        </tfoot>
-                        <tbody>
-          
-                                  <%
-                                  try {
-                           Connection con = DBConnection.getConnection();
+                </div>
+              </div>
+              <div class="card-body">
+                <%
+                try {
+                  Connection con = DBConnection.getConnection();
+                  Statement st = con.createStatement();
+                  ResultSet rs = st.executeQuery(
+                		  "SELECT t.*, c.class_name FROM final_timetable t " +
+                          "JOIN classes_name c ON t.class_id = c.class_id " +
+                          "ORDER BY c.class_name, t.day, t.slot_start_time"
+                  );
 
-                                Statement st = con.createStatement();
-                               ResultSet rs = st.executeQuery("SELECT * FROM time_table");
+                  // Group data: class -> day -> list of slots
+                  Map<String, Map<String, Map<String, String>>> classMap = new LinkedHashMap<>();
+                  while (rs.next()) {
+                    String className = rs.getString("class_name");
+                    String day = rs.getString("day");
+                    String startTime = rs.getString("slot_start_time");
+                    String endTime = rs.getString("slot_end_time");
+                    String timeSlot = startTime + " - " + endTime;
+                    String lectureName = rs.getString("lecture_name");
 
-                                 while(rs.next()) {
-                        
-                                	 int d_id=rs.getInt("dept_id");
-                                	 String s_abbr=rs.getString("sub_abbr");
-                                	 int f_id=rs.getInt("fac_id");
-                                	 int r_id=rs.getInt("room_id");
+                    classMap.computeIfAbsent(className, k -> new LinkedHashMap<>())
+                            .computeIfAbsent(day, k -> new LinkedHashMap<>())
+                            .put(timeSlot, lectureName);
+                  }
+                  con.close();
 
-                 PreparedStatement ps1 = con.prepareStatement("SELECT * FROM departments where dept_id="+d_id+";");
-                  ResultSet rs1 = ps1.executeQuery();
+                  String[] dayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+                  String[] dayShort = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
-                 while(rs1.next()) {
-        	                   %>
-                          <tr>
-                              <td><%=rs.getString("sem")%>&nbsp;<%=rs1.getString("dept_name")%>&nbsp;<%=rs.getString("year")%></td>
-                            <%} %>
-                            
-                            <td><%=rs.getString("day")%></td>
-                            <td><%=rs.getString("time_slot")%></td>
-                               
-                               <% 
-                                 PreparedStatement ps2 = con.prepareStatement("SELECT * FROM subjects where sub_abbr='"+s_abbr+"' and dept_id="+d_id+";");
-                  ResultSet rs2 = ps2.executeQuery();
-
-                 while(rs2.next()) {
-        	                   %>
-                         
-                              <td><%=rs2.getString("sub_name")%> - <%=rs2.getString("subject_type")%></td>
-                            <%  } 
-                 
-                 PreparedStatement ps3 = con.prepareStatement("SELECT * FROM login_teacher where fac_id="+f_id+";");
-                  ResultSet rs3 = ps3.executeQuery();
-
-                 while(rs3.next()) {
-        	                   %>
-                         
-                              <td><%=rs3.getString("username")%></td>
-                            <%} %>
-
-                      
-                      
-                            <% PreparedStatement ps4 = con.prepareStatement("SELECT * FROM rooms where room_id="+r_id+";");
-                  ResultSet rs4 = ps4.executeQuery();
-
-                 while(rs4.next()) {
-        	                   %>
-        	                   <td><%=rs4.getString("room_num")%>&nbsp;<%=rs4.getString("room_name")%> </td>
-        	                   <%} %>
-                          </tr>
-                         
-                          
-                        <%
-                         }
-                                 con.close();
-                                  } catch(Exception e) {
-                                      out.println(e);
-                                  }
-                        %>
-                        </tbody>
-                      </table>
-                      
-                                            
-                      <%
-    String msg = (String)request.getAttribute("editmsg3");
-    if(msg != null){
-%>
-<script>alert("<%=msg%>");</script>
-<%
-    }
-    String msg2 = (String)request.getAttribute("addT");
-    if(msg2 != null){
-%>
-<script>alert("<%=msg2%>");</script>
-<%
-    }
-    String msg3 = (String)request.getAttribute("delmsg2");
-    if(msg3 != null){
-%>
-<script>alert("<%=msg3%>");</script>
-<%
-    }
-%>
+                  // Safety check: if there is no schedule data available
+                  if (classMap == null || classMap.isEmpty()) {
+                %>
+                    <div class="text-center p-5 my-4 bg-light border rounded-3 shadow-sm">
+                      <i class="bi bi-calendar-x text-danger mb-3" style="font-size: 3rem; display: block;"></i>
+                      <h5 class="fw-bold text-dark">Schedule Status: Incomplete</h5>
+                      <p class="text-muted mb-0">
+                        No timetable slots have been configured yet. Use the setup form above or click 
+                        <strong class="text-primary"><i class="bi bi-cpu-fill"></i> Generate Automatic Timetable</strong> to build the schedule.
+                      </p>
                     </div>
+                <%
+                  } else {
+                    // Loop through your classes if data exists
+                    for (Map.Entry<String, Map<String, Map<String, String>>> classEntry : classMap.entrySet()) {
+                      String className = classEntry.getKey();
+                      Map<String, Map<String, String>> dayMap = classEntry.getValue();
+
+                      // Collect all unique time slots across all days, sorted
+                      Set<String> timeSlotSet = new TreeSet<>();
+                      for (Map<String, String> slots : dayMap.values()) {
+                        timeSlotSet.addAll(slots.keySet());
+                      }
+                      List<String> timeSlots = new ArrayList<>(timeSlotSet);
+                %>
+                <div class="tt-class-section">
+                  <div class="tt-class-title"><i class="bi bi-mortarboard me-2"></i><%= className %></div>
+                    <div class="table-responsive">
+                    <table class="tt-grid-table">
+                      <thead>
+                        <tr>
+                          <th>Day</th>
+                          <% for (String ts : timeSlots) { %>
+                            <th><%= ts %></th>
+                          <% } %>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for (int di = 0; di < dayOrder.length; di++) {
+                          String day = dayOrder[di];
+                          Map<String, String> slots = dayMap.get(day);
+                          if (slots != null) { %>
+                        <tr>
+                          <td class="day-col"><%= dayShort[di] %></td>
+                          <% for (String ts : timeSlots) {
+                            String lectureName = slots.get(ts);
+                            if (lectureName != null) {
+                              boolean isLab = lectureName.toLowerCase().contains("lab") ||
+                                             lectureName.toLowerCase().contains("workshop") ||
+                                             lectureName.toLowerCase().contains("project") ||
+                                             lectureName.toLowerCase().contains("internship");
+                              String cellClass = isLab ? "lab-cell" : "theory-cell";
+                          %>
+                            <td class="<%= cellClass %>"><%= lectureName %></td>
+                          <% } else { %>
+                            <td class="empty-cell">—</td>
+                          <% } 
+                           } %>
+                        </tr>
+                        <% }
+                         } %>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-                 </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>    
-         
+                <%
+                    } // End of classEntry loop
+                  } // End of else block
+                } catch(Exception e) {
+                  out.println("<div class='alert alert-danger'>Error: " + e.getMessage() + "</div>");
+                }
+                %>
 
-
-      <footer class="footer">
-          <div class="container-fluid d-flex justify-content-between">
-          
-             <!-- Left: College Name -->
-    <div class="text-muted">
-      © 2026 <strong>SDITS</strong>
-    </div>
-
-    <!-- Center: Social Media Icons -->
-    <div class="footer-icons">
-      <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark">
-        <i class="fa-solid fa-globe fa-lg"></i>
-      </a>
-
-      <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary">
-        <i class="fa-brands fa-linkedin fa-lg"></i>
-      </a>
-
-      <a href="https://www.instagram.com" target="_blank" class="text-danger">
-        <i class="fa-brands fa-instagram fa-lg"></i>
-      </a>
-    </div>
-
-    <!-- Right: Project Info -->
-    <div class="text-muted">
-     Time Table Scheduler
-    </div>
-          </div>
-        </footer>
-      </div>
- 
-      <!-- Custom template | don't include it in your project! -->
-      <div class="custom-template">
-        <div class="title">Settings</div>
-        <div class="custom-content">
-          <div class="switcher">
-            <div class="switch-block">
-              <h4>Logo Header</h4>
-              <div class="btnSwitch">
-                <button
-                  type="button"
-                  class="selected changeLogoHeaderColor"
-                  data-color="dark"
-                ></button>
-                <button
-                  type="button"
-                  class="selected changeLogoHeaderColor"
-                  data-color="blue"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="purple"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="light-blue"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="green"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="orange"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="red"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="white"
-                ></button>
-                <br />
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="dark2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="blue2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="purple2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="light-blue2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="green2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="orange2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeLogoHeaderColor"
-                  data-color="red2"
-                ></button>
-              </div>
-            </div>
-            <div class="switch-block">
-              <h4>Navbar Header</h4>
-              <div class="btnSwitch">
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="dark"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="blue"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="purple"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="light-blue"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="green"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="orange"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="red"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="white"
-                ></button>
-                <br />
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="dark2"
-                ></button>
-                <button
-                  type="button"
-                  class="selected changeTopBarColor"
-                  data-color="blue2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="purple2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="light-blue2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="green2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="orange2"
-                ></button>
-                <button
-                  type="button"
-                  class="changeTopBarColor"
-                  data-color="red2"
-                ></button>
-              </div>
-            </div>
-            <div class="switch-block">
-              <h4>Sidebar</h4>
-              <div class="btnSwitch">
-                <button
-                  type="button"
-                  class="selected changeSideBarColor"
-                  data-color="white"
-                ></button>
-                <button
-                  type="button"
-                  class="changeSideBarColor"
-                  data-color="dark"
-                ></button>
-                <button
-                  type="button"
-                  class="changeSideBarColor"
-                  data-color="dark2"
-                ></button>
+                <%
+                String msg = (String)request.getAttribute("editmsg3");
+                if(msg != null){ %><script>alert("<%=msg%>");</script><% }
+                String msg2 = (String)request.getAttribute("addT");
+                if(msg2 != null){ %><script>alert("<%=msg2%>");</script><% }
+                String msg3 = (String)request.getAttribute("delmsg2");
+                if(msg3 != null){ %><script>alert("<%=msg3%>");</script><% }
+                %>
               </div>
             </div>
           </div>
         </div>
-        <div class="custom-toggle">
-          <i class="icon-settings"></i>
-        </div>
+
       </div>
-      <!-- End Custom template -->
     </div>
-    <!--   Core JS Files   -->
-    <script src="${pageContext.request.contextPath}/assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
 
-    <!-- jQuery Scrollbar -->
-    <script src="${pageContext.request.contextPath}/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <!-- Datatables -->
-    <script src="${pageContext.request.contextPath}/assets/js/plugin/datatables/datatables.min.js"></script>
-    <!-- Kaiadmin JS -->
-    <script src="${pageContext.request.contextPath}/assets/js/kaiadmin.min.js"></script>
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="${pageContext.request.contextPath}/assets/js/setting-demo2.js"></script>
-    <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
+    <footer class="footer">
+      <div class="container-fluid d-flex justify-content-between">
+        <div class="text-muted">© 2026 <strong>SDITS</strong></div>
+        <div class="footer-icons">
+          <a href="https://www.sdits.org" target="_blank" class="me-3 text-dark"><i class="fa-solid fa-globe fa-lg"></i></a>
+          <a href="https://www.linkedin.com" target="_blank" class="me-3 text-primary"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+          <a href="https://www.instagram.com" target="_blank" class="text-danger"><i class="fa-brands fa-instagram fa-lg"></i></a>
+        </div>
+        <div class="text-muted">Time Table Scheduler</div>
+      </div>
+    </footer>
+  </div>
+</div>
 
-        $("#multi-filter-select").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+<script src="${pageContext.request.contextPath}/assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/kaiadmin.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/setting-demo2.js"></script>
+<script>
+function filterTimetable() {
+    const query = document.getElementById('ttSearch').value.toLowerCase().trim();
 
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
+    document.querySelectorAll('.tt-class-section').forEach(section => {
+        if (!query) {
+            section.style.display = 'block';
+            section.querySelectorAll('tr').forEach(r => r.style.display = '');
+            return;
+        }
 
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
+        const classTitle = section.querySelector('.tt-class-title').textContent.toLowerCase();
+        let sectionVisible = classTitle.includes(query);
+
+        // Also check individual cell content
+        section.querySelectorAll('tbody tr').forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            if (rowText.includes(query) || classTitle.includes(query)) {
+                row.style.display = '';
+                sectionVisible = true;
+            } else {
+                row.style.display = 'none';
+            }
         });
 
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 5,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
-      });
-    </script>
-  </body>
+        section.style.display = sectionVisible ? 'block' : 'none';
+    });
+}
+</script>
+</body>
 </html>
