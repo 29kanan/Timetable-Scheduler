@@ -541,10 +541,10 @@ alert("<%= msg %>");
 
 </div>
           <%
-    String msg = (String)request.getAttribute("msg");
-    if(msg != null){
+    String msg1 = (String)request.getAttribute("msg");
+    if(msg1 != null){
 %>
-<script>alert("<%=msg%>");</script>
+<script>alert("<%=msg1%>");</script>
 <%
     }
     %>

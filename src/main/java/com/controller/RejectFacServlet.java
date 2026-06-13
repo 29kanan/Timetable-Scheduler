@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.DAOFactory;
 import com.dao.adminDao;
 import com.dao.facultyDao;
-import com.model.Faculty;
+
 
 
 public class RejectFacServlet extends HttpServlet {

@@ -124,9 +124,9 @@ public class adminDaoImpl implements adminDao {
 	               String ph=rs.getString("phone");
 	               String aStart=rs.getString("avail_start");
 	               String aEnd=rs.getString("avail_end");
-	             // System.out.println("selected");
+	            // System.out.println("selected");
 	                PreparedStatement ps2 = con.prepareStatement(
-	                		"INSERT INTO rejected_teacher(faculty_id,email,password,name,dept,phone,avail_start,avail_end) VALUES(?,?,?,?,?,?,?);");
+	                		"INSERT INTO rejected_teacher(faculty_id,email,password,name,dept,phone,avail_start,avail_end) VALUES(?,?,?,?,?,?,?,?);");
 	                
 	                ps2.setInt(1, fid);
 	                ps2.setString(2, email);
@@ -134,12 +134,12 @@ public class adminDaoImpl implements adminDao {
 	                ps2.setString(4, name);
 	                ps2.setString(5, dept);
 	                ps2.setString(6, ph);
-	                ps2.setString(6, aStart);
-	                ps2.setString(7, aEnd);
+	                ps2.setString(7, aStart);
+	                ps2.setString(8, aEnd);
 	                 x=ps2.executeUpdate();
 
 	                if(x!=0) {
-	                //	 System.out.println("inserted");
+	                 //System.out.println("inserted");
 	                	PreparedStatement msg = con.prepareStatement(
 	                			"UPDATE fac_msg SET msg=? WHERE email=? and password=?;");
 	              		msg.setString(1,"Your account request has been REJECTED by admin.");
