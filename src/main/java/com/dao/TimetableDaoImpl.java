@@ -168,6 +168,11 @@ public class TimetableDaoImpl implements TimetableDao {
 	    try {
 	        conn = DBConnection.getConnection();
 	        conn.setAutoCommit(false);
+	        
+	        // Clear old data first
+	        Statement dltSt = conn.createStatement();
+	        dltSt.executeUpdate("DELETE FROM final_timetable");
+	        dltSt.close();
 	    		
 	        Statement st = conn.createStatement();
 	        ResultSet rs = st.executeQuery(
