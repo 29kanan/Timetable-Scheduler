@@ -17,6 +17,7 @@
         padding: 20px; 
     }
     form { 
+    		position: relative;
         background-color: #ffffff; 
         padding: 40px 35px; 
         border-radius: 20px; 
@@ -126,6 +127,25 @@
     }
     button[type="submit"]:hover { background-color: #1262c4; }
     button[type="submit"]:active { transform: scale(0.98); }
+    .back-btn{
+
+	    position:absolute;
+	
+	    top:25px;
+	
+	    left:25px;
+	}
+	
+	.back-btn a{
+	
+	    text-decoration:none;
+	
+	    color:rgba(13, 82, 179, 0.7);
+	
+	    font-size:15px;
+	
+	    font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -143,6 +163,13 @@
 		<h2>Create Timetable</h2>
 	    <p class="subtitle">Configure your timetable settings</p>
         <div class="form-section">
+			<div class="back-btn">
+	
+	            <a href="${pageContext.request.contextPath}/views/create_timetable.jsp">
+	                ← Back
+	            </a>
+	
+	        </div>
             <label for="semester">Semesters</label>
             <div class="radio-group">
 		        <label><input type="radio" value="odd" name="semester"/> Odd</label>
@@ -163,7 +190,7 @@
             </select>
             <div id="duration" name="break-duration" class="form-section"></div>
         </div>
-        <button type="submit">Continue -></button>
+        <button type="submit">Continue &#8594;</button>
     </form>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

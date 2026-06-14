@@ -189,7 +189,7 @@
                 <option value="odd">Odd Semester</option>
                 <option value="even">Even Semester</option>
             </select>
-            <button formaction="ConfirmTimetableServlet" type="submit" class="confirmtt-button">Next -></button>
+            <button formaction="ConfirmTimetableServlet" type="submit" class="confirmtt-button">Next &#8594;</button>
         </form>
     </div>
 

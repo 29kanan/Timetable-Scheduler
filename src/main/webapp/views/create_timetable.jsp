@@ -970,11 +970,11 @@
 				    <div class="d-flex justify-content-center gap-3 my-4">
 				        
 				        <% if (isFinalized) { %>
-						  <button class="btn btn-primary" disabled>
-						    <i class="bi bi-check-circle-fill"></i> Finalized
-						  </button>
+						  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp" class="btn btn-primary">
+						    <i class="bi bi-check-circle-fill"></i> Finalized. View Timetable &#8594;
+						  </a>
 						<% } else { %>
-						  <a href="${pageContext.request.contextPath}/FinalizeTimetable" 
+						  <a href="${pageContext.request.contextPath}/views/set_room.jsp" 
 						     class="btn btn-success" id="finalizeBtn">
 						    <i class="bi bi-check-lg"></i> Finalize
 						  </a>

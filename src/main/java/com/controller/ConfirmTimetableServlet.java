@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import com.dao.AutoTimetableDAOImpl;
+import com.util.DBConnection;
 
 @WebServlet("/ConfirmTimetableServlet")
 public class ConfirmTimetableServlet extends HttpServlet {
@@ -20,7 +23,17 @@ public class ConfirmTimetableServlet extends HttpServlet {
         try {
             boolean success = tdao.confirmTimetable();
             if (success) {
-                response.sendRedirect(request.getContextPath() + "/views/view_timetable.jsp");
+	            	try {
+	        	        Connection con = DBConnection.getConnection();
+	        	        PreparedStatement ps = con.prepareStatement(
+	        	            "UPDATE timetable_status SET is_finalized = FALSE WHERE id = 1"
+	        	        );
+	        	        ps.executeUpdate();
+	        	        con.close();
+	        	    } catch (Exception e) {
+	        	        e.printStackTrace();
+	        	    }
+                response.sendRedirect(request.getContextPath() + "/views/create_timetable.jsp");
             } else {
                 request.setAttribute("error", "Failed to confirm timetable. Please try again.");
                 request.getRequestDispatcher("/views/ViewTimetable.jsp").forward(request, response);
