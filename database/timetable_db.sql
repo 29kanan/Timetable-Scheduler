@@ -30,6 +30,17 @@ CREATE TABLE `login_teacher` (
   PRIMARY KEY (`fac_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
+-- ----------------------------
+-- Table structure for departments
+-- ----------------------------
+DROP TABLE IF EXISTS `departments`;
+CREATE TABLE `departments` (
+  `dept_id` int(10) NOT NULL AUTO_INCREMENT,
+  `dept_name` varchar(50) NOT NULL,
+  `HOD_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`dept_id`,`dept_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
+
 
 -- ----------------------------
 -- Table structure for subjects
@@ -51,17 +62,6 @@ CREATE TABLE `subjects` (
 )ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 
--- ----------------------------
--- Table structure for departments
--- ----------------------------
-DROP TABLE IF EXISTS `departments`;
-CREATE TABLE `departments` (
-  `dept_id` int(10) NOT NULL AUTO_INCREMENT,
-  `dept_name` varchar(50) NOT NULL,
-  `HOD_name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`dept_id`,`dept_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
-
 
 -- ----------------------------
 -- Table structure for classes_name
@@ -79,23 +79,16 @@ CREATE TABLE `classes_name` (
 
 
 -- ----------------------------
--- Table structure for auto_timetable
+-- Table structure for rooms
 -- ----------------------------
-DROP TABLE IF EXISTS `timetable`;
-CREATE TABLE `timetable` (
-    `timetable_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `class_id` INT NOT NULL,
-    `day` VARCHAR(20) NOT NULL,
-    `lecture_name` VARCHAR(100),
-    `slot_start_time` TIME NOT NULL,
-    `slot_end_time` TIME NOT NULL,
-    `faculty_id` INT NOT NULL,
-    `semester_type` VARCHAR(10),
-    INDEX `idx_class_day` (`class_id`, `day`),
-    INDEX `idx_faculty` (`faculty_id`),
-    FOREIGN KEY (`faculty_id`) REFERENCES `login_teacher`(`fac_id`),
-    FOREIGN KEY (`class_id`) REFERENCES `classes_name`(`class_id`)
-);
+DROP TABLE IF EXISTS `rooms`;
+CREATE TABLE `rooms` (
+  `room_id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_name` varchar(50) DEFAULT NULL,
+  `room_num` int(11) NOT NULL,
+  PRIMARY KEY (`room_id`,`room_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
 
 
 -- ----------------------------
@@ -160,19 +153,24 @@ CREATE TABLE `rejected_teacher` (
   PRIMARY KEY (`faculty_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-
 -- ----------------------------
--- Table structure for rooms
+-- Table structure for auto_timetable
 -- ----------------------------
-DROP TABLE IF EXISTS `rooms`;
-CREATE TABLE `rooms` (
-  `room_id` int(11) NOT NULL AUTO_INCREMENT,
-  `room_name` varchar(50) DEFAULT NULL,
-  `room_num` int(11) NOT NULL,
-  PRIMARY KEY (`room_id`,`room_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
+DROP TABLE IF EXISTS `timetable`;
+CREATE TABLE `timetable` (
+    `timetable_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `class_id` INT NOT NULL,
+    `day` VARCHAR(20) NOT NULL,
+    `lecture_name` VARCHAR(100),
+    `slot_start_time` TIME NOT NULL,
+    `slot_end_time` TIME NOT NULL,
+    `faculty_id` INT NOT NULL,
+    `semester_type` VARCHAR(10),
+    INDEX `idx_class_day` (`class_id`, `day`),
+    INDEX `idx_faculty` (`faculty_id`),
+    FOREIGN KEY (`faculty_id`) REFERENCES `login_teacher`(`fac_id`),
+    FOREIGN KEY (`class_id`) REFERENCES `classes_name`(`class_id`)
+);
 
 -- ----------------------------
 -- Table structure for time_table
