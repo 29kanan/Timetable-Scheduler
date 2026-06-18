@@ -214,9 +214,7 @@
             <!-- End Logo Header -->
           </div>
           <!-- Navbar Header -->
-          <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
+          <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
             <div class="container-fluid">
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
@@ -244,17 +242,19 @@
 </ul>
               </nav>
         
-        
+          
+        <a href="Notification.jsp" class="nav-link me-3" title="Send Notifications" >
         <div class="d-flex align-items-center ms-auto">
-    <i class="fa fa-envelope"></i>
-    <a href="Notification.jsp" class="nav-link me-3" >
+    <i class="fa fa-envelope" ></i>
+    
         
     </a>
 
-    <a href="logout.jsp" class="btn btn-primary btn-sm">
-        Logout
-    </a>
-
+     <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
+                        <input type="hidden" name="logout" value="true">
+                        </form>
+    <a href="#" class="btn btn-primary btn-sm" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i>  Logout</a>
+   
 </div>
             </div>
           </nav>
