@@ -129,7 +129,6 @@
               <i class="fas fa-home"></i><p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-section"><span class="sidebar-mini-icon"><i class="fa fa-ellipsis-h"></i></span></li>
           <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
               <i class="bi bi-person-plus"></i><p>Add Teacher</p>
