@@ -278,29 +278,23 @@ input:focus{
 
 /* MOBILE */
 
-@media(max-width:768px){
+@media(max-width:900px){
 
-    .main-container{
+    .container{
+
         grid-template-columns:1fr;
     }
 
     .left-panel{
-        padding:35px;
+
+        display:none;
     }
 
     .right-panel{
+
         padding:35px;
     }
-
-    .left-panel h1{
-        font-size:32px;
-    }
-
-    .right-panel h2{
-        font-size:30px;
-    }
 }
-
 </style>
 </head>
 
