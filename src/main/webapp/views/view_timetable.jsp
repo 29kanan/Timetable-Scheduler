@@ -136,7 +136,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/views/add_subject.jsp">
-              <i class="bi bi-book"></i><p>Add Subject</p>
+              <i class="bi bi-book"></i><p>Manage Subject</p>
             </a>
           </li>
           <li class="nav-item">
