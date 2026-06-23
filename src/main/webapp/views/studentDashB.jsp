@@ -11,19 +11,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Dashboard | TTS </title>
+<meta name="contextPath" content="${pageContext.request.contextPath}">
+<title>Student Dashboard | TTS</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/studentdashboard_style.css " />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/studentdashboard_style.css" />
 </head>
 <body>
 
 <!--   HEADER  -->
 <header>
-<p align="left"> <a href="${pageContext.request.contextPath}/index.html"><font color=blue><b>Back</b></font>
- 
-</a></p>
+<p align="left"><a href="${pageContext.request.contextPath}/index.html"><font color="lightblue"><b>&larr; Back</b></font></a></p>
   <div class="header-top">
     <div class="logo">
       <span class="icon">🎓</span>
@@ -67,11 +66,11 @@
           <label>Select Branch:</label>
           <select id="branchSelect" onchange="resetResult()">
             <option value="">-- Select Branch --</option>
-            <option value="CSE">Computer Science Engineering</option>
-            <option value="DS">Data Science </option>
-            <option value="ECE">Electronics & Communication</option>
-            <option value="ME">Mechanical Engineering</option>
-            <option value="CIVIL">Civil Engineering</option>
+            <option value="CS Department">Computer Science Engineering</option>
+            <option value="DS Department">Data Science </option>
+            <option value="ECE Department">Electronics & Communication</option>
+            <option value="ME Department">Mechanical Engineering</option>
+            <option value="CIVIL Department">Civil Engineering</option>
           </select>
         </div>
         <div class="form-group">
@@ -84,8 +83,8 @@
             <option value="4">Semester 4</option>
             <option value="5">Semester 5</option>
             <option value="6">Semester 6</option>
-            <option value="6">Semester 7</option>
-            <option value="6">Semester 8</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
           </select>
         </div>
         <button class="btn-show" onclick="showSubjects()">Show Subjects</button>
@@ -110,11 +109,11 @@
           <label>Select Branch:</label>
           <select id="ttBranch" onchange="resetTimetable()">
             <option value="">-- Select Branch --</option>
-            <option value="CSE">Computer Science Engineering</option>
-            <option value="DS">Data Science </option>
-            <option value="ECE">Electronics & Communication</option>
-            <option value="ME">Mechanical Engineering</option>
-            <option value="CIVIL">Civil Engineering</option>
+            <option value="CS Department">Computer Science Engineering</option>
+            <option value="DS Department">Data Science </option>
+            <option value="ECE Department">Electronics & Communication</option>
+            <option value="ME Department">Mechanical Engineering</option>
+            <option value="CIVIL Department">Civil Engineering</option>
           </select>
         </div>
         <div class="form-group">
@@ -127,8 +126,8 @@
             <option value="4">Semester 4</option>
             <option value="5">Semester 5</option>
             <option value="6">Semester 6</option>
-            <option value="6">Semester 7</option>
-            <option value="6">Semester 8</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
           </select>
         </div>
         <div class="form-group">
@@ -275,6 +274,6 @@ DAOFactory.getNotificationDao()
   
 </main>
 
-<script src="${pageContext.request.contextPath}/assets/js/st_dashboard.js "></script>
+<script src="${pageContext.request.contextPath}/assets/js/st_dashboard.js"></script>
 </body>
 </html>
