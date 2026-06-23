@@ -966,26 +966,24 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				    </div>
 				<% } %>
-                <form method="GET" action="#">
-				    <div class="d-flex justify-content-center gap-3 my-4">
-				        
-				        <% if (isFinalized) { %>
-						  <a href="${pageContext.request.contextPath}/views/view_timetable.jsp" class="btn btn-primary">
-						    <i class="bi bi-check-circle-fill"></i> Finalized. View Timetable &#8594;
-						  </a>
-						<% } else { %>
-						  <a href="${pageContext.request.contextPath}/views/set_room.jsp" 
-						     class="btn btn-success" id="finalizeBtn">
-						    <i class="bi bi-check-lg"></i> Finalize
-						  </a>
-						  <button class="btn btn-danger" id="deleteBtn"
-						        onclick="if(confirm('Are you sure you want to delete all records?')) window.location.href='${pageContext.request.contextPath}/DeleteAllTimetableServlet';">
-						    <i class="bi bi-exclamation-circle"></i> Delete All data
-						  </button>
-						<% } %>
-				        
-				    </div>
-				</form>
+                <div class="d-flex justify-content-center gap-3 my-4">
+
+				    <% if (isFinalized) { %>
+				        <a href="${pageContext.request.contextPath}/views/view_timetable.jsp" class="btn btn-primary">
+				            <i class="bi bi-check-circle-fill"></i> Finalized. View Timetable &#8594;
+				        </a>
+				    <% } else { %>
+				        <a href="${pageContext.request.contextPath}/views/set_room.jsp"
+				           class="btn btn-success" id="finalizeBtn">
+				            <i class="bi bi-check-lg"></i> Finalize
+				        </a>
+				        <button class="btn btn-danger" id="deleteBtn"
+				                onclick="if(confirm('Are you sure you want to delete all records?')) window.location.href='${pageContext.request.contextPath}/DeleteAllTimetableServlet';">
+				            <i class="bi bi-exclamation-circle"></i> Delete All data
+				        </button>
+				    <% } %>
+				
+				</div>
 
                 <%
                 String msg = (String)request.getAttribute("editmsg3");
