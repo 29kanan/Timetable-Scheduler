@@ -741,7 +741,8 @@
 						     class="btn btn-success" id="finalizeBtn">
 						    <i class="bi bi-check-lg"></i> Finalize
 						  </a>
-						  <button class="btn btn-danger" id="deleteBtn" onclick="...your existing delete function...">
+						  <button class="btn btn-danger" id="deleteBtn"
+						        onclick="if(confirm('Are you sure you want to delete all records?')) window.location.href='${pageContext.request.contextPath}/DeleteAllTimetableServlet';">
 						    <i class="bi bi-exclamation-circle"></i> Delete All data
 						  </button>
 						<% } %>
