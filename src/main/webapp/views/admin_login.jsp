@@ -359,7 +359,7 @@ input:focus{
         </div>
 
         <div class="back-btn">
-            <a href="${pageContext.request.contextPath}/index.jsp">
+            <a href="${pageContext.request.contextPath}/index.html">
                 ← Back to Home
             </a>
         </div>

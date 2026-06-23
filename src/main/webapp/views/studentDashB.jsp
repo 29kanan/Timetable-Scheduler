@@ -21,7 +21,7 @@
 
 <!--   HEADER  -->
 <header>
-<p align="left"> <a href="${pageContext.request.contextPath}/index.jsp"><font color=blue><b>Back</b></font>
+<p align="left"> <a href="${pageContext.request.contextPath}/index.html"><font color=blue><b>Back</b></font>
  
 </a></p>
   <div class="header-top">
@@ -138,8 +138,15 @@
         <button class="btn-show" onclick="showTimetable()">Show Time-Table</button>
       </div>
 
-      <div id="timetableResult"></div>
+      <div id="timetableResult">
+    
+      </div>
+        
     </div>
+    <br><p align="center">
+    <button class="btn-show"  onclick="window.location.href='${pageContext.request.contextPath}/views/time_table.jsp'">
+      Print Timetable
+      </button>
   </div>
 
    <!--  NOTIFICATIONS PAGE -->

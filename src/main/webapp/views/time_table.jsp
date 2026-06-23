@@ -10,21 +10,21 @@
 <style>
     body{
         font-family: Arial, Helvetica, sans-serif;
-        margin:10px;
+        margin:6px;
         color:#000;
     }
 
     
     .college{
         text-align:center;
-        font-size:20px;
-        font-weight:900;
-        margin-bottom:4px;
+        font-size:17px;
+        font-weight:800;
+        margin-bottom:2px;
     }
     .subhead{
         text-align:center;
-        font-size:10px;
-        font-weight:700;
+        font-size:13px;
+        font-weight:600;
         margin:2px 0;
     }
 
@@ -32,7 +32,7 @@
     table{
         border-collapse:collapse;
         width:100%;
-        min-width:900px; 
+        min-width:800px; 
         font-size:13px;
         font-weight:700; 
     }
@@ -54,13 +54,13 @@
     }
 
     .mt{
-        margin-top:10px;
+        margin-top:5px;
     }
 
     .right{
         text-align:right;
-        font-weight:900;
-        margin-top:10px;
+        font-weight:700;
+        margin-top:8px;
     }
 </style>
 </head>
@@ -73,11 +73,8 @@
 <div class="subhead">
     TIME TABLE V SEM COMPUTER SCIENCE ENGG. JUNE – DEC 2024-25
 </div>
-<div>
-  W.E.F.: 
 <div align="right">
   Room No. 319
-   </div>
    </div>
 </div>
 <div class="wrapper mt">

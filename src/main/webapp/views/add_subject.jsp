@@ -325,7 +325,8 @@
                       >
                         <thead>
                           <tr>
-                            <th>Name / Code</th>
+                            <th>Name</th>
+                            <th>Code</th>
                             <th>Faculty</th>
                             <th>Type</th>
                             <th>Sem</th>
@@ -336,7 +337,8 @@
                         </thead>
                         <tfoot>
                           <tr>
-                            <th>Name / Code</th>
+                            <th>Name</th>
+                            <th>Code</th>
                             <th>Faculty</th>
                             <th>Type</th>
                             <th>Sem</th>
@@ -359,7 +361,8 @@
                          
                      
                           <tr>
-                              <td><%=rs.getString("sub_name")%> / <%=rs.getString("sub_code")%></td>
+                              <td><%=rs.getString("sub_name")%> </td>
+                              <td> <%=rs.getString("sub_code")%></td>
                               
                               
                               <%
