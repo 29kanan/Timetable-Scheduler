@@ -503,21 +503,6 @@
   <div class="col-md-6">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
-        <h4>This Week — Timetable</h4>
-        <a href="#">Full View →</a>
-      </div>
-      <div class="card-body">
-        Timetable preview here
-      </div>
-    </div>
-  </div>
-
-</div>
-<div class="row">
-
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between">
         <h4>Subject List</h4>
         <a href="${pageContext.request.contextPath}/views/allSubject.jsp">View All →</a>
       </div>
@@ -585,6 +570,11 @@
     </div>
   </div>
 
+</div>
+
+<div class="row">
+ 
+
   <div class="col-md-6">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
@@ -651,6 +641,18 @@
         out.println(e);
     }
 %>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4>This Week — Timetable</h4>
+        <a href="#">Full View →</a>
+      </div>
+      <div class="card-body">
+        Timetable preview here
       </div>
     </div>
   </div>
