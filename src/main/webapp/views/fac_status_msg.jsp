@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Faculty Request Status</title>
+    <title> Faculty Request Status | TTS </title>
 
     <style>
         body {

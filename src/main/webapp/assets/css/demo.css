@@ -151,6 +151,43 @@
     margin-right: 10px;
     line-height: 1;
     color: #333439; }
+    .avatar-img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.topbar-user{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.topbar-nav{
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
+.admin-profile{
+    display: flex;
+    align-items: center;
+}
+
+.topbar-user{
+    margin-left: auto;
+    padding-right: 20px;
+}
+
+.avatar-img{
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+}
+
+.profile-username{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
 
 body[data-background-color="dark"] .demo-icon .icon-preview {
   color: #969696; }

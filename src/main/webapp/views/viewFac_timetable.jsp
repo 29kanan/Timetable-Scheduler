@@ -9,8 +9,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>View Timetable</title>
+  <title> View Timetable | TTS </title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -106,6 +107,7 @@
   if (session.getAttribute("username") == null) {
     response.sendRedirect("teacher_login.jsp");
   }
+
 
   // Fetch notifications once for the topbar bell
   List<Notification> notifications = DAOFactory.getNotificationDao().getNotificationsByRole("FACULTY");

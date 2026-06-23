@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>All Subject List</title>
+<title>All Subject List | TTS </title>
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -78,7 +78,7 @@ rel="stylesheet">
     </div>
 
     <div class="table-container">
-<p align="right">
+       <p align="right">
         <a href="add_subject.jsp"
            class="btn btn-primary back-btn btn-round ms-auto">
 
