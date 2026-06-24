@@ -4,6 +4,8 @@
 <%@ page import="java.util.*,com.model.*" %>
 <%@page import="java.sql.*" %>
 <%@page import="com.util.*"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +19,7 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-   
+  
     
     <link
       rel="icon"
@@ -82,9 +84,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/FacStyle.css" />
   </head>
   <body>
   
@@ -135,7 +140,7 @@
               <li class="nav-item active">
                 <a
                   class="nav-link"
-                  href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
+                  href="${pageContext.request.contextPath}/FacultyDashboard">
                   <i class="fas fa-home"></i>
                   <p>Dashboard</p>
                 </a>
@@ -252,18 +257,7 @@
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
+                
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -292,97 +286,7 @@
                     </form>
                   </ul>
                 </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="messageDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i class="fa fa-envelope"></i>
-                  </a>
-                  <ul
-                    class="dropdown-menu messages-notif-box animated fadeIn"
-                    aria-labelledby="messageDropdown"
-                  >
-                    <li>
-                      <div
-                        class="dropdown-title d-flex justify-content-between align-items-center"
-                      >
-                        Messages
-                        <a href="#" class="small">Mark all as read</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-notif-scroll scrollbar-outer">
-                        <div class="notif-center">
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="assets/img/jm_denis.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Jimmy Denis</span>
-                              <span class="block"> How are you ? </span>
-                              <span class="time">5 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="assets/img/chadengle.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Chad</span>
-                              <span class="block"> Ok, Thanks ! </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="assets/img/mlane.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Jhon Doe</span>
-                              <span class="block">
-                                Ready for the meeting today...
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="assets/img/talha.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Talha</span>
-                              <span class="block"> Hi, Apa Kabar ? </span>
-                              <span class="time">17 minutes ago</span>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="see-all" href="javascript:void(0);"
-                        >See all messages<i class="fa fa-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                
 
   
 <%
@@ -427,7 +331,11 @@ for(Notification n : notifications){
        aria-haspopup="true"
        aria-expanded="false">
 
-        <i class="fa fa-bell"></i>
+        <i class="fa fa-bell"
+   data-bs-toggle="tooltip"
+   data-bs-placement="bottom"
+   title="View Notifications">
+</i>
 
         <%
 
@@ -567,13 +475,12 @@ if(newNotificationCount > 0){
                   >
                     <div class="avatar-sm">
                       <img
-                        src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
+                        src="${pageContext.request.contextPath}/assets/img/teach-icon.jpg"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
-                      <span class="op-7">Hi,</span>
                       <span class="fw-bold">${username}</span>
                     </span>
                   </a>
@@ -582,11 +489,7 @@ if(newNotificationCount > 0){
                       <li>
                         <div class="user-box">
                           <div class="avatar-lg">
-                            <img
-                              src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
-                              alt="image profile"
-                              class="avatar-img rounded"
-                            />
+                            
                           </div>
                           <div class="u-text">
                             <h4>${username}</h4>
@@ -598,26 +501,18 @@ if(newNotificationCount > 0){
                               href="#"
                               class="btn btn-xs btn-secondary btn-sm"
                               onclick="document.getElementById('pForm').submit();"
-                              >View Profile</a
-                            >
+                              >View Profile</a>
+                              
+                              <a
+                              href="${pageContext.request.contextPath}/facultyLogout"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              onclick="document.getElementById('logoutForm').submit();"
+                              >Logout</a>
+
                           </div>
                         </div>
                       </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Balance</a>
-                        <a class="dropdown-item" href="#">Inbox</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Account Setting</a>
-                        <div class="dropdown-divider"></div>
-                        <form action="${pageContext.request.contextPath}/facultyLogout" id="logoutForm">
-                        <input type="hidden" name="logout" value="true">
-                        </form>
-                        <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
-                        Logout
-                        </a>
-                      </li>
+                      
                     </div>
                   </ul>
                 </li>
@@ -633,149 +528,289 @@ if(newNotificationCount > 0){
 
         <div class="container">
           <div class="page-inner">
-            <div class="page-header">
-              <h3 class="fw-bold mb-3">Welcome ${username} !</h3>
-            <!--  <ul class="breadcrumbs mb-3">
-                <li class="nav-home">
-                  <a href="${pageContext.request.contextPath}/views/adminDashB.jsp">
-                    <i class="icon-home"></i>
-                  </a>
-                </li>
-                <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/views/add_Teacher.jsp">add teacher</a>
-                </li>
-                  <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="#">Datatables</a>
-                </li>   
-              </ul>-->
-            </div>
-           
+          
+              
+    <!-- Banner -->
 
-              <!--  <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="d-flex align-items-center">
-                      <h4 class="card-title">TEACHERS</h4>
-                      <button
-                        class="btn btn-primary btn-round ms-auto"
-                        
-                        title="Registered Faculty list"
-                        onclick="window.location.href='${pageContext.request.contextPath}/views/registeredFaculty.jsp'"
-                      >
-                        <!--  <i class="fa fa-plus"></i>
-                        See Added Faculty
-                      </button>
-                    </div>
-                  </div>
-                  -->
-                  
-                  <div class="card-body">
-               <div class="container-fluid mt-4">
+    <div class="faculty-banner">
 
-     
-<!-- Notification Card -->
-<div class="card shadow-sm border-0 mt-4">
+        <div>
+            <h2>Welcome ${username}</h2>
+            <p>Manage your timetable and subjects efficiently.</p>
+        </div>
 
-    <div class="card-header d-flex justify-content-between align-items-center"
-         style="background:#1a2035;color:white;">
-
-        <h5 class="mb-0">
-            <i class="fa fa-bell me-2"></i>
-            Notifications
-        </h5>
-
-       <span class="badge rounded-pill"
-      style="background:#1572E8;
-             color:white;
-             font-size:12px;
-             padding:6px 10px;">
-
-   available <%= notifications.size() %>
-
-</span>
+        <i class="bi bi-mortarboard-fill banner-icon"></i>
 
     </div>
 
-    <div class="card-body p-3"
-         style="max-height:400px;overflow-y:auto;">
+    <!-- Stats -->
 
-    <%
-    if(notifications.isEmpty()){
-    %>
+    <div class="row mb-4">
 
-        <div class="text-center text-muted py-4">
-
-            <i class="fa fa-bell-slash fa-2x mb-2"></i>
-
-            <p class="mb-0">
-                No Notifications Available
-            </p>
-
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-book"></i>
+                    <h3>${subjectCount}</h3>
+                    <p>My Subjects</p>
+                </div>
+            </div>
         </div>
 
-    <%
-    } else {
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-building"></i>
+                    <h3>${todayClassCount}</h3>
+                    <p>Today's Classes</p>
+                </div>
+            </div>
+        </div>
 
-        for(Notification n : notifications){
-    %>
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-event"></i>
+                    <h3>${weeklyClassCount}</h3>
+                    <p>Total Classes</p>
+                </div>
+            </div>
+        </div>
 
-        <!-- Single Notification -->
-        <div class="card border-0 shadow-sm mb-3">
+        <div class="col-md-3 mb-3">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-bell"></i>
+                    <h3>${notificationCount}</h3>
+                    <p>Notifications</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Section -->
+
+   <div class="row">
+
+    <!-- Today's Schedule -->
+    <div class="col-lg-8 mb-4">
+        <div class="card dashboard-card">
+
+            <div class="card-header d-flex justify-content-between">
+        <h5> Today's Schedule</h5>
+        <a href="${pageContext.request.contextPath}/views/allSchedule.jsp">View All →</a>
+        </h5>
+      </div>
 
             <div class="card-body">
 
-                <div class="d-flex justify-content-between">
+<%
+Integer facId = (Integer) session.getAttribute("fid");
 
-                    <h6 class="fw-bold text-primary mb-1">
+Connection con = null;
+PreparedStatement ps = null;
+ResultSet rs = null;
 
-                        <i class="fa fa-envelope me-1"></i>
+try {
 
-                        <%= n.getTitle() %>
+    con = DBConnection.getConnection();
 
-                    </h6>
+    String today =
+        java.time.LocalDate.now()
+        .getDayOfWeek()
+        .getDisplayName(
+            java.time.format.TextStyle.FULL,
+            java.util.Locale.ENGLISH);
 
-                    <small class="text-muted">
+    ps = con.prepareStatement(
+    	    "SELECT t.*, s.subject_type, s.sub_name " +
+    	    "FROM time_table t " +
+    	    "JOIN subjects s " +
+    	    "ON t.sub_abbr = s.sub_abbr " +
+    	    "AND t.fac_id = s.faculty_id " +
+    	    "WHERE t.fac_id=? " +
+    	    "AND UPPER(t.day)=UPPER(?)");
 
-                        <i class="fa fa-clock me-1"></i>
+    ps.setInt(1, facId);
+    ps.setString(2, today);
 
-                        <%= n.getCreatedAt() %>
+    rs = ps.executeQuery();
 
-                    </small>
+    boolean hasSchedule = false;
 
-                </div>
+    while(rs.next()) {
 
-                <p class="text-muted mb-0 mt-2">
+        hasSchedule = true;
 
-                    <%= n.getMessage() %>
+        String timeSlot = rs.getString("time_slot");
+        String subName = rs.getString("sub_name");
+        String subjectType = rs.getString("subject_type");
+%>
 
-                </p>
+<div class="schedule-item">
+    <strong><%= timeSlot %></strong>
+    -
+    <strong><%= subName %></strong>
+
+    <span class="subject-badge">
+        <%= subjectType %>
+    </span>
+</div>
+
+<%
+    }
+
+    if(!hasSchedule){
+%>
+
+<div class="text-muted">
+    No classes scheduled for today.
+</div>
+
+<%
+    }
+
+} catch(Exception e){
+
+    out.println("<div class='text-danger'>");
+    out.println(e.getMessage());
+    out.println("</div>");
+
+} finally {
+
+    try{
+        if(rs != null) rs.close();
+    }catch(Exception e){}
+
+    try{
+        if(ps != null) ps.close();
+    }catch(Exception e){}
+
+    try{
+        if(con != null) con.close();
+    }catch(Exception e){}
+}
+%>
 
             </div>
-
         </div>
+    </div>
 
-    <%
-        }
+    <!-- My Subjects -->
+    <div class="col-lg-4 mb-4">
+        <div class="card dashboard-card">
+
+            <div class="card-header d-flex justify-content-between">
+        <h5> My Subjects</h5>
+        <a href="${pageContext.request.contextPath}/views/allFacSubject.jsp">View All →</a>
+      </div>
+
+            <div class="card-body">
+
+<%
+Connection con1 = null;
+PreparedStatement ps1 = null;
+ResultSet rs1 = null;
+
+try{
+
+    con1 = DBConnection.getConnection();
+
+    ps1 = con1.prepareStatement(
+            "SELECT * FROM subjects WHERE faculty_id=? LIMIT 5");
+
+    ps1.setInt(1, facId);
+
+    rs1 = ps1.executeQuery();
+
+    boolean hasSubjects = false;
+
+    while(rs1.next()){
+
+        hasSubjects = true;
+
+        String sname = rs1.getString("sub_name");
+        String scode = rs1.getString("sub_code");
+        String sType = rs1.getString("subject_type");
+%>
+
+                <div class="subject-item">
+                    <strong><%= sname %></strong>
+                    (<%= scode %>)
+                    &nbsp;&nbsp;
+                    <span class="badge bg-primary">
+                        <%= sType %>
+                    </span>
+                </div>
+
+<%
     }
-    %>
 
+    if(!hasSubjects){
+%>
+
+                <div class="text-muted">
+                    No subjects assigned.
+                </div>
+
+<%
+    }
+
+}catch(Exception e){
+    e.printStackTrace();
+}
+finally{
+
+    if(rs1 != null) rs1.close();
+    if(ps1 != null) ps1.close();
+    if(con1 != null) con1.close();
+}
+%>
+
+            </div>
+        </div>
     </div>
 
 </div>
-</div>
-            <div class="card mt-3 p-0">
-   <div class="banner-bg" role="img" aria-label="Dashboard Banner">
-            <br><br><br>
-           <center> <h2></h2></center>
-  </div>
+
+    
+        <!-- Notices -->
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card dashboard-card">
+
+                <div class="card-header d-flex justify-content-between">
+        <h5> Recent Notice</h5>
+        <a href="${pageContext.request.contextPath}/viewNotification">View All →</a>
+      </div>
+
+                <div class="card-body">
                 
-             </div>
+                <%
+List<Notification> noticeList =
+DAOFactory.getNotificationDao()
+          .getAllNotification();
+
+int count = 0;
+
+for(Notification n : noticeList){
+
+if(count == 4)
+break;
+%>
+
+<div class="notice">
+    <%= n.getMessage() %>
+</div>
+
+<%
+count++;
+}
+%>
+
+
 
                   </div>
                 </div>

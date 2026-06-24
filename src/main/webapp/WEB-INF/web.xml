@@ -67,6 +67,16 @@
         <url-pattern>/facultyLogout</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+    <servlet-name>FacultyDashboard</servlet-name>
+    <servlet-class>com.controller.FacultyDashboard</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>FacultyDashboard</servlet-name>
+    <url-pattern>/FacultyDashboard</url-pattern>
+</servlet-mapping>
+    
     
       <servlet>
         <servlet-name>show_msgServlet</servlet-name>
@@ -193,6 +203,27 @@
 <servlet-mapping>
     <servlet-name>ProfileServlet</servlet-name>
     <url-pattern>/ProfileServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+        <servlet-name>TodayScheduleServlet</servlet-name>
+        <servlet-class>com.controller.TodayScheduleServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TodayScheduleServlet</servlet-name>
+        <url-pattern>/TodayScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    <servlet-name>viewNotification</servlet-name>
+    <servlet-class>
+        com.controller.viewNotification
+    </servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>viewNotification</servlet-name>
+    <url-pattern>/viewNotification</url-pattern>
 </servlet-mapping>
     
   

@@ -262,6 +262,7 @@
                         </form>
     <a href="#" class="btn btn-primary btn-sm" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i>  Logout</a>
    
+
 </div>
             </div>
           </nav>

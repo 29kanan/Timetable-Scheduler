@@ -1,0 +1,102 @@
+.faculty-banner{
+    background:linear-gradient(
+    135deg,
+    #1E293B,
+    #334155
+    );
+    color:white;
+    padding:30px;
+    border-radius:20px;
+    margin-bottom:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.banner-icon{
+    font-size:70px;
+}
+
+.stats-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.stats-card:hover{
+    transform:translateY(-5px);
+}
+
+.stats-card i{
+    font-size:35px;
+    color:#1572E8;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.schedule-item{
+    padding:15px;
+    background:#f4f8ff;
+    border-left:4px solid #1572E8;
+    border-radius:10px;
+    margin-bottom:12px;
+}
+
+.subject-item{
+    background:#eef5ff;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    color:#1572E8;
+    font-weight:600;
+}
+
+.quick-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.action-btn{
+    width:140px;
+    padding:15px;
+    text-align:center;
+    text-decoration:none;
+    border-radius:12px;
+    background:#eef5ff;
+    color:#1572E8;
+    transition:.3s;
+}
+
+.action-btn:hover{
+    background:#1572E8;
+    color:white;
+}
+
+.action-btn i{
+    display:block;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.notice{
+    background:#fff8e6;
+    border-left:4px solid orange;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+.subject-badge{
+    float:right;
+    background:#2563eb;
+    color:white;
+    padding:4px 10px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:600;
+}

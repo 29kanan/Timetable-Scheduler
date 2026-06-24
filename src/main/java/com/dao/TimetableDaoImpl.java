@@ -155,6 +155,7 @@ public class TimetableDaoImpl implements TimetableDao {
             if(x!=0)
             	status=true;
         } catch (Exception e) { e.printStackTrace();}
+
 		return status;
 	}
 	
@@ -228,4 +229,58 @@ public class TimetableDaoImpl implements TimetableDao {
 	        DBConnection.clean(ps, conn);
 	    }
 	}
+	
+    @Override
+    public List<Timetable> getTodaySchedule(int facId) {
+
+        List<Timetable> list = new ArrayList<>();
+
+        String today =
+            java.time.LocalDate.now()
+            .getDayOfWeek()
+            .getDisplayName(
+                java.time.format.TextStyle.FULL,
+                java.util.Locale.ENGLISH);
+
+        try(Connection con =
+                DBConnection.getConnection()) {
+
+            String sql =
+                "SELECT * FROM time_table " +
+                "WHERE fac_id=? " +
+                "AND UPPER(day)=UPPER(?)";
+
+            PreparedStatement ps =
+                con.prepareStatement(sql);
+
+            ps.setInt(1, facId);
+            ps.setString(2, today);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                Timetable t = new Timetable();
+
+                t.setTt_id(rs.getInt("tt_id"));
+                t.setSem(rs.getString("sem"));
+                t.setDay(rs.getString("day"));
+                t.setTime_slot(rs.getString("time_slot"));
+                t.setSub_abbr(rs.getString("sub_abbr"));
+                t.setFac_id(rs.getInt("fac_id"));
+                t.setRoom_id(rs.getInt("room_id"));
+                t.setDept_id(rs.getInt("dept_id"));
+                t.setYear(rs.getString("year"));
+
+                list.add(t);
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+   
+
 }

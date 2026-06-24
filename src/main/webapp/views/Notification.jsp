@@ -234,8 +234,8 @@
           </div>
           <!-- Navbar Header -->
           <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          >
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+            
             <div class="container-fluid">
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
@@ -271,16 +271,16 @@
     
         
     </a>
-
+    
      <form action="${pageContext.request.contextPath}/adminLogout" id="logoutForm">
                         <input type="hidden" name="logout" value="true">
                         </form>
     <a href="#" class="btn btn-primary btn-sm" onclick="document.getElementById('logoutForm').submit();"><i class="bi bi-box-arrow-right"></i>  Logout</a>
-   
 
 
 </div>
             </div>
+            
           </nav>
           
           
