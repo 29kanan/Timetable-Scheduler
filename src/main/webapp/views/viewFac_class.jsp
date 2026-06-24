@@ -587,7 +587,7 @@ if(newNotificationCount > 0){
                             <th>Time Slot</th>
                             <th>Subject</th>
                             
-                            <th>Room</th>
+                          
                           </tr>
                         </thead>
                         <tfoot>
@@ -598,7 +598,7 @@ if(newNotificationCount > 0){
                             <th>Time Slot</th>
                             <th>Subject</th>
                            
-                            <th>Room</th>
+                           
                           </tr>
                         </tfoot>
                         <tbody>
@@ -645,7 +645,6 @@ if(newNotificationCount > 0){
 
                  while(rs4.next()) {
         	                   %>
-        	                   <td><%=rs4.getString("room_num")%>&nbsp;<%=rs4.getString("room_name")%> </td>
         	                   <%} %>
                           </tr>
                          

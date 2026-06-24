@@ -6,7 +6,7 @@ public class sql_pass {
  static String url;
  static String uname;
 	static {
-		pass = "";
+		pass = "2004";
 	}
 	static {
 		uname = "root";
