@@ -231,7 +231,7 @@
       
       <!-- End Sidebar -->
 
-      <div class="main-panel">
+       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
             <!-- Logo Header -->
@@ -266,6 +266,7 @@
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
+                
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -295,14 +296,235 @@
                   </ul>
                 </li>
                 
-                 
 
-        
+  
+<%
+
+List<Notification> notifications =
+DAOFactory.getNotificationDao()
+          .getNotificationsByRole("FACULTY");
+
+int latestNotificationId =
+DAOFactory.getNotificationDao()
+          .getLatestNotificationIdByRole("FACULTY");
+
+/* Session stored last seen id */
+Integer lastSeenId =
+(Integer)session.getAttribute("facultyLastSeenNotification");
+
+/* Default */
+if(lastSeenId == null){
+    lastSeenId = 0;
+}
+
+/* New notification count */
+int newNotificationCount = 0;
+
+for(Notification n : notifications){
+
+    if(n.getId() > lastSeenId){
+
+        newNotificationCount++;
+    }
+}
+
+%>
+
+<li class="nav-item topbar-icon dropdown hidden-caret">
+
+    <a class="nav-link dropdown-toggle"
+       href="#"
+       id="notifDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+
+        <i class="fa fa-bell"
+   data-bs-toggle="tooltip"
+   data-bs-placement="bottom"
+   title="View Notifications">
+</i>
+
+        <%
+
+if(newNotificationCount > 0){
+
+%>
+
+<span class="notification">
+
+    <%= newNotificationCount %>
+
+</span>
+
+<%
+
+}
+
+%>
+
+    </a>
+
+    <ul class="dropdown-menu notif-box animated fadeIn"
+        aria-labelledby="notifDropdown">
+
+        <!-- Top Title -->
+        <li>
+
+            <div class="dropdown-title">
+
+                You have
+                <%= notifications.size() %>
+                new notifications
+
+            </div>
+
+        </li>
+
+        <!-- Notification Body -->
+        <li>
+
+            <div class="notif-scroll scrollbar-outer">
+
+                <div class="notif-center">
+
+                <%
+
+                if(notifications.isEmpty()){
+
+                %>
+
+                    <div class="text-center p-3 text-muted">
+
+                        No Notifications Available
+
+                    </div>
+
+                <%
+
+                } else {
+
+                    for(Notification n : notifications){
+
+                %>
+
+                    <a href="#">
+
+                        <div class="notif-icon notif-primary">
+
+                            <i class="fa fa-bell"></i>
+
+
+                        </div>
+
+                        <div class="notif-content">
+
+                            <span class="block">
+
+                                <%= n.getTitle() %>
+
+                            </span>
+
+                            <span class="block text-muted"
+                                  style="font-size:12px;">
+
+                                <%= n.getMessage() %>
+
+                            </span>
+
+                            <span class="time">
+
+                                <%= n.getCreatedAt() %>
+
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                <%
+
+                    }
+                }
+
+                %>
+
+                </div>
+
+            </div>
+
+        </li>
+
+        <!-- Footer -->
+        <li>
+
+            <a class="see-all"
+               href="${pageContext.request.contextPath}/views/Fac_notification.jsp">
+
+                See all notifications
+
+                <i class="fa fa-angle-right"></i>
+
+            </a>
+
+        </li>
 
     </ul>
+
+</li>
                 
 
-                
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      <img
+                        src="${pageContext.request.contextPath}/assets/img/teach-icon.jpg"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <span class="profile-username">
+                      <span class="fw-bold">${username}</span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            
+                          </div>
+                          <div class="u-text">
+                            <h4>${username}</h4>
+                            <p class="text-muted">${email}</p>
+                            <form action="${pageContext.request.contextPath}/ProfileServlet" id="pForm">
+                        <input type="hidden" name="id" value="<%=session.getAttribute("fid")%>">
+                        </form>
+                            <a
+                              href="#"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              onclick="document.getElementById('pForm').submit();"
+                              >View Profile</a>
+                              
+                              <a
+                              href="${pageContext.request.contextPath}/facultyLogout"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              onclick="document.getElementById('logoutForm').submit();"
+                              >Logout</a>
+
+                          </div>
+                        </div>
+                      </li>
+                      
+                    </div>
+                  </ul>
+                </li>
               </ul>
             </div>
           </nav>

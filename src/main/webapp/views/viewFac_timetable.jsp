@@ -108,16 +108,6 @@
   if (session.getAttribute("username") == null) {
     response.sendRedirect("teacher_login.jsp");
   }
-
-
-  // Fetch notifications once for the topbar bell
-  List<Notification> notifications = DAOFactory.getNotificationDao().getNotificationsByRole("FACULTY");
-  Integer lastSeenId = (Integer) session.getAttribute("facultyLastSeenNotification");
-  if (lastSeenId == null) lastSeenId = 0;
-  int newNotificationCount = 0;
-  for (Notification n : notifications) {
-    if (n.getId() > lastSeenId) newNotificationCount++;
-  }
 %>
 
 <div class="wrapper">
@@ -172,55 +162,20 @@
   </div>
   <!-- End Sidebar -->
 
-        <div class="sidebar-wrapper scrollbar scrollbar-inner">
-          <div class="sidebar-content">
-            <ul class="nav nav-secondary">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/FacultyDashboard">
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-       
-              <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-              </li>
-           <!--     <li class="nav-item" style="text-decoration: row; display:flex;">
-                   
-                  <a 
-                  class="nav-link"
-                  href="${pageContext.request.contextPath}/views/add_Teacher.jsp">
-                  <i class="bi bi-person-plus"></i><p>Add Teacher</p></a>
-
-
-  <div class="main-panel">
-    <div class="main-header">
-      <div class="main-header-logo">
-        <div class="logo-header" data-background-color="dark">
-          <a href="index.html" class="logo"></a>
-          <div class="nav-toggle">
-            <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
-            <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
-          </div>
-          <button class="topbar-toggler more"><i class="gg-more-vertical-alt"></i></button>
-        </div>
-      </div>
-
-      <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
-        <div class="container-fluid">
-          <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-
-            <!-- Mobile search toggle -->
-            <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                 role="button" aria-expanded="false" aria-haspopup="true">
-                <i class="fa fa-search"></i>
+    
+             <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="assets/img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
               </a>
-
               <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
                   <i class="gg-menu-right"></i>
@@ -240,13 +195,38 @@
             class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
           >
             <div class="container-fluid">
-               <nav
+              <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
                 
               </nav>
 
-
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                <li
+                  class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
+                >
+                  <a
+                    class="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <i class="fa fa-search"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-search animated fadeIn">
+                    <form class="navbar-left navbar-form nav-search">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          placeholder="Search ..."
+                          class="form-control"
+                        />
+                      </div>
+                    </form>
+                  </ul>
+                </li>
                 
 
   
@@ -470,109 +450,11 @@ if(newNotificationCount > 0){
                       </li>
                       
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <a class="see-all" href="javascript:void(0);">
-                    See all messages <i class="fa fa-angle-right"></i>
-                  </a>
+                  </ul>
                 </li>
               </ul>
-            </li>
-
-            <!-- Notification Bell (JSP-powered) -->
-            <li class="nav-item topbar-icon dropdown hidden-caret">
-              <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
-                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell"></i>
-                <% if (newNotificationCount > 0) { %>
-                  <span class="notification"><%= newNotificationCount %></span>
-                <% } %>
-              </a>
-              <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                <li>
-                  <div class="dropdown-title">
-                    You have <%= notifications.size() %> new notification<%= notifications.size() != 1 ? "s" : "" %>
-                  </div>
-                </li>
-                <li>
-                  <div class="notif-scroll scrollbar-outer">
-                    <div class="notif-center">
-                      <% if (notifications.isEmpty()) { %>
-                        <div class="text-center p-3 text-muted">No Notifications Available</div>
-                      <% } else { for (Notification n : notifications) { %>
-                        <a href="#">
-                          <div class="notif-icon notif-primary"><i class="fa fa-bell"></i></div>
-                          <div class="notif-content">
-                            <span class="block"><%= n.getTitle() %></span>
-                            <span class="block text-muted" style="font-size:12px;"><%= n.getMessage() %></span>
-                            <span class="time"><%= n.getCreatedAt() %></span>
-                          </div>
-                        </a>
-                      <% } } %>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <a class="see-all" href="${pageContext.request.contextPath}/views/Fac_notification.jsp">
-                    See all notifications <i class="fa fa-angle-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Profile Dropdown -->
-            <li class="nav-item topbar-user dropdown hidden-caret">
-              <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
-                <div class="avatar-sm">
-                  <img src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
-                       alt="..." class="avatar-img rounded-circle" />
-                </div>
-                <span class="profile-username">
-                  <span class="op-7">Hi,</span>
-                  <span class="fw-bold">${username}</span>
-                </span>
-              </a>
-              <ul class="dropdown-menu dropdown-user animated fadeIn">
-                <div class="dropdown-user-scroll scrollbar-outer">
-                  <li>
-                    <div class="user-box">
-                      <div class="avatar-lg">
-                        <img src="${pageContext.request.contextPath}/assets/img/admin-icon.svg"
-                             alt="image profile" class="avatar-img rounded" />
-                      </div>
-                      <div class="u-text">
-                        <h4>${username}</h4>
-                        <p class="text-muted">${email}</p>
-                        <form action="${pageContext.request.contextPath}/ProfileServlet" id="pForm">
-                          <input type="hidden" name="id" value="<%=session.getAttribute("fid")%>">
-                        </form>
-                        <a href="#" class="btn btn-xs btn-secondary btn-sm"
-                           onclick="document.getElementById('pForm').submit();">View Profile</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">My Profile</a>
-                    <a class="dropdown-item" href="#">My Balance</a>
-                    <a class="dropdown-item" href="#">Inbox</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Account Setting</a>
-                    <div class="dropdown-divider"></div>
-                    <form action="${pageContext.request.contextPath}/facultyLogout" id="logoutFormNav">
-                      <input type="hidden" name="logout" value="true">
-                    </form>
-                    <a class="dropdown-item" href="#"
-                       onclick="document.getElementById('logoutFormNav').submit();">Logout</a>
-                  </li>
-                </div>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-      </nav>
+            </div>
+          </nav>
     </div>
     <!-- End Navbar -->
 

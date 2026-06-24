@@ -220,7 +220,7 @@
       
       <!-- End Sidebar -->
 
-      <div class="main-panel">
+       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
             <!-- Logo Header -->
@@ -252,7 +252,7 @@
             class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
           >
             <div class="container-fluid">
-               <nav
+              <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
                 
@@ -406,131 +406,6 @@ if(newNotificationCount > 0){
 
 
                         </div>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="see-all" href="javascript:void(0);"
-                        >See all messages<i class="fa fa-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-               
-  
-<%
-
-List<Notification> notifications =
-DAOFactory.getNotificationDao()
-          .getNotificationsByRole("FACULTY");
-
-int latestNotificationId =
-DAOFactory.getNotificationDao()
-          .getLatestNotificationIdByRole("FACULTY");
-
-/* Session stored last seen id */
-Integer lastSeenId =
-(Integer)session.getAttribute("facultyLastSeenNotification");
-
-/* Default */
-if(lastSeenId == null){
-    lastSeenId = 0;
-}
-
-/* New notification count */
-int newNotificationCount = 0;
-
-for(Notification n : notifications){
-
-    if(n.getId() > lastSeenId){
-
-        newNotificationCount++;
-    }
-}
-
-%>
-
-<li class="nav-item topbar-icon dropdown hidden-caret">
-
-    <a class="nav-link dropdown-toggle"
-       href="#"
-       id="notifDropdown"
-       role="button"
-       data-bs-toggle="dropdown"
-       aria-haspopup="true"
-       aria-expanded="false">
-
-        <i class="fa fa-bell"></i>
-
-        <%
-
-if(newNotificationCount > 0){
-
-%>
-
-<span class="notification">
-
-    <%= newNotificationCount %>
-
-</span>
-
-<%
-
-}
-
-%>
-
-    </a>
-
-    <ul class="dropdown-menu notif-box animated fadeIn"
-        aria-labelledby="notifDropdown">
-
-        <!-- Top Title -->
-        <li>
-
-            <div class="dropdown-title">
-
-                You have
-                <%= notifications.size() %>
-                new notifications
-
-            </div>
-
-        </li>
-
-        <!-- Notification Body -->
-        <li>
-
-            <div class="notif-scroll scrollbar-outer">
-
-                <div class="notif-center">
-
-                <%
-
-                if(notifications.isEmpty()){
-
-                %>
-
-                    <div class="text-center p-3 text-muted">
-
-                        No Notifications Available
-
-                    </div>
-
-                <%
-
-                } else {
-
-                    for(Notification n : notifications){
-
-                %>
-
-                    <a href="#">
-
-                        <div class="notif-icon notif-primary">
-
-                            <i class="fa fa-bell"></i>
-
-                        </div>
 
                         <div class="notif-content">
 
@@ -587,7 +462,6 @@ if(newNotificationCount > 0){
     </ul>
 
 </li>
-
                 
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
