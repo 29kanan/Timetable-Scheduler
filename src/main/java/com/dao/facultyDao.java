@@ -13,4 +13,10 @@ public interface facultyDao {
     List<Faculty> getAllFaculty();
     Faculty getFacultyById(int id);
     boolean updateFaculty(Faculty f);
+    int getSubjectCount(int facId);
+    int getWeeklyClassCount(int facId);
+    int getTodayClassCount(int facId);
+    int getNotificationCount();
+   
+    
 }

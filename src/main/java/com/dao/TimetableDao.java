@@ -11,4 +11,7 @@ public interface TimetableDao {
 	Timetable getTimetableById(int id);
 	boolean updateTimetable(Timetable t);
 	boolean deleteTimetable(int id);
+	List<Timetable> getTodaySchedule(int facId);
+	
+	
 }

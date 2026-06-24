@@ -42,8 +42,21 @@ public class facultyLogin extends HttpServlet {
             request.setAttribute("fid",fid);
             session.setAttribute("fid",fid);
             
+            request.setAttribute("subjectCount",
+                    dao.getSubjectCount(fid));
+
+            request.setAttribute("weeklyClassCount",
+                    dao.getWeeklyClassCount(fid));
+
+            request.setAttribute("todayClassCount",
+                    dao.getTodayClassCount(fid));
+
+            request.setAttribute("notificationCount",
+                    dao.getNotificationCount());
+            
             RequestDispatcher rd = request.getRequestDispatcher("/views/facultyDashB.jsp");
             rd.forward(request, response);
+            
             
         } else {
             request.setAttribute("status", "error");

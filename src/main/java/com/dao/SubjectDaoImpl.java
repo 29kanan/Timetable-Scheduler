@@ -129,6 +129,112 @@ public class SubjectDaoImpl implements SubjectDao {
         }
         return false;
     }
-	
+    @Override
+    public Subject getSubjectByAbbr(String subAbbr) {
+
+        Subject s = null;
+
+        try(Connection con =
+                DBConnection.getConnection()) {
+
+            String sql =
+                "SELECT * FROM subjects " +
+                "WHERE sub_abbr=?";
+
+            PreparedStatement ps =
+                con.prepareStatement(sql);
+
+            ps.setString(1, subAbbr);
+
+            ResultSet rs =
+                ps.executeQuery();
+
+            if(rs.next()) {
+
+                s = new Subject();
+
+                s.setSub_id(
+                    rs.getInt("sub_id"));
+
+                s.setSub_name(
+                    rs.getString("sub_name"));
+
+                s.setSub_code(
+                    rs.getString("sub_code"));
+
+                s.setSub_abbr(
+                    rs.getString("sub_abbr"));
+
+                s.setDept_id(
+                    rs.getInt("dept_id"));
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+    @Override
+    public List<Subject> getSubjectsByFacultyId(int facId) {
+
+        List<Subject> list = new ArrayList<>();
+
+        try(
+            Connection con =
+                DBConnection.getConnection();
+
+            PreparedStatement ps =
+                con.prepareStatement(
+                    "SELECT * FROM subjects WHERE fac_id=?")
+        ){
+
+            ps.setInt(1, facId);
+
+            ResultSet rs =
+                ps.executeQuery();
+
+            while(rs.next()) {
+
+                Subject s =
+                    new Subject();
+
+                s.setSub_id(
+                    rs.getInt("sub_id"));
+
+                s.setSub_name(
+                    rs.getString("sub_name"));
+
+                s.setSub_code(
+                    rs.getString("sub_code"));
+
+                s.setSub_abbr(
+                    rs.getString("sub_abbr"));
+
+                s.setSubject_type(
+                    rs.getString("subject_type"));
+
+                s.setSem(
+                    rs.getString("sem"));
+
+                s.setDept_id(
+                    rs.getInt("dept_id"));
+
+                s.setFac_id(
+                    rs.getInt("fac_id"));
+
+                s.setFrequency(
+                    rs.getInt("frequency"));
+
+                list.add(s);
+            }
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 	
 }

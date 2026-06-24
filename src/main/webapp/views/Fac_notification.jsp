@@ -684,7 +684,7 @@
               <h3 class="fw-bold mb-3">Notifications</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                  <a href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
+                  <a href="${pageContext.request.contextPath}/FacultyDashboard">
                     <i class="icon-home"></i>
                   </a>
                 </li>
