@@ -512,6 +512,7 @@
   <div class="col-md-6">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
+
         <h4>Subject List</h4>
         <a href="${pageContext.request.contextPath}/views/allSubject.jsp">View All →</a>
       </div>
@@ -658,7 +659,7 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h4>This Week — Timetable</h4>
-        <a href="#">Full View →</a>
+        <a href="${pageContext.request.contextPath}/views/view_timetable.jsp">Full View →</a>
       </div>
       <div class="card-body">
         Timetable preview here
