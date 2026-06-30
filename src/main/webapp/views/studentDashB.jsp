@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="contextPath" content="${pageContext.request.contextPath}">
-<title>Student Dashboard</title>
+<title>Student Dashboard | TTS</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
 
@@ -22,10 +22,7 @@
 
 <!--   HEADER  -->
 <header>
-  <p align="left"> <a href="${pageContext.request.contextPath}/index.html"><font color=lightblue><b>
-  	  ← Back
-  	</b></font>
-  </a></p>
+<p align="left"><a href="${pageContext.request.contextPath}/index.html"><font color="lightblue"><b>&larr; Back</b></font></a></p>
   <div class="header-top">
     <div class="logo">
       <span class="icon">🎓</span>
@@ -140,8 +137,15 @@
         <button class="btn-show" onclick="showTimetable()">Show Time-Table</button>
       </div>
 
-      <div id="timetableResult"></div>
+      <div id="timetableResult">
+    
+      </div>
+        
     </div>
+    <br><p align="center">
+    <button class="btn-show"  onclick="window.location.href='${pageContext.request.contextPath}/views/time_table.jsp'">
+      Print Timetable
+      </button>
   </div>
 
    <!--  NOTIFICATIONS PAGE -->

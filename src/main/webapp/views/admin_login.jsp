@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Access</title>
+<title> Admin Access | TTS </title>
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
@@ -278,29 +278,23 @@ input:focus{
 
 /* MOBILE */
 
-@media(max-width:768px){
+@media(max-width:900px){
 
-    .main-container{
+    .container{
+
         grid-template-columns:1fr;
     }
 
     .left-panel{
-        padding:35px;
+
+        display:none;
     }
 
     .right-panel{
+
         padding:35px;
     }
-
-    .left-panel h1{
-        font-size:32px;
-    }
-
-    .right-panel h2{
-        font-size:30px;
-    }
 }
-
 </style>
 </head>
 

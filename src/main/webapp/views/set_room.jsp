@@ -191,7 +191,7 @@
 <body>
 <div class="card">
 
-    <div class="back-btn"><a href="views/create_timetable.jsp">← Back</a></div>
+    <div class="back-btn"><a href="create_timetable.jsp">← Back</a></div>
 
     <h1>Assign Rooms</h1>
     <p class="subtitle">Select a room for each class</p>

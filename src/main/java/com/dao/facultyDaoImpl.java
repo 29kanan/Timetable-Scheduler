@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import com.model.Faculty;
 import com.util.DBConnection;
+
 
 public class facultyDaoImpl implements facultyDao {
 
@@ -163,7 +165,8 @@ public class facultyDaoImpl implements facultyDao {
     public boolean updateFaculty(Faculty f) {
 
         boolean status = false;
-        String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?,,dept=?, avail_start=?,avail_end=? WHERE fac_id=?";
+
+        String sql = "UPDATE login_teacher SET email=?, username=?,password=?, phone=?,dept=?, avail_start=?,avail_end=? WHERE fac_id=?";
 
         try (        Connection con = DBConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -178,6 +181,7 @@ public class facultyDaoImpl implements facultyDao {
             ps.setString(7,f.getAvailEnd());
             ps.setInt(8,f.getFac_id());
 
+
             int i = ps.executeUpdate();
             if (i > 0) status = true;
 
@@ -186,6 +190,7 @@ public class facultyDaoImpl implements facultyDao {
         }
         return status;
     }
+
     
     // Delete Faculty
     public boolean deleteFaculty(int id) {
@@ -206,4 +211,121 @@ public class facultyDaoImpl implements facultyDao {
         return false;
     }
 
+     // Show Fac Subjects
+    @Override
+    public int getSubjectCount(int facId) {
+
+        int count = 0;
+
+        String sql =
+            "SELECT COUNT(*) FROM subjects WHERE faculty_id=?";
+
+        try(Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, facId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+    @Override
+    public int getWeeklyClassCount(int facId) {
+
+        int weeklyClassCount = 0;
+
+        String sql =
+            "SELECT COUNT(*) FROM time_table WHERE fac_id=?";
+
+        try(Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, facId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                weeklyClassCount = rs.getInt(1);
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return weeklyClassCount;
+    }
+    
+    @Override
+    public int getTodayClassCount(int facId) {
+
+        int todayClassCount = 0;
+
+        String today =
+            java.time.LocalDate.now()
+            .getDayOfWeek()
+            .getDisplayName(
+                java.time.format.TextStyle.FULL,
+                java.util.Locale.ENGLISH);
+
+        // DEBUG
+        System.out.println("Fac ID = " + facId);
+        System.out.println("Today = " + today);
+
+        String sql =
+            "SELECT COUNT(*) FROM time_table " +
+            "WHERE fac_id=? AND UPPER(day)=UPPER(?)";
+
+        try(Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, facId);
+            ps.setString(2, today);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                todayClassCount = rs.getInt(1);
+            }
+
+            // DEBUG
+            System.out.println("Today Count = " + todayClassCount);
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return todayClassCount;
+    }
+    @Override
+    public int getNotificationCount() {
+
+        int count = 0;
+
+        String sql =
+            "SELECT COUNT(*) FROM notifications WHERE target_role='FACULTY' OR target_role='ALL';";
+
+        try(Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+ 
 }

@@ -8,7 +8,7 @@
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Forms - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <title> Faculty Notification | TTS </title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -684,7 +684,7 @@
               <h3 class="fw-bold mb-3">Notifications</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                  <a href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
+                  <a href="${pageContext.request.contextPath}/FacultyDashboard">
                     <i class="icon-home"></i>
                   </a>
                 </li>

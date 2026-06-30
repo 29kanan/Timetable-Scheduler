@@ -11,4 +11,6 @@ public interface SubjectDao {
 	Subject getSubjectById(int id);
 	boolean updateSubject(Subject s);
 	boolean deleteSubject(int id);
+	Subject getSubjectByAbbr(String subAbbr);
+	List<Subject> getSubjectsByFacultyId(int facId);
 }

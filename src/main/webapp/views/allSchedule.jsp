@@ -2,12 +2,23 @@
 <%@ page import="java.sql.*, java.util.*" %>
 <%@page import="com.model.*, com.dao.*"%>
 <%@ page import="java.sql.* , com.util.*" %>
+<%
+int fid =
+(Integer)session.getAttribute("fid");
 
+List<Timetable> list =
+DAOFactory.getTimetableDao()
+          .getTodaySchedule(fid);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>All Department List | TTS </title>
+<title>All Schedule List | TTS </title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -47,10 +58,6 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
   
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-rel="stylesheet">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style3.css" />
 
 </head>
@@ -65,74 +72,94 @@ rel="stylesheet">
                 mb-4">
 
         <h2 class="page-title">
-            Department List
+            Today Schdule List
         </h2>
 
-         <a href="adminDashB.jsp"
+        
+        <a href="${pageContext.request.contextPath}/FacultyDashboard"
            class="btn btn-primary back-btn btn-round ms-auto">
 
            Back to Dashboard
 
         </a>
-
     </div>
 
     <div class="table-container">
-    <p align="right">
-        <a href="add_dept.jsp"
+       <p align="right">
+        <a href="${pageContext.request.contextPath}/views/viewFac_class.jsp"
            class="btn btn-primary back-btn btn-round ms-auto">
 
            Filter
 
         </a></p>
-
         <table class="table table-hover align-middle">
 
             <thead>
 
                 <tr>
                     <th>ID</th>
-                    <th>Department Name</th>
-                    <th>HOD Name</th>
-                    
+                    <th>Sem</th>
+                    <th>Day</th>
+                    <th>Time_slot</th>
+                    <th>sub_abbr</th>
+                    <th>fac_name</th>
+                    <th>room_no</th>
+                    <th>dept_name</th>
+                    <th>year</th>
                 </tr>
 
             </thead>
 
             <tbody>
-          <%
-                try {
-List<Department> l1=DAOFactory.getDepartmentDao().getAllDepartments();
-                    for(Department rs:l1){
-            %>
 
+            <tbody>
 
-                <tr>
+<%
+try {
 
-                    <td>
-                        <%= rs.getDept_id() %>
-                    </td>
+    for(Timetable rs : list){
 
-                    <td>
-                        <%= rs.getDept_name() %>
-                    </td>
-                    
-                    <td>
-                        <%= rs.getHOD_name() %>
-                    </td>
-                    
-                    
-                </tr>
+        Department d =
+        DAOFactory.getDepartmentDao()
+                  .getDepartmentById(
+                      rs.getDept_id());
 
-            <%
-                    }
+        Faculty f =
+        DAOFactory.getFacultyDao()
+                  .getFacultyById(
+                      rs.getFac_id());
+%>
 
+<tr>
 
-                } catch(Exception e) {
+    <td><%=rs.getTt_id()%></td>
 
-                    out.println(e);
-                }
-            %>
+    <td><%=rs.getSem()%></td>
+
+    <td><%=rs.getDay()%></td>
+
+    <td><%=rs.getTime_slot()%></td>
+
+    <td><%=rs.getSub_abbr()%></td>
+
+    <td><%=f.getUsername()%></td>
+
+    <td><%=rs.getRoom_id()%></td>
+
+    <td><%=d.getDept_name()%></td>
+
+    <td><%=rs.getYear()%></td>
+
+</tr>
+
+<%
+    }
+
+} catch(Exception e){
+
+    out.println(e);
+}
+%>
 
             </tbody>
 

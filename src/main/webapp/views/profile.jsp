@@ -2,6 +2,7 @@
 <%@page import="com.model.*"  %>
 <%@page import="com.dao.*"  %>
 <% Faculty f=(Faculty)request.getAttribute("profile"); %>
+<%@ page import="java.util.*,com.dao.NotificationDAO,com.model.Notification" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%-- At the top of profile.jsp, after other imports --%>
@@ -12,7 +13,7 @@
   <head>
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Faculty Profile</title>
+    <title> Faculty Profile | TTS </title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -148,7 +149,7 @@
               <li class="nav-item active">
                 <a
                   class="nav-link"
-                  href="${pageContext.request.contextPath}/views/facultyDashB.jsp">
+                  href="${pageContext.request.contextPath}/FacultyDashboard">
                   <i class="fas fa-home"></i>
                   <p>Dashboard</p>
                 </a>
@@ -230,7 +231,7 @@
       
       <!-- End Sidebar -->
 
-      <div class="main-panel">
+       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
             <!-- Logo Header -->
@@ -265,6 +266,7 @@
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
+                
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -293,180 +295,239 @@
                     </form>
                   </ul>
                 </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+                
+
+  
+<%
+
+List<Notification> notifications =
+DAOFactory.getNotificationDao()
+          .getNotificationsByRole("FACULTY");
+
+int latestNotificationId =
+DAOFactory.getNotificationDao()
+          .getLatestNotificationIdByRole("FACULTY");
+
+/* Session stored last seen id */
+Integer lastSeenId =
+(Integer)session.getAttribute("facultyLastSeenNotification");
+
+/* Default */
+if(lastSeenId == null){
+    lastSeenId = 0;
+}
+
+/* New notification count */
+int newNotificationCount = 0;
+
+for(Notification n : notifications){
+
+    if(n.getId() > lastSeenId){
+
+        newNotificationCount++;
+    }
+}
+
+%>
+
+<li class="nav-item topbar-icon dropdown hidden-caret">
+
+    <a class="nav-link dropdown-toggle"
+       href="#"
+       id="notifDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+
+        <i class="fa fa-bell"
+   data-bs-toggle="tooltip"
+   data-bs-placement="bottom"
+   title="View Notifications">
+</i>
+
+        <%
+
+if(newNotificationCount > 0){
+
+%>
+
+<span class="notification">
+
+    <%= newNotificationCount %>
+
+</span>
+
+<%
+
+}
+
+%>
+
+    </a>
+
+    <ul class="dropdown-menu notif-box animated fadeIn"
+        aria-labelledby="notifDropdown">
+
+        <!-- Top Title -->
+        <li>
+
+            <div class="dropdown-title">
+
+                You have
+                <%= notifications.size() %>
+                new notifications
+
+            </div>
+
+        </li>
+
+        <!-- Notification Body -->
+        <li>
+
+            <div class="notif-scroll scrollbar-outer">
+
+                <div class="notif-center">
+
+                <%
+
+                if(notifications.isEmpty()){
+
+                %>
+
+                    <div class="text-center p-3 text-muted">
+
+                        No Notifications Available
+
+                    </div>
+
+                <%
+
+                } else {
+
+                    for(Notification n : notifications){
+
+                %>
+
+                    <a href="#">
+
+                        <div class="notif-icon notif-primary">
+
+                            <i class="fa fa-bell"></i>
+
+
+                        </div>
+
+                        <div class="notif-content">
+
+                            <span class="block">
+
+                                <%= n.getTitle() %>
+
+                            </span>
+
+                            <span class="block text-muted"
+                                  style="font-size:12px;">
+
+                                <%= n.getMessage() %>
+
+                            </span>
+
+                            <span class="time">
+
+                                <%= n.getCreatedAt() %>
+
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                <%
+
+                    }
+                }
+
+                %>
+
+                </div>
+
+            </div>
+
+        </li>
+
+        <!-- Footer -->
+        <li>
+
+            <a class="see-all"
+               href="${pageContext.request.contextPath}/views/Fac_notification.jsp">
+
+                See all notifications
+
+                <i class="fa fa-angle-right"></i>
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</li>
+                
+
+                <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="messageDropdown"
-                    role="button"
+                    class="dropdown-toggle profile-pic"
                     data-bs-toggle="dropdown"
-                    aria-haspopup="true"
+                    href="#"
                     aria-expanded="false"
                   >
-                    <i class="fa fa-envelope"></i>
+                    <div class="avatar-sm">
+                      <img
+                        src="${pageContext.request.contextPath}/assets/img/teach-icon.jpg"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <span class="profile-username">
+                      <span class="fw-bold">${username}</span>
+                    </span>
                   </a>
-                  <ul
-                    class="dropdown-menu messages-notif-box animated fadeIn"
-                    aria-labelledby="messageDropdown"
-                  >
-                    <li>
-                      <div
-                        class="dropdown-title d-flex justify-content-between align-items-center"
-                      >
-                        Messages
-                        <a href="#" class="small">Mark all as read</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-notif-scroll scrollbar-outer">
-                        <div class="notif-center">
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="${pageContext.request.contextPath}/assets/img/jm_denis.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Anu</span>
-                              <span class="block"> How are you ? </span>
-                              <span class="time">5 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="${pageContext.request.contextPath}/assets/img/chadengle.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Bhumi</span>
-                              <span class="block"> Ok, Thanks ! </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="${pageContext.request.contextPath}/assets/img/mlane.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">Vanshika</span>
-                              <span class="block">
-                                Ready for the meeting today...
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="${pageContext.request.contextPath}/assets/img/talha.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="subject">kanak</span>
-                              <span class="block"> Hello, Guys ? </span>
-                              <span class="time">17 minutes ago</span>
-                            </div>
-                          </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            
+                          </div>
+                          <div class="u-text">
+                            <h4>${username}</h4>
+                            <p class="text-muted">${email}</p>
+                            <form action="${pageContext.request.contextPath}/ProfileServlet" id="pForm">
+                        <input type="hidden" name="id" value="<%=session.getAttribute("fid")%>">
+                        </form>
+                            <a
+                              href="#"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              onclick="document.getElementById('pForm').submit();"
+                              >View Profile</a>
+                              
+                              <a
+                              href="${pageContext.request.contextPath}/facultyLogout"
+                              class="btn btn-xs btn-secondary btn-sm"
+                              onclick="document.getElementById('logoutForm').submit();"
+                              >Logout</a>
+
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="see-all" href="javascript:void(0);"
-                        >See all messages<i class="fa fa-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="notifDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i class="fa fa-bell"></i>
-                    <span class="notification">4</span>
-                  </a>
-                  <ul
-                    class="dropdown-menu notif-box animated fadeIn"
-                    aria-labelledby="notifDropdown"
-                  >
-                    <li>
-                      <div class="dropdown-title">
-                        You have 4 new notification
-                      </div>
-                    </li>
-                    <li>
-                      <div class="notif-scroll scrollbar-outer">
-                        <div class="notif-center">
-                          <a href="#">
-                            <div class="notif-icon notif-primary">
-                              <i class="fa fa-user-plus"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block"> New user registered </span>
-                              <span class="time">5 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-icon notif-success">
-                              <i class="fa fa-comment"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block">
-                                Anu commented on Admin
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-img">
-                              <img
-                                src="${pageContext.request.contextPath}/assets/img/profile2.jpg"
-                                alt="Img Profile"
-                              />
-                            </div>
-                            <div class="notif-content">
-                              <span class="block">
-                                kanak send messages to you
-                              </span>
-                              <span class="time">12 minutes ago</span>
-                            </div>
-                          </a>
-                          <a href="#">
-                            <div class="notif-icon notif-danger">
-                              <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="notif-content">
-                              <span class="block"> Bhumi liked Admin </span>
-                              <span class="time">17 minutes ago</span>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="see-all" href="javascript:void(0);"
-                        >See all notifications<i class="fa fa-angle-right"></i>
-                      </a>
-                    </li>
+                      </li>
+                      
+                    </div>
                   </ul>
                 </li>
               </ul>
             </div>
           </nav>
-          
-          
   
           
           <!-- End Navbar -->
