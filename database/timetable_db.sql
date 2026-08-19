@@ -10,7 +10,7 @@ CREATE TABLE `admin` (
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
@@ -28,7 +28,7 @@ CREATE TABLE `login_teacher` (
   `avail_start` time DEFAULT '10:15:00',
   `avail_end` time DEFAULT '16:30:00',
   PRIMARY KEY (`fac_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for departments
@@ -38,8 +38,8 @@ CREATE TABLE `departments` (
   `dept_id` int(10) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(50) NOT NULL,
   `HOD_name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`dept_id`,`dept_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 -- ----------------------------
@@ -56,10 +56,10 @@ CREATE TABLE `subjects` (
   `dept_id` int(10) NOT NULL,
   `faculty_id` int(11) DEFAULT NULL,
   `frequency` int(10) NOT NULL,
-  PRIMARY KEY (`sub_id`,`sub_code`)
+  PRIMARY KEY (`sub_id`,`sub_code`),
     FOREIGN KEY (`faculty_id`) REFERENCES `login_teacher`(`fac_id`),
     FOREIGN KEY (`dept_id`) REFERENCES `departments`(`dept_id`)
-)ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
@@ -75,7 +75,7 @@ CREATE TABLE `classes_name` (
   PRIMARY KEY (`class_id`),
   KEY `dept_id` (`dept_id`),
   CONSTRAINT `classes_name_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 -- ----------------------------
@@ -87,7 +87,7 @@ CREATE TABLE `rooms` (
   `room_name` varchar(50) DEFAULT NULL,
   `room_num` int(11) NOT NULL,
   PRIMARY KEY (`room_id`,`room_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
@@ -101,7 +101,7 @@ CREATE TABLE `fac_msg` (
   `msg` varchar(100) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
@@ -116,7 +116,7 @@ CREATE TABLE `notifications` (
   `target_role` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
@@ -135,7 +135,7 @@ CREATE TABLE `regteacher` (
   `avail_end` time DEFAULT '16:30:00',
   PRIMARY KEY (`faculty_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for rejected_teacher
@@ -187,7 +187,7 @@ CREATE TABLE `time_table` (
   `dept_id` int(11) DEFAULT NULL,
   `year` varchar(11) NOT NULL,
   PRIMARY KEY (`tt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `final_timetable`;
 CREATE TABLE final_timetable (

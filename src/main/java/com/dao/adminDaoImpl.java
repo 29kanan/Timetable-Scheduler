@@ -15,21 +15,24 @@ public class adminDaoImpl implements adminDao {
 		
 		  try(  Connection con = DBConnection.getConnection();
 		            PreparedStatement ps = con.prepareStatement(
-			                "SELECT * FROM admin WHERE email=? AND password=?;"
+			                "SELECT * FROM admin WHERE email=?;"
 			            );) {
 	          
 
 	            ps.setString(1, admin.getEmail());
-	            ps.setString(2, admin.getPassword());
 
 	            ResultSet rs = ps.executeQuery();
 	            
 	            
-	            if(rs.next())
-	            {
-	               String username=rs.getString("username");
-	                       admin.setUsername(username);
-	                       status = true;
+	            if (rs.next()) {
+	                String storedHash = rs.getString("password");
+	                String inputPassword = admin.getPassword(); // plaintext password user typed in login form
+
+	                if (org.mindrot.jbcrypt.BCrypt.checkpw(inputPassword, storedHash)) {
+	                    String username = rs.getString("username");
+	                    admin.setUsername(username);
+	                    status = true;
+	                }
 	            }
 	           
 

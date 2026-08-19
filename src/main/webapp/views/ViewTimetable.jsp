@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.model.TimetableSlot" %>
+<%@ page import="java.util.*, com.model.TimetableSlot, com.model.Classes_name, com.dao.ClassesDaoImpl" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,20 +169,19 @@
 <div class="container">
     <h1>Timetable Viewer</h1>
 
+	<%
+	    ClassesDaoImpl classesDao = new ClassesDaoImpl();
+	    List<Classes_name> allClasses = classesDao.getAllClasses();
+	%>
     <div class="filter-section">
         <form method="post" action="TimetableController" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; width:100%;">
             <label for="classFilter">Filter by Class:</label>
             <select name="className" id="classFilter" onchange="this.form.submit()">
-                <option value="">All Classes</option>
-                <option value="CS-1A">CS-1A</option>
-                <option value="CS-1B">CS-1B</option>
-                <option value="CS-3">CS-3</option>
-                <option value="DS-3">DS-3</option>
-                <option value="CS-5">CS-5</option>
-                <option value="DS-5">DS-5</option>
-                <option value="CS-7">CS-7</option>
-                <option value="DS-7">DS-7</option>
-            </select>
+			    <option value="">All Classes</option>
+			    <% for (Classes_name c : allClasses) { %>
+			        <option value="<%= c.getClassName() %>"><%= c.getClassName() %></option>
+			    <% } %>
+			</select>
             <label for="semesterFilter">Filter by Semester:</label>
             <select name="semesterType" id="semesterFilter" onchange="this.form.submit()">
                 <option value="">All Semesters</option>
@@ -242,7 +241,7 @@
                 String badgeText = isLab ? "Lab" : "Theory";
             %>
             <div class="slot-row <%= rowClass %>">
-                <span class="slot-time"><%= slot.getSlot().getStartTime() %> – <%= slot.getSlot().getEndTime() %></span>
+                <span class="slot-time"><%= slot.getSlot().getStartTime() %> - <%= slot.getSlot().getEndTime() %></span>
                 <span class="slot-name"><%= name != null ? name : "-" %></span>
                 <span class="slot-badge <%= badgeClass %>"><%= badgeText %></span>
                 <span class="slot-faculty"><%= slot.getFacultyName() != null ? slot.getFacultyName() : "-" %></span>

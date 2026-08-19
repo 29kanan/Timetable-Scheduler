@@ -177,6 +177,27 @@
 		    </div>
         </div>
         <div class="form-section">
+		    <label for="start-time">Start time of college</label>
+		    <input type="time" name="start-time" required>
+		</div>
+		
+		<div class="form-section">
+		    <label for="lectures-per-day">Number of lectures per day</label>
+		    <input type="number" name="lectures-per-day" min="1" max="10" placeholder="e.g. 6" required>
+		</div>
+		
+		<div class="form-section">
+		    <label>Working days</label>
+		    <div class="radio-group" style="flex-wrap: wrap;">
+		        <label><input type="checkbox" name="working-days" value="Monday" checked> Mon</label>
+		        <label><input type="checkbox" name="working-days" value="Tuesday" checked> Tue</label>
+		        <label><input type="checkbox" name="working-days" value="Wednesday" checked> Wed</label>
+		        <label><input type="checkbox" name="working-days" value="Thursday" checked> Thu</label>
+		        <label><input type="checkbox" name="working-days" value="Friday" checked> Fri</label>
+		        <label><input type="checkbox" name="working-days" value="Saturday"> Sat</label>
+		    </div>
+		</div>
+        <div class="form-section">
             <label for="lec-duration">Duration of each lecture (in minutes)</label>
             <input type="number" name="lec-duration" placeholder="e.g. 55">
         </div>

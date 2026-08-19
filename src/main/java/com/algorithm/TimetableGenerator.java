@@ -6,14 +6,12 @@ import java.util.Map;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.model.AlgorithmInputModel;
 import com.model.LectureDetailsImpl;
-import com.model.LectureDetailsTO;
 import com.model.TimeSlot;
 import com.model.TimetableFormInputDTO;
 import com.model.TimetableResult;
@@ -73,10 +71,10 @@ public class TimetableGenerator {
 	
 	public static TimeSlot[][] buildLectureSlots(TimetableFormInputDTO tdto) {
 		
-		TimeSlot[][] LecSlots=new TimeSlot[8][6+tdto.getNumOfBreaks()];
+		TimeSlot[][] LecSlots=new TimeSlot[8][tdto.getNumOfLectures()+tdto.getNumOfBreaks()];
 		
-		final LocalTime START_TIME = LocalTime.of(10, 15);
-        final int NUM_OF_LECTURES_PER_DAY = 6;
+		final LocalTime START_TIME = tdto.getStartTime();
+		final int NUM_OF_LECTURES_PER_DAY = tdto.getNumOfLectures();
         
         final int LEC_DURATION = tdto.getLecDuration();       
         final int NUM_OF_BREAKS = tdto.getNumOfBreaks();     
@@ -136,10 +134,10 @@ public class TimetableGenerator {
 
 	public static TimeSlot[][] buildFacultySlots(TimetableFormInputDTO tdto) {
 	    
-	    TimeSlot[][] FacultySlots = new TimeSlot[totalFaculty][8];
+	    TimeSlot[][] FacultySlots = new TimeSlot[totalFaculty][tdto.getNumOfLectures()+tdto.getNumOfBreaks()];
 	    
-	    final LocalTime START_TIME = LocalTime.of(10, 15);
-	    final int NUM_OF_LECTURES_PER_DAY = 6;
+	    final LocalTime START_TIME = tdto.getStartTime();
+	    final int NUM_OF_LECTURES_PER_DAY = tdto.getNumOfLectures();
 	    
 	    final int LEC_DURATION = tdto.getLecDuration();       
 	    final int NUM_OF_BREAKS = tdto.getNumOfBreaks();     
@@ -393,19 +391,20 @@ public class TimetableGenerator {
 		
 		List<List<TimetableSlot>> ttSlotWeeklyList=new ArrayList<List<TimetableSlot>>();
 		
-		for(int i=0; i<6; i++) {
-			ttSlotWeeklyList.add(new ArrayList<TimetableSlot>());
+		String[] days = tdto.getWorkingDays().toArray(new String[0]);
+
+		for(int i=0; i<days.length; i++) {
+		    ttSlotWeeklyList.add(new ArrayList<TimetableSlot>());
 		}
 		
 		TimeSlot[][] facultySlots=buildFacultySlots(tdto);
 		
-		String[] days= {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 		TimetableResult ttResult=new TimetableResult();
 		
 		assignLectures(model, days, facultySlots, ttSlotWeeklyList);
 		//LecSlots = assignTheoryLecture(model.getTheoryLectureList(), model.getTotalTheoryLectures(), model, days, LecSlots, ttSlotWeeklyList, facultySlots);
 		List<TimetableSlot> ttFinal=new ArrayList<TimetableSlot>();
-		for(int i=0;i<6;i++) {
+		for(int i=0;i<days.length;i++) {
 			ttFinal.addAll(ttSlotWeeklyList.get(i));
 		}
 		

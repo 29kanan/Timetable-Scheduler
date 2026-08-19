@@ -1,31 +1,23 @@
 package com.model;
 
+import java.time.LocalTime;
+import java.util.List;
+
 public class TimetableFormInputDTO {
 	private String semType;
-	private String mandLectureName;
-	private String mandLectureSlot;
 	private String mandLectureFacultyName;
 	private int lecDuration;
 	private int numOfBreaks;
 	private int[] breaksDuration;
+	private LocalTime startTime;
+	private int numOfLectures;
+	private List<String> workingDays;
 	
 	public String getSemType() {
 		return semType;
 	}
 	public void setSemType(String semType) {
 		this.semType = semType;
-	}
-	public String getMandLectureName() {
-		return mandLectureName;
-	}
-	public void setMandLectureName(String mandLectureName) {
-		this.mandLectureName = mandLectureName;
-	}
-	public String getMandLectureSlot() {
-		return mandLectureSlot;
-	}
-	public void setMandLectureTime(String mandLectureSlot) {
-		this.mandLectureSlot = mandLectureSlot;
 	}
 	public int getLecDuration() {
 		return lecDuration;
@@ -50,5 +42,23 @@ public class TimetableFormInputDTO {
 	}
 	public void setMandLectureFacultyName(String mandLectureFacultyName) {
 		this.mandLectureFacultyName = mandLectureFacultyName;
+	}
+	public LocalTime getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+	public int getNumOfLectures() {
+		return numOfLectures;
+	}
+	public void setNumOfLectures(int numOfLectures) {
+		this.numOfLectures = numOfLectures;
+	}
+	public List<String> getWorkingDays() {
+		return workingDays;
+	}
+	public void setWorkingDays(List<String> workingDays) {
+		this.workingDays = workingDays;
 	}
 }

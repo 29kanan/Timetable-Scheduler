@@ -10,6 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 import com.model.TimetableFormInputDTO;
 
@@ -25,6 +29,9 @@ public class TimetableFormInputServlet extends HttpServlet {
 		String semType=request.getParameter("semester");
 		String lecDuration=request.getParameter("lec-duration");
 		String numOfBreaksStr=request.getParameter("breaks");
+		String startTimeStr=request.getParameter("start-time");
+		String numOfLecturesStr=request.getParameter("lectures-per-day");
+		String[] workingDaysArr=request.getParameterValues("working-days");
 		
 		if (semType != null && !semType.trim().isEmpty()) {
 		    timetableInp.setSemType(semType.trim());
@@ -37,17 +44,38 @@ public class TimetableFormInputServlet extends HttpServlet {
 		} catch(NumberFormatException e) {
 		    e.printStackTrace();
 		}
+		if (startTimeStr != null && !startTimeStr.trim().isEmpty()) {
+			try {
+				// HTML <input type="time"> submits values like "10:15"
+				timetableInp.setStartTime(LocalTime.parse(startTimeStr.trim()));
+			} catch(DateTimeParseException e) {
+				e.printStackTrace();
+				out.print("Invalid start time format!");
+			}
+		} else {
+			out.print("Required field is missing: start time!");
+		}
+					
+		try {
+			timetableInp.setNumOfLectures(Integer.parseInt(numOfLecturesStr));
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+			out.print("Required field is missing or invalid: lectures per day!");
+		}
+					
+		if (workingDaysArr != null && workingDaysArr.length > 0) {
+			List<String> workingDays = Arrays.asList(workingDaysArr);
+			timetableInp.setWorkingDays(workingDays);
+		} else {
+			out.print("Required field is missing: working days!");
+		}
+
 		
 		int numOfBreaks=0;
 		
 		try {
 			numOfBreaks = Integer.parseInt(numOfBreaksStr);
 			timetableInp.setNumOfBreaks(numOfBreaks);
-//			int[] breaksDurationArray = new int[numOfBreaks];
-//			String durationStr1 = request.getParameter("break-duration-1");
-//			String durationStr2 = request.getParameter("break-duration-2");
-//			breaksDurationArray[0]=Integer.parseInt(durationStr1);
-//			breaksDurationArray[1]=Integer.parseInt(durationStr2);
 			
 			if(numOfBreaks>0) {
 				int[] breaksDurationArray = new int[numOfBreaks];
