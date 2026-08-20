@@ -19,7 +19,7 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	            con = DBConnection.getConnection();
 
-	            String q = "insert into Classes_name(class_name, sem, dept_id) values(?,?,?)";
+	            String q = "insert into classes_name(class_name, sem, dept_id) values(?,?,?)";
 
 	            PreparedStatement ps = con.prepareStatement(q);
 
@@ -46,7 +46,7 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	            con = DBConnection.getConnection();
 
-	            String q = "select * from Classes_name";
+	            String q = "select * from classes_name";
 
 	            PreparedStatement ps = con.prepareStatement(q);
 
@@ -79,7 +79,7 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	            con = DBConnection.getConnection();
 
-	            String q = "delete from Classes_name where class_id=?";
+	            String q = "delete from classes_name where class_id=?";
 
 	            PreparedStatement ps = con.prepareStatement(q);
 
@@ -105,7 +105,7 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	            Connection con = DBConnection.getConnection();
 
-	            String sql = "SELECT * FROM Classes_name WHERE class_id=?";
+	            String sql = "SELECT * FROM classes_name WHERE class_id=?";
 
 	            PreparedStatement ps = con.prepareStatement(sql);
 
@@ -135,7 +135,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	    public boolean updateClass(Classes_name c) {
 
 	        boolean flag = false;
-            String sql = "UPDATE Classes_name SET class_name=?, sem=?, dept_id=? WHERE class_id=?";
+            String sql = "UPDATE classes_name SET class_name=?, sem=?, dept_id=? WHERE class_id=?";
 
 	        try( Connection con = DBConnection.getConnection();
 	            PreparedStatement ps = con.prepareStatement(sql);) {
