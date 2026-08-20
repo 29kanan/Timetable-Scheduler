@@ -13,7 +13,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	public Department getDepartmentById(int id) {
 	    Department d = null;
 	    try(  Connection con = DBConnection.getConnection();
-		        PreparedStatement ps = con.prepareStatement("SELECT * FROM Departments WHERE dept_id=?");
+		        PreparedStatement ps = con.prepareStatement("SELECT * FROM departments WHERE dept_id=?");
 	 	       ) {
 	       ps.setInt(1, id);
 	        ResultSet rs = ps.executeQuery();
@@ -34,7 +34,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	    int status = 0;
 	    try(Connection con = DBConnection.getConnection();
 	        PreparedStatement ps = con.prepareStatement(
-	            "UPDATE Departments SET dept_name=?,HOD_name=? WHERE dept_id=?"
+	            "UPDATE departments SET dept_name=?,HOD_name=? WHERE dept_id=?"
 	        );) {
 	        
 	        ps.setString(1, d.getDept_name());
@@ -51,7 +51,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	public int deleteDepartment(int id) {
 	    int status = 0;
 	    try( Connection con = DBConnection.getConnection();
-	        PreparedStatement ps = con.prepareStatement("DELETE FROM Departments WHERE dept_id=?");
+	        PreparedStatement ps = con.prepareStatement("DELETE FROM departments WHERE dept_id=?");
 	       ) {
 	        ps.setInt(1, id);
 	        status = ps.executeUpdate();
@@ -65,7 +65,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         int status = 0;
         try( Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO Departments(dept_name, HOD_name) VALUES (?,?)"
+                "INSERT INTO departments(dept_name, HOD_name) VALUES (?,?)"
             );) {
            
             ps.setString(1, d.getDept_name());
@@ -81,7 +81,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public List<Department> getAllDepartments() {
         List<Department> list = new ArrayList<>();
         try(  Connection con = DBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM Departments");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM departments");
                 ResultSet rs = ps.executeQuery();
 ) {
           
