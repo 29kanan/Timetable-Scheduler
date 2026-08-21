@@ -146,15 +146,15 @@
 	  }
 	  
 	  boolean isFinalized = false;
-	  try {
-	    Connection conStatus = DBConnection.getConnection();
-	    ResultSet rs0 = conStatus.createStatement()
-	        .executeQuery("SELECT is_finalized FROM timetable_status WHERE id = 1");
-	    if (rs0.next()) isFinalized = rs0.getBoolean("is_finalized");
-	    conStatus.close(); // its own separate connection, safe to close
-	  } catch (Exception e) {
-	    e.printStackTrace();
-	  }
+	  try (Connection conStatus = DBConnection.getConnection();
+			     Statement stmt = conStatus.createStatement();
+			     ResultSet rs0 = stmt.executeQuery("SELECT is_finalized FROM timetable_status WHERE id = 1")) {
+			    if (rs0.next()) {
+			        isFinalized = rs0.getBoolean("is_finalized");
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
 	%>
     
     
