@@ -12,12 +12,12 @@ public class LectureDetailsDAOImpl implements LectureDetailsDAO {
 	private static final String SELECT_ALGORITHM_INPUT="Select c.class_id, s.sub_abbr, s.faculty_id, s.sem," + 
 			"s.dept_id, s.subject_type, s.frequency "+
 			"from classes_name as c "+
-			"join Subjects as s on s.sem=c.sem and s.dept_id=c.dept_id "+
+			"join subjects as s on s.sem=c.sem and s.dept_id=c.dept_id "+
 			"where s.sem in (?,?,?,?,?) "+
 		   	"AND s.frequency IS NOT NULL "+
 			"order by class_name";
-	private static final String SELECT_TOTAL_FACULTY="SELECT COUNT(DISTINCT faculty_id) AS num_of_faculty FROM Subjects WHERE sem in (?,?,?,?,?)";
-	private static final String SELECT_TOTAL_LEC="SELECT COUNT(*) AS num_of_labs FROM Subjects WHERE sem in (?,?,?,?,?)";
+	private static final String SELECT_TOTAL_FACULTY="SELECT COUNT(DISTINCT faculty_id) AS num_of_faculty FROM subjects WHERE sem in (?,?,?,?,?)";
+	private static final String SELECT_TOTAL_LEC="SELECT COUNT(*) AS num_of_labs FROM subjects WHERE sem in (?,?,?,?,?)";
 	private final RowMapper mapper=new LectureDetailsRowMapper();
 	
 	private void setSemesterParameters(PreparedStatement ps, String semType) throws SQLException {
