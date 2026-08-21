@@ -561,8 +561,8 @@
         while(rs3.next()) {
 %>
         <option value="<%= rs3.getInt("room_id") %>">
-                <%= rs3.getString("room_num") %>&nbsp;<%= rs3.getString("room_name") %>
-        </option>
+		    <%= rs3.getString("room_num") %>
+		</option>
 
 <%
         }
