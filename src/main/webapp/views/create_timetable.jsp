@@ -552,144 +552,7 @@
                           >
                             <option value=""></option>
                      
-                            <%
-    try {
-
-         PreparedStatement ps3 = con1.prepareStatement("SELECT * FROM rooms");
-        ResultSet rs3 = ps3.executeQuery();
-
-        while(rs3.next()) {
-%>
-        <option value="<%= rs3.getInt("room_id") %>">
-                <%= rs3.getString("room_num") %>&nbsp;<%= rs3.getString("room_name") %>
-        </option>
-
-<%
-        }
-%>
-
-                          </select>
-                          </div>
-                           <div class="form-group">
-                          <label for="largeInput">Year</label>
-                          <input
-                            type="text"
-                            name="year"
-                            required="required"
-                            class="form-control form-control"
-                            id="defaultInput"
-                            placeholder="Enter year (e.g. 20yy-yy)"
-                          />
-                        </div>
-                   
-                        
-                        <p style="align:center">
-                        <button 
-                        type="submit"
-                        class="btn btn-secondary btn-round ms-auto"
-                         >
-                          <i class="fa fa-plus"></i>
-                        Add Time Slot
-                      </button>
-                      </p>
-                   </form>
-                       
-            <%
-        
-        con1.close();
-    } catch(Exception e) {
-        out.println(e);
-    }
-%>          
-
-		<div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="card-title">TimeTable</h4>
-                <div class="tt-legend">
-                  <span class="tt-legend-badge tt-badge-theory">Theory</span>
-                  <span class="tt-legend-badge tt-badge-lab">Lab</span>
-                </div>
-              </div>
-              <div class="card-body">
-              	
-                <%
-                try {
-                  Connection conn = DBConnection.getConnection();
-                  Statement st = conn.createStatement();
-                  ResultSet rs = st.executeQuery(
-                		  "SELECT tt.*, d.dept_name, s.subject_type, lt.username as teacher_name " +
-                	      "FROM time_table tt " +
-                	      "LEFT JOIN departments d ON tt.dept_id = d.dept_id " +
-                          "LEFT JOIN (" +
-        	              "SELECT DISTINCT sub_abbr, dept_id, subject_type FROM subjects" +
-                	      ") s ON s.sub_abbr = tt.sub_abbr AND s.dept_id = tt.dept_id " +
-                          "LEFT JOIN login_teacher lt ON lt.fac_id = tt.fac_id " +
-                	      "ORDER BY tt.dept_id, tt.sem, tt.day, tt.time_slot"
-                  );
-
-                  Map<String, Map<String, List<String[]>>> classMap = new LinkedHashMap<>();
-                  while (rs.next()) {
-                	  String sem = rs.getString("sem");
-                      String deptName = rs.getString("dept_name");
-                      
-                      String classKey = "Timetable Schedule Setup";
-                      if (deptName != null && deptName.trim().length() >= 2) {
-                          classKey = deptName.trim().substring(0, 2).toUpperCase() + " - " + (sem != null ? sem : "");
-                      } else if (sem != null) {
-                          classKey = "Class - " + sem;
-                      }
-                      
-                      String day = rs.getString("day") != null ? rs.getString("day") : "Monday";
-                      String timeSlot = rs.getString("time_slot") != null ? rs.getString("time_slot") : "Time Slot Unassigned";
-                      String subAbbr = rs.getString("sub_abbr") != null ? rs.getString("sub_abbr") : "No Subject Specified";
-                      String subType = rs.getString("subject_type") != null ? rs.getString("subject_type") : "Theory";
-                      String teacherName = rs.getString("teacher_name") != null ? rs.getString("teacher_name") : "Not Assigned";
-                      String ttId = String.valueOf(rs.getInt("tt_id"));
-
-                      classMap.computeIfAbsent(classKey, k -> new LinkedHashMap<>())
-                            .computeIfAbsent(day, k -> new ArrayList<>())
-                            .add(new String[]{timeSlot, subAbbr, subType, teacherName, ttId});
-                  }
-                  conn.close(); // Cleaned variable reference to match con1
-                  
-                  String[] dayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-                %>
-
-                <div class="table-responsive">
-                  <table id="multi-filter-select" class="display table" style="width:100%;">
-                    <thead>
-                      <tr>
-                        <th>Class Details</th>
-                        <th>Day</th>
-                        <th>Time Slot</th>
-                        <th>Subject</th>
-                        <th>Type</th>
-                        <th>Teacher</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>Class Details</th>
-                        <th>Day</th>
-                        <th>Time Slot</th>
-                        <th>Subject</th>
-                        <th>Type</th>
-                        <th>Teacher</th>
-                        <th>Actions</th>
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                    <%
-                    // YOUR EXACT NESTED LOOPS START HERE - UNTOUCHED
-                    for (Map.Entry<String, Map<String, List<String[]>>> classEntry : classMap.entrySet()) {
-                        String className = classEntry.getKey();
-                        Map<String, List<String[]>> dayMap = classEntry.getValue();
-                        
-                        for (String day : dayOrder) {
-                            List<String[]> slots = dayMap.get(day);
+                            <%Tist<String[]> slots = dayMap.get(day);
                             if (slots != null && !slots.isEmpty()) { 
                                 for (String[] slot : slots) {
                                   String subType = slot[2] != null ? slot[2].toLowerCase() : "";
@@ -747,20 +610,26 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				    </div>
 				<% } %>
-                <div class="d-flex justify-content-center gap-3 my-4">
+                <div class="d-flex justify-content-center align-items-center gap-3 my-4 p-3 bg-light rounded border">
 
 				    <% if (isFinalized) { %>
-				        <a href="${pageContext.request.contextPath}/views/view_timetable.jsp" class="btn btn-primary">
-				            <i class="bi bi-check-circle-fill"></i> Finalized. View Timetable &#8594;
-				        </a>
+				        <div class="text-center">
+				            <span class="badge bg-success mb-2 d-block p-2 fs-6">
+				                Status: Timetable Is Finalized
+				            </span>
+				            <a href="${pageContext.request.contextPath}/views/view_timetable.jsp" 
+				               class="btn btn-primary btn-lg shadow-sm">
+				                <i class="fa fa-check-circle me-1"></i> View Finalized Timetable &rarr;
+				            </a>
+				        </div>
 				    <% } else { %>
 				        <a href="${pageContext.request.contextPath}/views/set_room.jsp"
-				           class="btn btn-success" id="finalizeBtn">
-				            <i class="bi bi-check-lg"></i> Finalize
+				           class="btn btn-success btn-lg shadow-sm" id="finalizeBtn">
+				            <i class="fa fa-check me-1"></i> Finalize
 				        </a>
-				        <button class="btn btn-danger" id="deleteBtn"
+				        <button class="btn btn-danger btn-lg shadow-sm" id="deleteBtn"
 				                onclick="if(confirm('Are you sure you want to delete all records?')) window.location.href='${pageContext.request.contextPath}/DeleteAllTimetableServlet';">
-				            <i class="bi bi-exclamation-circle"></i> Delete All data
+				            <i class="fa fa-trash me-1"></i> Delete All Data
 				        </button>
 				    <% } %>
 				
