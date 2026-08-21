@@ -109,6 +109,29 @@
 		.tt-teacher { color: #666; font-size: 12px; min-width: 150px; }
 		.tt-actions { display: flex; gap: 8px; border-left: 1px solid #e8eef7; padding-left: 10px; margin-left: 4px; }
 		.tt-actions .btn-link { background: none; border: none; padding: 0; cursor: pointer; }
+		input[type="time"] {
+		    padding: 12px 14px;
+		    border-radius: 10px;
+		    border: 1px solid #cbd5e1;
+		    background: #f8fbff;
+		    color: #1e293b;
+		    font-size: 15px;
+		    font-family: Arial, sans-serif;
+		    outline: none;
+		    transition: 0.3s;
+		    cursor: pointer;
+		}
+		
+		input[type="time"]:focus {
+		    border-color: #60a5fa;
+		    box-shadow: 0 0 8px rgba(96, 165, 250, 0.25);
+		}
+		
+		/* Styles the little clock icon itself, in Chrome/Edge */
+		input[type="time"]::-webkit-calendar-picker-indicator {
+		    cursor: pointer;
+		    filter: invert(45%) sepia(90%) saturate(1000%) hue-rotate(190deg);
+		}
 	</style>
   </head>
   <body>
@@ -449,12 +472,17 @@
                         
                         
                          <div class="form-group">
-                          <label for="defaultSelect">Time Slot</label>
-                          <label>Start Time</label>
-						  <input type="time" name="slot_start_time" required>
-							
-						  <label>End Time</label>
-						  <input type="time" name="slot_end_time" required>
+                          <label>Time Slot</label>
+							<div style="display: flex; gap: 15px; align-items: center;">
+							    <div>
+							        <label style="font-size: 13px; color: #64748b;">Start Time</label>
+							        <input type="time" name="slot_start_time" required>
+							    </div>
+							    <div>
+							        <label style="font-size: 13px; color: #64748b;">End Time</label>
+							        <input type="time" name="slot_end_time" required>
+							    </div>
+							</div>
                         </div>
                         
                         
