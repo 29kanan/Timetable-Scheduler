@@ -593,6 +593,9 @@
                       </button>
                       </p>
                    </form>
+              </div>
+            </div>
+          </div>
                        
             <%
         
@@ -778,7 +781,7 @@
             </div>
           </div>
         </div>    
-         </div></div></div></div>
+         </div>
 
      <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
