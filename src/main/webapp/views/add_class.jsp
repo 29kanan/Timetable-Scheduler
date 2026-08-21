@@ -383,14 +383,14 @@
                               
                           >
                            <option >Select Semester</option>
-                            <option value="1 sem">1 sem</option>
-                            <option value="2 sem">2 sem</option>
-                            <option value="3 sem">3 sem</option>
-                            <option value="4 sem">4 sem</option>
-                            <option value="5 sem">5 sem</option>
-                            <option value="6 sem">6 sem</option>
-                            <option value="7 sem">7 sem</option>
-                            <option value="8 sem">8 sem</option>
+                            <option value="1">1 sem</option>
+                            <option value="2">2 sem</option>
+                            <option value="3">3 sem</option>
+                            <option value="4">4 sem</option>
+                            <option value="5">5 sem</option>
+                            <option value="6">6 sem</option>
+                            <option value="7">7 sem</option>
+                            <option value="8">8 sem</option>
                           </select>
                         </div>
                         

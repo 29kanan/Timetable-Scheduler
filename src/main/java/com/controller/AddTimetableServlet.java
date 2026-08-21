@@ -24,7 +24,9 @@ public class AddTimetableServlet extends HttpServlet {
 		Timetable t = new Timetable();
         t.setSem(request.getParameter("sem"));
         t.setDay(request.getParameter("day"));
-        t.setTime_slot(request.getParameter("time_slot"));
+        String startTime = request.getParameter("slot_start_time");
+        String endTime = request.getParameter("slot_end_time");
+        t.setTime_slot(startTime + "-" + endTime);
         t.setSub_abbr(request.getParameter("sub_abbr"));
         //t.setFac_id(Integer.parseInt(request.getParameter("fac_id")));
         t.setRoom_id(Integer.parseInt(request.getParameter("room_id")));

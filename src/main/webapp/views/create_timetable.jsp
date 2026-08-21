@@ -414,14 +414,14 @@
                             required="required"
                               
                           >
-                            <option value="1 sem">1 sem</option>
-                            <option value="2 sem">2 sem</option>
-                            <option value="3 sem">3 sem</option>
-                            <option value="4 sem">4 sem</option>
-                            <option value="5 sem">5 sem</option>
-                            <option value="6 sem">6 sem</option>
-                            <option value="7 sem">7 sem</option>
-                            <option value="8 sem">8 sem</option>
+                            <option value="1">1 sem</option>
+                            <option value="2">2 sem</option>
+                            <option value="3">3 sem</option>
+                            <option value="4">4 sem</option>
+                            <option value="5">5 sem</option>
+                            <option value="6">6 sem</option>
+                            <option value="7">7 sem</option>
+                            <option value="8">8 sem</option>
                           </select>
                         </div>
                         
@@ -450,20 +450,11 @@
                         
                          <div class="form-group">
                           <label for="defaultSelect">Time Slot</label>
-                          <select
-                            class="form-select form-control"
-                            id="defaultSelect"
-                             name="time_slot"
-                            required="required"
-                              
-                          >
-                            <option value="10:15-11:10">10:15-11:10</option>
-                            <option value="11:10-12:05">11:10-12:05</option>
-                            <option value="12:40-01:35">12:40-01:35</option>
-                            <option value="01:35-02:30">01:35-02:30</option>
-                            <option value="02:40-03:35">02:40-03:35</option>
-                            <option value="03:35-04:30">03:35-04:30</option>
-                          </select>
+                          <label>Start Time</label>
+						  <input type="time" name="slot_start_time" required>
+							
+						  <label>End Time</label>
+						  <input type="time" name="slot_end_time" required>
                         </div>
                         
                         
